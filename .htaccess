@@ -1,0 +1,19 @@
+# Use PHP5.4 as default
+# For security reasons, Option followsymlinks cannot be overridden.
+#Options +FollowSymLinks
+Options +SymLinksIfOwnerMatch
+RewriteEngine on
+
+# ≈“«·… www
+RewriteCond %{HTTP_HOST} ^www.bisostore.com [NC]
+RewriteRule ^(.*)$ http://bisostore.com/$1 [L,R=301]
+
+# Now the CodeIgniter part
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+
+AddDefaultCharset UTF-8
+AddHandler application/x-httpd-php5  .php5 .php
