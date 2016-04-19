@@ -1,70 +1,29 @@
-###################
-What is CodeIgniter
-###################
+فكرة عامة عن المشروع:
+#####################
+تنبع فكرة المشروع من الحاجة إلى مرجع غذائي متكامل على الشبكة العنكبوتية باللغة العربية، و يشكل هذا المرجع مصدرا أساسيا لكافة المعلومات عن أصناف الأغذية بالنسبة لمستخدميه، و يقدم لهم فضلا عن ذلك معلومات اثرائية على شكل نصائح غذائية في مواضيع متنوعة.
+يتضمن الموقع معلومات عن الأغذية وفقا لتصنيفاتها إلى فئات معروفة و هي الخبز و الحبوب، الفواكه، الخضار، فئة الحليب و مشتقاته، فئة اللحوم، فئة العصائر، فئة الزيوت والدهون، فئة المكسرات، و غيرها و يوضح أهم العناصر الغذائية الموجودة في كل منها .
+يتضمن الموقع أيضا شرحا موسعا للهرم الغذائي بما يتضمنه من مجموعات غذائية و الحصص التي يتوجب على الشخص تحقيقها من كل مجموعة.
+إضافة إلى ذلك يقدم الموقع نصائح غذائية متعلقة بصحة الغذاء بالنسبة للأطفال ، للنساء الحوامل، و للمرضعات و غيرهم. 
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+الهدف من المشروع:
+#################
+يهدف هذا المشروع إلى تصميم موقع الكتروني متكامل للأغذية الطبيعية و كل ما يتعلق بالطعام وفوائده والهرم الغذائي. ليعتبر هذا الموقع مرجع متكامل للأغذية على الانترنت و هو مدعم بمواد اثرائية داعمة في هذا المجال.
 
-*******************
-Release Information
-*******************
+أهمية المشروع:
+##############
+تنبع أهمية المشروع بكونه سيساهم في توظيف الإنترنت في خدمة المجالات الصحية و الغذائية، حيث أنه بالرغم من كونك شبكة الإنترنت غنية بالمحتوى الذي يتناول قضايا الأغذية و التصنيفات الغذائية، إلا أننا لا نجد عليها موقعا عربيا متكاملا يقدم هذا المحتوى بشكل علمي دقيق و مدروس و شامل ، وبالتالي تكمن الأهمية الأساسية للمشروع كونه يقدم هذا المرجع الغذائي العربي الشامل.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+المجالات الممكنة لاستخدامه:
+#########################
+تحسين التثقيف الغذائي و الصحي من خلال الإنترنت بالاضافة إلى تأمن بيئة حوار و نقاش بناء من خلال منصة الموقع توفر لمستخدميه تبادل الآراء و طرح الأفكار و النصائح حول الأمور المتعلقة بالغذاء و الصحة.
 
-**************************
-Changelog and New Features
-**************************
+المتطلبات للمشروع: 
+##################
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+- تأمين المحتوى المعرفي
+- توفير بيئة البرمجة المناسبة و البرامج المطلوبة لتحقيق التصميم .
+- التمكن من لغة البرمجة التي سيتم برمجة الموقع بها
 
-*******************
-Server Requirements
-*******************
-
-PHP version 5.4 or newer is recommended.
-
-It should work on 5.2.4 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
-
-************
-Installation
-************
-
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
-
-*******
-License
-*******
-
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
-
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community IRC <https://webchat.freenode.net/?channels=%23codeigniter>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
+قيود المشروع
+############
+قيود المشروع : القيد الزمني حيث أن تسليم المشروع يجب أن يتم خلال ستة أشهر اعتبارا من تاريخ البدء 1/1/2016 و حتى تاريخ الانتهاء 1/6/2016
