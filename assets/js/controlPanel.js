@@ -25,7 +25,12 @@ $(function () { // when document is ready
         if (w < 767) $("#collapseMenu").click();
 
     });
-
+//
+    $(".cPanelMenuAnchor").each(function () {
+        var cat = $(this).data("data-cat");
+        if (seg1 == cat) $(this).addClass("active1");
+        console.log(cat+","+seg1);
+    });
 
     // ------------------------------------------
 

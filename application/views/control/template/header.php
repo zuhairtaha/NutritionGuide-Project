@@ -2,7 +2,7 @@
 <html lang="ar-AR">
 <head>
     <meta charset="utf-8">
-    <title>لوحة التحكم</title>
+    <title><?= $title ?></title>
     <!-- jQuery -->
     <script src="<?= base_url() ?>assets/js/jquery-1.9.1.min.js"></script>
 
@@ -17,8 +17,10 @@
     <!-- jQuery form (ajax forms) -->
     <script src="<?= base_url() ?>assets/js/jquery.form.js"></script>
     <!-- custom js -->
+    <? echo $segment1; ?>
+    <script> var seg1 = "<?=$segment1?>"; </script>
     <script src="<?= base_url() ?>assets/js/controlPanel.js"></script>
-    <script src="<?= base_url() ?>assets/js/pr1-script.js"></script>
+    <script src="<?= base_url() ?>assets/js/main.js"></script>
     <!-- font awesome / icons -->
     <link rel='stylesheet' href='<?= base_url() ?>assets/font-awesome-4.6.1/css/font-awesome.min.css' type='text/css'/>
     <!-- themify-icons -->
@@ -56,22 +58,26 @@
         </nav>
     </div>
 
+
+
+
     <div class="row no-margin">
         <div id="controlPanelMenu" class="col-md-2 com-sm-1 control-list-col fullHeight">
             <div class="list-group rtl">
-                <a href="" class="list-group-item no-border-radius "><i class="ti-user"></i>
+                <a href="" class="cPanetMenuAnchor list-group-item no-border-radius "><i class="ti-user"></i>
                     <span>الرئيسة</span>
                     <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="list-group-item no-border-radius"><i class=" ti-email"></i>
+                <a href="" class="cPanelMenuAnchor list-group-item no-border-radius"><i class=" ti-email"></i>
                     <span>الأعضاء</span>
                     <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="list-group-item no-border-radius active1"><i class="ti-comment-alt"></i>
+                <a href="<?= base_url() ?>options" data-cat="options" class="list-group-item no-border-radius"><i
+                        class="ti-settings"></i>
                     <span>الضبط</span>
                     <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="list-group-item no-border-radius"><i class="ti-world"></i>
+                <a href="" class="cPanetMenuAnchor list-group-item no-border-radius"><i class="ti-world"></i>
                     <span>أقسام الموقع</span>
                     <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="list-group-item no-border-radius"><i class="ti-files"></i>
+                <a href="" class="cPanetMenuAnchor list-group-item no-border-radius"><i class="ti-files"></i>
                     <span>الخروج</span>
                     <i class="ti-angle-left pull-left"></i></a>
                 <a class="list-group-item no-border-radius"><i class="ti-server"></i>
