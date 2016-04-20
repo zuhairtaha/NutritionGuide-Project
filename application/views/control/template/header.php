@@ -71,49 +71,57 @@
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/food_categories" class="cPanelMenuAnchor list-group-item no-border-radius">
+                <a href="<?= base_url() ?>control/food_categories"
+                   class="cPanelMenuAnchor list-group-item no-border-radius">
                     <i class="fa fa-cutlery"></i>
                     <span>تصنيفات الأغذية </span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/food_stuffs" class="cPanetMenuAnchor list-group-item no-border-radius">
+                <a href="<?= base_url() ?>control/food_stuffs"
+                   class="cPanetMenuAnchor list-group-item no-border-radius">
                     <i class="ti-apple"></i>
                     <span>المواد الغذائية</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/categories" class="list-group-item no-border-radius">
+                <a href="<?= base_url() ?>control/categories" class="list-group-item no-border-radius">
                     <i class="ti-view-list"></i>
                     <span>أقسام الموقع</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/posts" class="list-group-item no-border-radius">
+                <a href="<?= base_url() ?>control/posts" class="list-group-item no-border-radius">
                     <i class="ti-pencil-alt"></i>
                     <span>المواضيع</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/posts" class="list-group-item no-border-radius">
-                    <i class="ti-pencil-alt"></i>
+                <a href="<?= base_url() ?>control/comments" class="list-group-item no-border-radius">
+                    <i class="ti-comments"></i>
+                    <span>التعليقات</span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>control/pages" class="list-group-item no-border-radius">
+                    <i class="ti-files"></i>
                     <span>الصفحات</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/posts" class="list-group-item no-border-radius">
-                    <i class="ti-pencil-alt"></i>
+                <a href="<?= base_url() ?>control/users" class="list-group-item no-border-radius">
+                    <i class="ti-user"></i>
                     <span>الأعضاء</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/options" data-cat="options" class="list-group-item no-border-radius">
-                    <i class="ti-settings"></i>
-                    <span>الضبط</span>
+                <a href="<?= base_url() ?>control/options" data-cat="options" class="list-group-item no-border-radius">
+                    <i class="fa fa-cogs"></i>
+                    <span>إعدادات</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>manage/logout" class="cPanetMenuAnchor list-group-item no-border-radius">
+                <a href="<?= base_url() ?>control/logout" class="cPanetMenuAnchor list-group-item no-border-radius">
                     <i class="ti-share-alt"></i>
                     <span>الخروج</span>
                     <i class="ti-angle-left pull-left"></i>
