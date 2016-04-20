@@ -32,12 +32,31 @@ class Control extends CI_Controller
     function options()
     {
         $this->header("إعدادات");
-        $this->load->view('control/options');
+        $this->load->model('options_mdl') ;
+        $data['options'] = $this->options_mdl->select_options() ; 
+        $this->load->view('control/options' , $data );
         $this->footer();
     }
 
-    function options_update()
+    function update_settings()
     {
+        
+        $this->header("تحديث_الإعدادات");
+        
+        $this->load->model('options_mdl') ;
+        $ins_data = array(
+            'site_name' => $_POST['siteName'], 
+            'site_tags' => '' , 
+            'site_description' => $_POST['siteDesc'],
+            'facebook'=> $_POST['facebook'], 
+            'twitter'=> $_POST['twitter'],
+            'youtube'=> $_POST['youtube']
+        );
+        
+        $this->options_mdl->update_options($ins_data) ; 
+        echo 'تم تحديث الإعدادات ' ;
+        
+                $this->footer();
 
     }
     // -------------------------------------------------------
@@ -89,6 +108,7 @@ class Control extends CI_Controller
     {
 
     }
+    
 
     // -------------------------------------------------------
     /* التعليقات */
