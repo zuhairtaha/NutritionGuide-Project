@@ -6,28 +6,28 @@ $(function () { // when document is ready
         //height in cm 
         $height = $height / 100 ; 
         if ($result < 15 ){
-            $bmi_value = "very severely underweight" ;
+            $bmi_value = "äÍÇÝÉ Úáì äÍæ ÎØíÑ" ;
         }
         else if ( $resule >= 15 && $resulr < 16 ){
-            $bmi_value = "severely underweight" ; 
+            $bmi_value = "äÍÇÝÉ ÔÏíÏÉ" ; 
         }
         else if( $resule >= 16 && $resulr < 18.5 ){
-            $bmi_value = "underweight" ; 
+            $bmi_value = "äÍÇÝÉ" ; 
         }
         else if($result >= 18.5 && $result < 25 ){
-            $bmi_value = "normal" ; 
+            $bmi_value = "ØÈíÚí" ; 
         }
         else if($result >= 25 && $result < 30  ){
-            $bmi_value = "overweight" ; 
+            $bmi_value = "ÓãäÉ" ; 
         }
         else if($result >= 30 && $result < 35  ){
-            $bmi_value = "moderately obsese" ; 
+            $bmi_value = "ÓãäÉ ãÊæÓØÉ" ; 
         }
         else if($result >= 35 && $result < 40  ){
-            $bmi_value = "severely obsese" ; 
+            $bmi_value = "ÓãäÉ ÔÏíÏÉ" ; 
         }
         else{
-            $bmi_value = "very severely obses" ; 
+            $bmi_value = "ÓãäÉ Úáì äÍæ ÎØíÑ" ; 
         }
         
         return $nmi_value;
