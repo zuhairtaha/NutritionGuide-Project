@@ -32,9 +32,6 @@
             <td><img style="height: 2em" src="http://www.i2clipart.com/cliparts/0/2/0/8/12804502081cadb202ed63171e82e267674012.png" /></td>
             <td>الفول</td>
             <td>
-
-
-
                 <div class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <span class="ti-more-alt"></span>
@@ -43,11 +40,84 @@
                         <li><a href="#"><i class="fa fa-eye"></i> عرض</a></li>
                         <li><a href="#"><i class="ti-pencil-alt"></i> تعديل</a></li>
                         <li><a href="#"><i class="ti-trash"></i> حذف</a></li>
-
                     </ul>
                 </div>
+            </td>
+        </tr>
 
+        <tr>
+            <td>1</td>
+            <td>الخضروات</td>
+            <td><img style="height: 2em" src="http://www.i2clipart.com/cliparts/0/2/0/8/12804502081cadb202ed63171e82e267674012.png" /></td>
+            <td>الفول</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="ti-more-alt"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#"><i class="fa fa-eye"></i> عرض</a></li>
+                        <li><a href="#"><i class="ti-pencil-alt"></i> تعديل</a></li>
+                        <li><a href="#"><i class="ti-trash"></i> حذف</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
 
+        <tr>
+            <td>1</td>
+            <td>الخضروات</td>
+            <td><img style="height: 2em" src="http://www.i2clipart.com/cliparts/0/2/0/8/12804502081cadb202ed63171e82e267674012.png" /></td>
+            <td>الفول</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="ti-more-alt"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#"><i class="fa fa-eye"></i> عرض</a></li>
+                        <li><a href="#"><i class="ti-pencil-alt"></i> تعديل</a></li>
+                        <li><a href="#"><i class="ti-trash"></i> حذف</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>الخضروات</td>
+            <td><img style="height: 2em" src="http://www.i2clipart.com/cliparts/0/2/0/8/12804502081cadb202ed63171e82e267674012.png" /></td>
+            <td>الفول</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="ti-more-alt"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#"><i class="fa fa-eye"></i> عرض</a></li>
+                        <li><a href="#"><i class="ti-pencil-alt"></i> تعديل</a></li>
+                        <li><a href="#"><i class="ti-trash"></i> حذف</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>الخضروات</td>
+            <td><img style="height: 2em" src="http://www.i2clipart.com/cliparts/0/2/0/8/12804502081cadb202ed63171e82e267674012.png" /></td>
+            <td>الفول</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="ti-more-alt"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#"><i class="fa fa-eye"></i> عرض</a></li>
+                        <li><a href="#"><i class="ti-pencil-alt"></i> تعديل</a></li>
+                        <li><a href="#"><i class="ti-trash"></i> حذف</a></li>
+                    </ul>
+                </div>
             </td>
         </tr>
     </tbody>
