@@ -9,7 +9,7 @@ class Control extends CI_Controller
     {
         $data['title'] = $title;
         // جلب رابط الصفحة الحالية وتمريره إلى متغير في جافا سكربت بهدف تلوين خلفية زر الصحفة التي نحن فيها عن طريق جي كويري
-        $data['segment1'] = $this->uri->segment(1) ? $this->uri->segment(1) : "index";
+        $data['segment1'] = $this->uri->segment(2) ? $this->uri->segment(2) : "index";
         $this->load->view('control/template/header', $data);
     }
 

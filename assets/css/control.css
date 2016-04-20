@@ -24,7 +24,7 @@
 #controlPanelMenu button.list-group-item:hover,
 #controlPanelMenu .active1 {
     background-color: #16121E;
-    color: #F0F0F0;
+    color: #F0F0F0 !important;
 }
 
 .navbar-blue {
