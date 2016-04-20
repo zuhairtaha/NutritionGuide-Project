@@ -1,13 +1,15 @@
 $(function () { // when document is ready
     // ------------------------------------------
+
+
 // ضبط ارتفاع القائمة اليمنى مائة بالمائة
     var navbarHeight = $(".navbar-inverse").height(); // ارتفاع الشريط الأسود العلوي
     var documentHeight = $(document).height(); // ارتفاع كامل الصفحة
     var fullHeight = parseInt(documentHeight) - parseInt(navbarHeight); // الفرق بين الارتفاعين
-
+    var controlPanelContentHeight = $("#controlPanelContent").height();
     /* تابع إعطاء ارتفاع 100% لمن يحمل كلاس fullHeight */
     function resetHeight() {
-        $('.fullHeight').css("height", fullHeight);
+        $('.fullHeight').css("height", controlPanelContentHeight);
     }
 
     resetHeight(); // تنفيذ التابع عن فتح لوحة التحكم
@@ -19,7 +21,7 @@ $(function () { // when document is ready
     $("#collapseMenu").click(function () {
         $("#controlPanelMenu").toggleClass("col-md-2 col-md-1").toggleClass("bigIcons");
         $("#controlPanelContent").toggleClass("col-md-10 col-md-11");
-        $(window).resize();
+        resetHeight();
     });
 
     /* طي القائمة إذا كان الحجم صغيراً */
@@ -36,6 +38,16 @@ $(function () { // when document is ready
             console.log(cat + "," + seg1);
         }
     });
+    /* trigger fo dataTable function foreach .dataTable  تشغيل الإضافة للجداول */
+    $(".dataTable").DataTable({
+        "initComplete": function () {
+            resetHeight();
+        },
+        "language": {
+            "url": base_url + "assets/js/dataTable/Arabic.json"
+        }
+    });
+
 
     // ------------------------------------------
 

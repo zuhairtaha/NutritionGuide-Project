@@ -19,8 +19,7 @@
     <!-- custom js -->
 
     <script> var seg1 = "<?=$segment1?>"; </script>
-    <script src="<?= base_url() ?>assets/js/controlPanel.js"></script>
-    <script src="<?= base_url() ?>assets/js/main.js"></script>
+
     <!-- font awesome / icons -->
     <link rel='stylesheet' href='<?= base_url() ?>assets/font-awesome-4.6.1/css/font-awesome.min.css' type='text/css'/>
     <!-- themify-icons -->
@@ -36,6 +35,10 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/control.css"/>
     <!-- common css -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.css"/>
+
+
+
+
 </head>
 <body>
 <div class="container-fluid no-padding">
@@ -51,7 +54,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#"><i class="ti-home"></i> رئيسية الموقع</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-log-out"></i> خروج</a></li>
+                        <li><a href="#"><i class="ti-share-alt"></i> خروج</a></li>
                     </ul>
                 </div>
             </div>
@@ -128,12 +131,7 @@
                     <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>control/logout"
-                   class=" list-group-item no-border-radius">
-                    <i class="ti-share-alt"></i>
-                    <span>الخروج</span>
-                    <i class="ti-angle-left pull-left"></i>
-                </a>
+
 
                 <a id="collapseMenu" href="#" class="list-group-item no-border-radius">
                     <i id="collapseIcon" class="ti-angle-double-right"></i>
