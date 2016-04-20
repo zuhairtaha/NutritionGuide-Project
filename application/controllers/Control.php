@@ -44,48 +44,58 @@ class Control extends CI_Controller
     /* التصنيفات الأساسية للغذاء */
     function food_categories()
     {
-
+        $this->header("التصنيفات الأساسية للغذاء");
+        $this->load->view("control/food_categories/view");
+        $this->footer();
     }
 
     // -------------------------------------------------------
     /* المواد الغذائية */
     function food_stuffs()
     {
-
+        $this->header("المواد الغذائية");
+        $this->load->view("control/food_stuffs/view");
+        $this->footer();
     }
 
     // -------------------------------------------------------
     /* أقسام الموقع: نصائح غذائية , نصائح عامة, معلومات إثرائية */
     function categories()
     {
-
+        $this->header("أقسام الموقع");
+        $this->footer();
     }
 
     /* المواضيع \المنشورات في أقسام الموقع  */
     function posts()
     {
+        $this->header("المواضيع");
+        $this->footer();
+    }
 
+    /* التعليقات */
+    function comments()
+    {
+        $this->header("التعليقات");
+        $this->footer();
     }
     // -------------------------------------------------------
     /* الصفحات: الهرم الغذائي, من نحن, اتصل بنا... */
 
     function pages()
     {
-
+        $this->header("الصفحات");
+        $this->footer();
     }
     // -------------------------------------------------------
     // الأعضاء
     function users()
     {
-
+        $this->header("الأعضاء");
+        $this->footer();
     }
 
     function logout()
-    {
-
-    }
-
-    function comments()
     {
 
     }
