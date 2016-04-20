@@ -59,35 +59,72 @@
     </div>
 
 
-
-
     <div class="row no-margin">
         <div id="controlPanelMenu" class="col-md-2 com-sm-1 control-list-col fullHeight">
             <div class="list-group rtl">
-                <a href="" class="cPanetMenuAnchor list-group-item no-border-radius "><i class="ti-user"></i>
+
+                <!--   أقسام لوحة التحكم    -->
+
+                <a href="<?= base_url() ?>control" class="cPanetMenuAnchor list-group-item no-border-radius ">
+                    <i class="ti-bar-chart"></i>
                     <span>الرئيسة</span>
-                    <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="cPanelMenuAnchor list-group-item no-border-radius"><i class=" ti-email"></i>
-                    <span>الأعضاء</span>
-                    <i class="ti-angle-left pull-left"></i></a>
-                <a href="<?= base_url() ?>options" data-cat="options" class="list-group-item no-border-radius"><i
-                        class="ti-settings"></i>
-                    <span>الضبط</span>
-                    <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="cPanetMenuAnchor list-group-item no-border-radius"><i class="ti-world"></i>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/food_categories" class="cPanelMenuAnchor list-group-item no-border-radius">
+                    <i class="fa fa-cutlery"></i>
+                    <span>تصنيفات الأغذية </span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/food_stuffs" class="cPanetMenuAnchor list-group-item no-border-radius">
+                    <i class="ti-apple"></i>
+                    <span>المواد الغذائية</span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/categories" class="list-group-item no-border-radius">
+                    <i class="ti-view-list"></i>
                     <span>أقسام الموقع</span>
-                    <i class="ti-angle-left pull-left"></i></a>
-                <a href="" class="cPanetMenuAnchor list-group-item no-border-radius"><i class="ti-files"></i>
-                    <span>الخروج</span>
-                    <i class="ti-angle-left pull-left"></i></a>
-                <a class="list-group-item no-border-radius"><i class="ti-server"></i>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/posts" class="list-group-item no-border-radius">
+                    <i class="ti-pencil-alt"></i>
                     <span>المواضيع</span>
-                    <i class="ti-angle-left pull-left"></i></a>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/posts" class="list-group-item no-border-radius">
+                    <i class="ti-pencil-alt"></i>
+                    <span>الصفحات</span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/posts" class="list-group-item no-border-radius">
+                    <i class="ti-pencil-alt"></i>
+                    <span>الأعضاء</span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/options" data-cat="options" class="list-group-item no-border-radius">
+                    <i class="ti-settings"></i>
+                    <span>الضبط</span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
+                <a href="<?= base_url() ?>manage/logout" class="cPanetMenuAnchor list-group-item no-border-radius">
+                    <i class="ti-share-alt"></i>
+                    <span>الخروج</span>
+                    <i class="ti-angle-left pull-left"></i>
+                </a>
+
                 <a id="collapseMenu" href="#" class="list-group-item no-border-radius">
                     <i id="collapseIcon" class="ti-angle-double-right"></i>
                     <i id="unCollapseIcon" class="ti-angle-double-left"></i>
                     <span>طي القائمة</span>
                 </a>
+
             </div>
 
         </div>
