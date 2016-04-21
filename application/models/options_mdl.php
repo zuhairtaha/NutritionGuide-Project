@@ -2,7 +2,8 @@
 
 class options_mdl extends CI_Model
 {
-
+    // -------------------------------------------------------
+    /*ÊæÇÈÚ ÇáŞÑÇÁÉ æ ÇáÊÍÏíË áÌÏæá ÅÚÏÇÏÇÊ ÇáãæŞÚ*/
     public function select_options()
     {
         return $this->db->query("
@@ -15,7 +16,8 @@ class options_mdl extends CI_Model
       
         $this->db->where('id', 1)->update('options', $ins_data);
     }
-    
+    // -------------------------------------------------------
+    /*ÊæÇÈÚ ÇáŞÑÇÁÉ æ ÇáÊÍÏíË æ ÇáÅÖÇİÉ áÌÏæá ÇáÊÕäíİÇÊ */
     public function select_food_categories()
     {
         return $this->db->query("
@@ -29,6 +31,22 @@ class options_mdl extends CI_Model
         $this->db->where('id', $id)->update('food_categories', $ins_data);
     }
     
+    public function insert_food_categories($ins_data)
+    {
+        $query = 'INSTERT INTO food_categories (';
+        foreach ($ins_data as $key => $value) {
+            $query .= '`' . $key . '`';
+        }
+        $query .= ') VALUES (';
+        foreach ($array as $value) {
+            $query .= '`' . $value . '`';
+        }
+        $query .= ')';
+      
+        $this->db->$query->run();
+    }
+    // -------------------------------------------------------
+    /*ÊæÇÈÚ ÇáŞÑÇÁÉ æ ÇáÊÍÏíË æ ÇáÅÖÇİÉ áÌÏæá ÇáãæÇÏ*/
     public function select_food_stuffs()
     {
         return $this->db->query("
@@ -40,6 +58,20 @@ class options_mdl extends CI_Model
     {
       
         $this->db->where('id', $id)->update('food_stuffs', $ins_data);
+    }
+    public function insert_food_stuffs($ins_data)
+    {
+        $query = 'INSTERT INTO food_stuffs (';
+        foreach ($ins_data as $key => $value) {
+            $query .= '`' . $key . '`';
+        }
+        $query .= ') VALUES (';
+        foreach ($array as $value) {
+            $query .= '`' . $value . '`';
+        }
+        $query .= ')';
+      
+        $this->db->$query->run();
     }
 }
 

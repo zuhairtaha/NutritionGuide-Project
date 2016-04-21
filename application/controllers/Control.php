@@ -39,7 +39,8 @@ class Control extends CI_Controller
         $this->load->view('control/options', $data);
         $this->footer();
     }
-
+    // -------------------------------------------------------
+    /*تابع لتحديث جدول إعدادات الموقع*/
     function update_settings()
     {
         $this->load->model('options_mdl');
@@ -68,7 +69,6 @@ class Control extends CI_Controller
     {
         $this->load->model('options_mdl');
         $ins_data = array(
-            'fc_id' => $_POST['fc_id'],
             'fc_title' => $_POST['fc_title'],
             'fc_description' => $_POST['fc_description'],
             'fc_image' => $_POST['fc_image'],
@@ -76,6 +76,21 @@ class Control extends CI_Controller
             'fc_author_id' => $_POST['fc_author_id']);
 
         $this->options_mdl->update_food_categories($ins_data, $id);
+        redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
+    }
+    // -------------------------------------------------------
+    /*تابع للإضافة في جدول التصنيفات */
+    function insert_food_categories()
+    {
+        $this->load->model('options_mdl');
+        $ins_data = array(
+            'fc_title' => $_POST['fc_title'],
+            'fc_description' => $_POST['fc_description'],
+            'fc_image' => $_POST['fc_image'],
+            'fc_level' => $_POST['fc_level'],
+            'fc_author_id' => $_POST['fc_author_id']);
+
+        $this->options_mdl->insert_food_categories($ins_data);
         redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
     }
     // -------------------------------------------------------
@@ -109,7 +124,30 @@ class Control extends CI_Controller
         $this->options_mdl->update_food_stuffs($ins_data, $id);
         redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
     }
-    
+    // -------------------------------------------------------
+    /*تابع للإضافة في جدول المواد الغذائية*/
+    function insert_food_stuffs()
+    {
+        $this->load->model('options_mdl');
+        $ins_data = array(
+            'f_id' => $_POST['f_id'],
+            'f_title' => $_POST['f_title'],
+            'f_size' => $_POST['f_size'],
+            'f_weight' => $_POST['f_weight'],
+            'f_calories' => $_POST['f_calories'],
+            'f_proteins' => $_POST['f_proteins']);
+            'f_fats' => $_POST['f_fats']);
+            'f_carbohydrates' => $_POST['f_carbohydrates']);
+            'f_cholesterol' => $_POST['f_cholesterol']);
+            'f_calcium' => $_POST['f_calcium']);
+            'f_iron' => $_POST['f_iron']);
+            'f_sodium' => $_POST['f_sodium']);
+            'f_image' => $_POST['f_image']);
+            'f_category_id' => $_POST['f_category_id']);
+
+        $this->options_mdl->insert_food_stuffs($ins_data);
+        redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
+    }
     // -------------------------------------------------------
     /* التصنيفات الأساسية للغذاء */
     function food_categories()
