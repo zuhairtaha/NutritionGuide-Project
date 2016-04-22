@@ -1,5 +1,6 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Control extends CI_Controller
 {
@@ -34,6 +35,7 @@ class Control extends CI_Controller
     function options()
     {
         $this->header("إعدادات");
+<<<<<<< HEAD
         $this->load->model('options_model');
         $data['options'] = $this->options_model->get_options();
         $this->load->view('control/options', $data);
@@ -53,6 +55,121 @@ class Control extends CI_Controller
             'youtube'          => $_POST['youtube']
         ];
         $this->options_model->update_options($ins_data);
+=======
+        $this->load->model('options_mdl');
+        $data['options'] = $this->options_mdl->select_options();
+        
+        $this->load->view('control/options', $data);
+        $this->footer();
+    }
+    // -------------------------------------------------------
+    /*تابع لتحديث جدول إعدادات الموقع*/
+    function update_settings()
+    {
+        $this->load->model('options_mdl');
+        // $ins_data['update_settings'] = array( هي كانت غلط كانت هيك
+        $ins_data = array(
+            'site_name' => $_POST['siteName'],
+            'site_tags' => '',
+            'site_description' => $_POST['siteDesc'],
+            'facebook' => $_POST['facebook'],
+            'twitter' => $_POST['twitter'],
+            'youtube' => $_POST['youtube']);
+
+        $this->options_mdl->update_options($ins_data);
+        redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
+    }
+    // -------------------------------------------------------
+    /*تابع للقراء من جدول التصنيفاتء */
+    function get_food_categories()
+    {
+       $this->load->model('options_mdl');
+       $data['food_categories'] = $this->options_mdl->select_food_categories();
+    }
+    // -------------------------------------------------------
+    /*تابع لتحديث جدول التصنيفات  */
+    function update_food_categories()
+    {
+        $this->load->model('options_mdl');
+        $ins_data = array(
+            'fc_title' => $_POST['fc_title'],
+            'fc_description' => $_POST['fc_description'],
+            'fc_image' => $_POST['fc_image'],
+            'fc_level' => $_POST['fc_level'],
+            'fc_author_id' => $_POST['fc_author_id']);
+
+        $this->options_mdl->update_food_categories($ins_data, $id);
+        redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
+    }
+    // -------------------------------------------------------
+    /*تابع للإضافة في جدول التصنيفات */
+    function insert_food_categories()
+    {
+        $this->load->model('options_mdl');
+        $ins_data = array(
+            'fc_title' => $_POST['fc_title'],
+            'fc_description' => $_POST['fc_description'],
+            'fc_image' => $_POST['fc_image'],
+            'fc_level' => $_POST['fc_level'],
+            'fc_author_id' => $_POST['fc_author_id']);
+
+        $this->options_mdl->insert_food_categories($ins_data);
+        redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
+    }
+    // -------------------------------------------------------
+    /*تابع للقراءة من جدول المواد الغذائية*/
+    function get_food_stuffs()
+    {
+       $this->load->model('options_mdl');
+       $data['food_categories'] = $this->options_mdl->select_food_stuffs();
+    }
+    // -------------------------------------------------------
+    /*تابع لتحديث جدول المواد الغذائية*/
+    function update_food_stuffs()
+    {
+        $this->load->model('options_mdl');
+        $ins_data = array(
+            'f_id' => $_POST['f_id'],
+            'f_title' => $_POST['f_title'],
+            'f_size' => $_POST['f_size'],
+            'f_weight' => $_POST['f_weight'],
+            'f_calories' => $_POST['f_calories'],
+            'f_proteins' => $_POST['f_proteins']);
+            'f_fats' => $_POST['f_fats']);
+            'f_carbohydrates' => $_POST['f_carbohydrates']);
+            'f_cholesterol' => $_POST['f_cholesterol']);
+            'f_calcium' => $_POST['f_calcium']);
+            'f_iron' => $_POST['f_iron']);
+            'f_sodium' => $_POST['f_sodium']);
+            'f_image' => $_POST['f_image']);
+            'f_category_id' => $_POST['f_category_id']);
+
+        $this->options_mdl->update_food_stuffs($ins_data, $id);
+        redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
+    }
+    // -------------------------------------------------------
+    /*تابع للإضافة في جدول المواد الغذائية*/
+    function insert_food_stuffs()
+    {
+        $this->load->model('options_mdl');
+        $ins_data = array(
+            'f_id' => $_POST['f_id'],
+            'f_title' => $_POST['f_title'],
+            'f_size' => $_POST['f_size'],
+            'f_weight' => $_POST['f_weight'],
+            'f_calories' => $_POST['f_calories'],
+            'f_proteins' => $_POST['f_proteins']);
+            'f_fats' => $_POST['f_fats']);
+            'f_carbohydrates' => $_POST['f_carbohydrates']);
+            'f_cholesterol' => $_POST['f_cholesterol']);
+            'f_calcium' => $_POST['f_calcium']);
+            'f_iron' => $_POST['f_iron']);
+            'f_sodium' => $_POST['f_sodium']);
+            'f_image' => $_POST['f_image']);
+            'f_category_id' => $_POST['f_category_id']);
+
+        $this->options_mdl->insert_food_stuffs($ins_data);
+>>>>>>> origin/master
         redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
     }
     // =============================================================================
@@ -259,7 +376,12 @@ class Control extends CI_Controller
 
     }
 
+<<<<<<< HEAD
     // =============================================================================
+=======
+
+    // -------------------------------------------------------
+>>>>>>> origin/master
     /* التعليقات */
 
 
