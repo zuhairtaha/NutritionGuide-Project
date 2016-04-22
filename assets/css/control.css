@@ -61,7 +61,7 @@
 
 /* big icons */
 .bigIcons .ti-angle-left,
-.bigIcons  i#collapseIcon.ti-angle-double-right {
+.bigIcons i#collapseIcon.ti-angle-double-right {
     display: none;
 }
 
@@ -178,3 +178,7 @@
 }
 
 /* ----------------- /statistics ----------------------- */
+/* الصفحات */
+.titleAndLevel {
+    margin-bottom: 0.5em;
+}

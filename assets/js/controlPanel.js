@@ -1,8 +1,16 @@
 $(function () { // when document is ready
     // ------------------------------------------
+    /* متغيرات عامة */
 
+    /* شريط متحرك أثناء التحميل بالأجاكس يستخدم في عدة مناطق من الموقع */
+    var loadingBar = '<div class="progress left">\
+    <div class="progress-bar progress-bar-striped active" \
+    role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">\
+    </div></div> ';
+// ------------------------------------------
+    /* ما يتعلق بالقالب */
 
-// ضبط ارتفاع القائمة اليمنى مائة بالمائة
+    /* ضبط ارتفاع القائمة اليمنى مائة بالمائة */
     var navbarHeight = $(".navbar-inverse").height(); // ارتفاع الشريط الأسود العلوي
     var documentHeight = $(document).height(); // ارتفاع كامل الصفحة
     var fullHeight = parseInt(documentHeight) - parseInt(navbarHeight); // الفرق بين الارتفاعين
@@ -35,12 +43,62 @@ $(function () { // when document is ready
         var cat = $(this).data("cat");
         if (seg1 == cat) {
             $(this).addClass("active1");
-            console.log(cat + "," + seg1);
+
         }
     });
+// ------------------------------------------
+    /* الصفحات */
 
+    /* حذف صفحة */
+    $('.deletePage').click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $(this).parent().parent().fadeOut();
+        $.post(url);
+    });
 
+    /* تعديل صفحة */
+    $('.editPages').click(function () {
+        var t     = $(this).data('title');
+        var id    = $(this).data('id');
+        var level = $(this).data('level');
+        $("#PageTitleEdit").val(t);
+        $("#PagesIdEdit").val(id);
+        $("#PageLevel").val(level);
+        var url  = base_url + "control/getPageBody/" + id;
+        var url2 = base_url + "control/updatePage/" + id;
+        $(".editPagesDivModal .panel-body").html(loadingBar).load(base_url + 'control/getPageBody/' + id);
+        $("#editPagesForm").attr("action", url2);
+
+    });
 
     // ------------------------------------------
+    /* تصنيفات الأغذية */
+
+    /* حذف تصنيف */
+    $('.deleteCategory').click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $(this).parent().parent().fadeOut();
+        $.post(url);
+    });
+
+    /* تعديل تصنيف */
+    $('.editCategories').click(function () {
+        var t     = $(this).data('title');
+        var id    = $(this).data('id');
+        var level = $(this).data('level');
+        var img   = $(this).data('img');
+        $("#categoryTitleEdt").val(t);
+        $("#categoryIdEdit").val(id);
+        $("#categoryLevelEdit").val(level);
+        var url2 = base_url + "control/update_food_category/" + id;
+        $("#editCategoryForm").attr("action", url2);
+        $("#categoryImgEdit").attr("src", base_url + "assets/uploads/thumb_" + img);
+        $("#spanDeleteImg").attr("data-img", img);
+        $("#imagesUpNamesEdt").val(img);
+    });
+    // ------------------------------------------
+
 
 });

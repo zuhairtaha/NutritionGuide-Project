@@ -36,7 +36,14 @@
     <!-- common css -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.css"/>
 
+    <!-- custom js -->
+    <script src="<?=base_url()?>assets/js/myscript.js"></script>
 
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.css"/>
+
+    <!-- مكتبة مؤثرات حركية -->
+    <!-- https://daneden.github.io/animate.css/ المصدر -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/animate.min.css"/>
 
 
 </head>
@@ -53,8 +60,8 @@
                     <a class="navbar-brand" href="#"><i class="ti-settings"></i> لوحة التحكم</a></div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#"><i class="ti-home"></i> رئيسية الموقع</a></li>
-                        <li><a href="#"><i class="ti-share-alt"></i> خروج</a></li>
+                        <li><a href="<?=base_url()?>"><i class="ti-home"></i> رئيسية الموقع</a></li>
+                        <li><a href="<?=base_url()?>control/logout"><i class="ti-share-alt"></i> خروج</a></li>
                     </ul>
                 </div>
             </div>
