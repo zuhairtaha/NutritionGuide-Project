@@ -15,7 +15,6 @@
     </div>
 </div>
 
-
 <!-- مودال إضافة تصنيف -->
 <div class="modal fade categoriesModal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-md">
