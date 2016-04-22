@@ -62,10 +62,10 @@ class Control extends CI_Controller
         $this->load->model("food_categories_model");
         $data['food_categories'] = $this->food_categories_model->get_food_categories();
         $this->header("التصنيفات الغذائية");
-        $this->load->view("control/food_categories/view", $data);
+        $this->load->view("control/food_categories", $data);
         $this->footer();
     }
-
+    // ------------------------------------------
     /* إضافة تصنيف جديد */
     function add_food_category()
     {
@@ -79,14 +79,7 @@ class Control extends CI_Controller
         $this->food_categories_model->add_food_category($data);
         redirect($_SERVER["HTTP_REFERER"]);
     }
-
-    /* جلب تصنيف */
-    function get_food_category($id)
-    {
-        $this->load->model("food_categories_model");
-        echo $this->food_categories_model->get_food_category($id);
-    }
-
+    // ------------------------------------------
     /* تعديل تصنيف */
     function update_food_category($id)
     {
@@ -98,12 +91,10 @@ class Control extends CI_Controller
             "page_updated_at" => date("Y-m-d H:i:s"),
             "page_author_id"  => 1,
         ];
-
         $this->food_categories_model->update_food_category($id, $data);
         redirect($_SERVER["HTTP_REFERER"]);
-
     }
-
+    // ------------------------------------------
     /* حذف تصنيف */
     function delete_food_category($id)
     {
@@ -174,14 +165,14 @@ class Control extends CI_Controller
         $this->header("أقسام الموقع");
         $this->footer();
     }
-
+    // =============================================================================
     /* المواضيع \المنشورات في أقسام الموقع  */
     function posts()
     {
         $this->header("المواضيع");
         $this->footer();
     }
-
+    // =============================================================================
     /* التعليقات */
     function comments()
     {
@@ -200,7 +191,7 @@ class Control extends CI_Controller
         $this->load->view('control/pages', $data);
         $this->footer();
     }
-
+    // ------------------------------------------
     /* إضافة صفحة */
     function addPage()
     {
@@ -215,14 +206,14 @@ class Control extends CI_Controller
         $this->pages_model->addPage($data);
         redirect($_SERVER["HTTP_REFERER"]);
     }
-
+    // ------------------------------------------
     /* جلب صفحة عن طريق الآي دي */
     function getPageBody($id)
     {
         $this->load->model("pages_model");
         echo $this->pages_model->getPageBodyEdt($id);
     }
-
+    // ------------------------------------------
     /* تعديل صفحة */
     function updatePage($id)
     {
@@ -239,7 +230,7 @@ class Control extends CI_Controller
         redirect($_SERVER["HTTP_REFERER"]);
 
     }
-
+    // ------------------------------------------
     /* حذف صفحة */
     function deletePage($id)
     {
@@ -254,13 +245,13 @@ class Control extends CI_Controller
         $this->footer();
     }
 
+    // ------------------------------------------
     function logout()
     {
 
     }
-
     // =============================================================================
     /* التعليقات */
 
-
+// ------------------------------------------
 }
