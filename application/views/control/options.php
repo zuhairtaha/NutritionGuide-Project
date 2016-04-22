@@ -1,16 +1,8 @@
-<<<<<<< HEAD
 <?php
 
 $o=$options[0];
 
 
-=======
-<?php   
-
-  $o=$options[0];
-  
-  
->>>>>>> origin/master
 ?>
 <form action="<?=base_url()?>control/update_settings" method="post" class="form" accept-charset="utf-8" >
     <div class="form-group">
@@ -38,12 +30,8 @@ $o=$options[0];
         <input type="text" placeholder="يوتيوب" name="youtube" id="youtube" class="form-control" value="<?=$o->youtube?>" />
     </div>
 
- 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
     <button class="btn btn-success btn-block" type="submit"><i class="ti-save" id="submit" name="submit"></i> حفظ</button>
 
 
