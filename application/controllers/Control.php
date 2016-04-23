@@ -3,6 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Control extends CI_Controller
 {
+    // ------------------------------------------ constructor
+    public function __construct()
+    {
+        parent::__construct();
+
+        $data = array('lang' => 'ar');
+        $this->session->set_userdata($data);
+
+
+        $c1 = false;
+        $c2 = false;
+        if (current_url() == base_url("control/up1") || current_url() == base_url("control/up2") || current_url() == base_url("usercp")) $c1 = true;
+        if ($this->session->userdata('logged_in_admin') == true) $c2 = true;
+        if ($c1 == false && $c2 == false) redirect(base_url("admin_login"));
+    }
+    // ------------------------------------------
+
     /* قالب لوحة التحكم: هيدر وفوتر */
     /* الهيدر */
     function header($title = "لوحة تحكم موقع الدليل الغذائي")
@@ -97,7 +114,7 @@ class Control extends CI_Controller
             "fc_level"     => $_POST['categoryLevel'],
             "fc_author_id" => 1,
         ];
-        $this->food_categories_model->update_food_category($data,$id);
+        $this->food_categories_model->update_food_category($data, $id);
         redirect($_SERVER["HTTP_REFERER"]);
     }
 
@@ -222,7 +239,7 @@ class Control extends CI_Controller
             "page_content"    => $_POST['pageBody'],
             "page_level"      => $_POST['pageLevel'],
             "page_created_at" => date("Y-m-d H:i:s"),
-            "page_author_id"  => 1,
+            "page_author_id"  => $this->session->user_id,
         ];
         $this->pages_model->addPage($data);
         redirect($_SERVER["HTTP_REFERER"]);
@@ -244,7 +261,7 @@ class Control extends CI_Controller
             "page_content"    => $_POST['PageBody2'],
             "page_level"      => $_POST['PageLevel'],
             "page_updated_at" => date("Y-m-d H:i:s"),
-            "page_author_id"  => 1,
+            "page_author_id"  => $this->session->user_id,
         ];
 
         $this->pages_model->updatePage($id, $data);
@@ -269,6 +286,8 @@ class Control extends CI_Controller
     // ------------------------------------------
     function logout()
     {
+        $this->session->sess_destroy();
+        redirect($_SERVER["HTTP_REFERER"]);
 
     }
     // =============================================================================

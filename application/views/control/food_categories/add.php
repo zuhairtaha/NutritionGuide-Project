@@ -20,7 +20,7 @@
         <div class="uploadImgs"></div>
     </div>
 
-    <input type="hidden" name="author_id" value="1"/>
+    <input type="hidden" name="author_id" value="<?=$this->session->user_id?>"/>
     <!-- /upload -->
 
 

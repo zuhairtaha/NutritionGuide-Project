@@ -46,7 +46,7 @@ CREATE TABLE `comments` (
   KEY `comment_post_id` (`comment_post_id`),
   KEY `comment_user_id` (`comment_user_id`),
   CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`post_id`),
-  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`comment_user_id`) REFERENCES `user` (`user_id`)
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`comment_user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `comments` */
@@ -75,8 +75,8 @@ CREATE TABLE `food_categories` (
   `fc_author_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`fc_id`),
   KEY `fc_author_id` (`fc_author_id`),
-  CONSTRAINT `food_categories_ibfk_1` FOREIGN KEY (`fc_author_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  CONSTRAINT `food_categories_ibfk_1` FOREIGN KEY (`fc_author_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 /*Data for the table `food_categories` */
 
@@ -142,8 +142,8 @@ CREATE TABLE `pages` (
   `page_level` int(10) DEFAULT NULL,
   PRIMARY KEY (`page_id`),
   KEY `page_author_id` (`page_author_id`),
-  CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`page_author_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+  CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`page_author_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `pages` */
 
@@ -166,7 +166,7 @@ CREATE TABLE `posts` (
   KEY `post_cat_id` (`post_cat_id`),
   KEY `post_author_id` (`post_author_id`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`post_cat_id`) REFERENCES `categories` (`cat_id`),
-  CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`post_author_id`) REFERENCES `user` (`user_country`)
+  CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`post_author_id`) REFERENCES `users` (`user_country`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `posts` */
@@ -182,32 +182,33 @@ CREATE TABLE `statistics` (
 
 /*Data for the table `statistics` */
 
-/*Table structure for table `user` */
+/*Table structure for table `users` */
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `users`;
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_role` varchar(10) DEFAULT NULL COMMENT 'admin or member',
   `user_name` varchar(30) DEFAULT NULL,
   `user_birthDate` date DEFAULT NULL COMMENT 'تاريخ الميلاد ومنه نشتق العمر',
   `user_email` varchar(30) DEFAULT NULL,
-  `user_password` varchar(30) DEFAULT NULL,
+  `user_password` varchar(100) DEFAULT NULL,
   `user_photo` varchar(200) DEFAULT NULL,
   `user_gender` varchar(10) DEFAULT NULL,
   `user_phone_number` varchar(30) DEFAULT NULL,
   `user_about` varchar(250) DEFAULT NULL,
-  `user_registeration_date` timestamp NULL DEFAULT NULL,
+  `user_last_login` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_registeration_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `user_ip` varchar(100) DEFAULT NULL COMMENT 'من الآي بي ممكن أن نكتشف البلد',
   `user_country` varchar(2) DEFAULT NULL COMMENT 'example: sy, eg, lb, ...',
   PRIMARY KEY (`user_id`),
   KEY `user_country_id` (`user_country`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`user_country`) REFERENCES `country` (`country_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`user_country`) REFERENCES `country` (`country_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
-/*Data for the table `user` */
+/*Data for the table `users` */
 
-insert  into `user`(`user_id`,`user_role`,`user_name`,`user_birthDate`,`user_email`,`user_password`,`user_photo`,`user_gender`,`user_phone_number`,`user_about`,`user_registeration_date`,`user_ip`,`user_country`) values (1,'admin','زهير طه','1984-03-21','admin@tahasoft.com','123',NULL,'mail','0933960103','مطور ويب','2016-04-21 16:59:30',NULL,NULL);
+insert  into `users`(`user_id`,`user_role`,`user_name`,`user_birthDate`,`user_email`,`user_password`,`user_photo`,`user_gender`,`user_phone_number`,`user_about`,`user_last_login`,`user_registeration_date`,`user_ip`,`user_country`) values (1,'admin','زهير طه','1984-03-21','admin@tahasoft.com','40bd001563085fc35165329ea1ff5c5ecbdbbeef',NULL,'mail','0933960103','مطور ويب','2016-04-23 23:32:19','2016-04-21 16:59:30',NULL,NULL),(2,'admin','بتول أبو علي',NULL,NULL,'40bd001563085fc35165329ea1ff5c5ecbdbbeef',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

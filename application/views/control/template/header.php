@@ -37,9 +37,7 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.css"/>
 
     <!-- custom js -->
-    <script src="<?=base_url()?>assets/js/myscript.js"></script>
-
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.css"/>
+    <script src="<?= base_url() ?>assets/js/myscript.js"></script>
 
     <!-- مكتبة مؤثرات حركية -->
     <!-- https://daneden.github.io/animate.css/ المصدر -->
@@ -60,8 +58,18 @@
                     <a class="navbar-brand" href="#"><i class="ti-settings"></i> لوحة التحكم</a></div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
                     <ul class="nav navbar-nav">
-                        <li><a href="<?=base_url()?>"><i class="ti-home"></i> رئيسية الموقع</a></li>
-                        <li><a href="<?=base_url()?>control/logout"><i class="ti-share-alt"></i> خروج</a></li>
+                        <li><a href="<?= base_url() ?>"><i class="ti-home"></i> رئيسية الموقع</a></li>
+                        <!-- إذا كان المدير مسجلاً دخوله -->
+                        <? if ($this->session->logged_in_admin) { ?>
+                            <li>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom"
+                                   title="آخر دخول: <?= $this->session->user_last_login ?>">
+                                    <i class="ti-user"></i> <?= $this->session->user_name ?> </a>
+
+
+                            </li>
+                        <? } ?>
+                        <li><a href="<?= base_url() ?>control/logout"><i class="ti-share-alt"></i> خروج</a></li>
                     </ul>
                 </div>
             </div>
@@ -137,7 +145,6 @@
                     <span>إعدادات</span>
                     <i class="ti-angle-left pull-left"></i>
                 </a>
-
 
 
                 <a id="collapseMenu" href="#" class="list-group-item no-border-radius">
