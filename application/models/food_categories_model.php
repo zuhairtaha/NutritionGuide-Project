@@ -19,7 +19,7 @@ class Food_categories_model extends CI_Model
     }
 
     /* تحديث تصنيف */
-    function update_food_category($id, $data)
+    function update_food_category($data, $id)
     {
         $this->db->where('fc_id', $id);
         $this->db->update('food_categories', $data);

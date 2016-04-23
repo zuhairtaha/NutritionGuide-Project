@@ -1,3 +1,4 @@
+var delMySelf;
 $(function () {
     $('.tooltip1').tooltip();
     $('[title]').tooltip();
@@ -37,6 +38,22 @@ $(function () {
         $("#upUrls").val(upUrls);
 
     }
+
+    delMySelf = function () {
+        $("#imagesUpNames").val("");
+        anim($("#uploadedImagesRow.row").find("div.col-sm-6.col-md-4"), 'rubberBand');
+        /*
+         var imagesUpNames = $("#imagesUpNames");
+         var str           = imagesUpNames.val();
+         var imgSrc        = $(this).data("img");
+         var res           = str.replace(imgSrc, "");
+         res               = res.replace(",,", ",");
+         res               = res.replace(/(^,)|(,$)/gi, "");
+         console.log(res);
+         imagesUpNames.val(res);
+         */
+        allowUploadOneImage();
+    };
 
     $('a.btn-info').tooltip();
     $('.underM').popover({
@@ -105,7 +122,7 @@ $(function () {
         anim2($(".jumbotronHeader"), 'zoomInLeft');
         $('#mainPartSlct').change();
         $('#countrySelect').change();
-        $("#uploadImgs").html('<h1><i class="glyphicon glyphicon-refresh spinner"></i></h1>').load(base_url + 'upload/up1');
+        $(".uploadImgs").html('<h1><i class="glyphicon glyphicon-refresh spinner"></i></h1>').load(base_url + 'upload/up1');
 
     }); // ------------------------------ end ready
 // ----------------- slider
@@ -814,20 +831,23 @@ $(function () {
         anim($(this).parent().parent(), 'rubberBand');
     });
 // ------------------------------------------
-    // حذف الصور بعد رفعها
-    $("#uploadedImagesRow").on('click', '.deleteUploadedImage', function () {
-        var imagesUpNames = $("#imagesUpNames");
-        var str           = imagesUpNames.val();
-        var imgSrc        = $(this).data("img");
-        var res           = str.replace(imgSrc, "");
-        res               = res.replace(",,", ",");
-        res               = res.replace(/(^,)|(,$)/gi, "");
-        console.log(res);
-        imagesUpNames.val(res);
-        anim($(this).parent().parent().parent(), 'rubberBand');
-        allowUploadOneImage();
-    });
 
+
+    /*
+     $("#uploadedImagesRow").on("click", "#deleteUploadedImage", function () {
+     var imagesUpNames = $("#imagesUpNames");
+     var str           = imagesUpNames.val();
+     var imgSrc        = $(this).data("img");
+     var res           = str.replace(imgSrc, "");
+     res               = res.replace(",,", ",");
+     res               = res.replace(/(^,)|(,$)/gi, "");
+     console.log(res);
+     imagesUpNames.val(res);
+     anim($(this).parent().parent().parent(), 'rubberBand');
+     allowUploadOneImage();
+
+     });
+     */
     $("#spanDeleteImg").on("click", function () {
         var imagesUpNamesEdt = $("#imagesUpNamesEdt");
         var str              = imagesUpNamesEdt.val();
@@ -844,10 +864,11 @@ $(function () {
     /* لمنع رفع أكثر من صورة للتصنيفات الأغذاية عن طريق إخفاء الزر إذا كانت هناك صورة مرفوعة */
     function allowUploadOneImage() {
         if ($("#imagesUpNames").val()) {
-            $("#uploadImgs").hide();
+            $(".uploadImgs").hide();
         }
-        else $("#uploadImgs").show();
+        else $(".uploadImgs").show();
     }
+
     function allowUploadOneImageEdt() {
         if ($("#imagesUpNamesEdt").val()) {
             $("#postEditContnt").find("#imagesUpNamesEdt").hide();
@@ -940,3 +961,5 @@ $(function () {
     });
 // ------------------------------------------
 }); // end document ready function
+
+

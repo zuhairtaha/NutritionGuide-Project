@@ -32,9 +32,59 @@ button.list-group-item {
 .no-margin {
     margin: 0;
 }
-.no-padding{
-    padding:0;
+
+.no-padding {
+    padding: 0;
 }
-.dropdown-menu li{
+
+.dropdown-menu li {
     text-align: right;
 }
+
+/* -------- spinner كلاس للأيقونات الدوارة مثل جاري التحميل ... الخ -------------------------------- */
+/* <i class="glyphicon glyphicon-repeat spinner"></i> */
+.spinner {
+    display: inline-block;
+    -webkit-animation: rotation 1.2s infinite ease-out;
+    -moz-animation: rotation 1.2s infinite ease-out;
+    -o-animation: rotation 1.2s infinite ease-out;
+    animation: rotation 1.2s infinite ease-out
+}
+
+@-webkit-keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(359deg)
+    }
+}
+
+@-moz-keyframes rotation {
+    from {
+        -moz-transform: rotate(0deg)
+    }
+    to {
+        -moz-transform: rotate(359deg)
+    }
+}
+
+@-o-keyframes rotation {
+    from {
+        -o-transform: rotate(0deg)
+    }
+    to {
+        -o-transform: rotate(359deg)
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(359deg)
+    }
+}
+
+/* -------- spinner ---------------------------------- */

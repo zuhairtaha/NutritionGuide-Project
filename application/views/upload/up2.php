@@ -30,9 +30,9 @@ if (isset($_FILES["myfile"])) {
             /* لمنع رفع أكثر من صورة للتصنيفات الأغذاية عن طريق إخفاء الزر إذا كانت هناك صورة مرفوعة */
             function allowUploadOneImage() {
                 if ($("#imagesUpNames").val()) {
-                    $("#uploadImgs").hide();
+                    $(".uploadImgs").hide();
                 }
-                else $("#uploadImgs").show();
+                else $(".uploadImgs").show();
             }
             // ------------------------------------------
 
@@ -79,7 +79,7 @@ if (isset($_FILES["myfile"])) {
             $.post(base_url + "upload/creatThumb/<?=$tmp?>", function () {
                 $("#uploadedImagesRow").append(
                     '<div class="col-sm-6 col-md-4"><div class="thumbnail">' + thumbImg +
-                    '<div class="caption"><span role="button"  class="deleteUploadedImage btn btn-danger btn-xs btn-block" ' +
+                    '<div class="caption"><span role="button" id="deleteUploadedImage" onclick="delMySelf()"  class="btn btn-danger btn-xs btn-block" ' +
                     ' data-img="<?=$tmp?>" ><i class="glyphicon glyphicon-trash"></i> حذف</span></div></div></div>'
                 );
             });
@@ -110,6 +110,3 @@ if (isset($_FILES["myfile"])) {
     }
 }
 ?>
-
-
-

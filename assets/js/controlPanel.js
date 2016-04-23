@@ -89,15 +89,26 @@ $(function () { // when document is ready
         var id    = $(this).data('id');
         var level = $(this).data('level');
         var img   = $(this).data('img');
-        $("#categoryTitleEdt").val(t);
-        $("#categoryIdEdit").val(id);
-        $("#categoryLevelEdit").val(level);
-        var url2 = base_url + "control/update_food_category/" + id;
-        $("#editCategoryForm").attr("action", url2);
-        $("#categoryImgEdit").attr("src", base_url + "assets/uploads/thumb_" + img);
-        $("#spanDeleteImg").attr("data-img", img);
-        $("#imagesUpNamesEdt").val(img);
+
+        $("#fcModalTitle").html('<i class="ti-pencil-alt"></i> تعديل تصنيف');
+        $("#fcModal").modal();
+        $("#fcModalContent").html(loadingBar).load(base_url + 'control/edit_food_category_modal', {
+            title: t,
+            id: id,
+            level: level,
+            img: img
+        });
+
     });
+
+    /* فتح المودال عند الضغط على زر أضف تصنيف جديد */
+    $("#fcModalBtn").click(function () {
+        $("#fcModalTitle").html('<i class="glyphicon glyphicon-plus"></i> إضافة تصنيف جديد');
+        $("#fcModal").modal();
+        $("#fcModalContent").html(loadingBar).load(base_url + 'control/add_food_category_modal');
+    });
+
+
     // ------------------------------------------
 
 

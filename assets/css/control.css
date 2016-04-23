@@ -182,3 +182,12 @@
 .titleAndLevel {
     margin-bottom: 0.5em;
 }
+
+/* تصنيفات الأغذية */
+.margin-bottom-0 {
+    margin-bottom: 0;
+}
+
+.padding-1em {
+    padding: 1em;
+}

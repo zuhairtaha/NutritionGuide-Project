@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemadesigner version="6.5">
 <source>
-<database charset="latin1" collation="latin1_general_ci">nitrition_guide</database>
+<database charset="utf8" collation="utf8_general_ci">nitrition_guide</database>
 </source>
 <canvas zoom="100">
 <tables>
 <table name="categories" view="colnames">
-<left>983</left>
-<top>125</top>
+<left>987</left>
+<top>108</top>
 <width>132</width>
 <height>175</height>
 <sql_create_table>CREATE TABLE `categories` (
@@ -18,26 +18,7 @@
   `cat_description` varchar(200) DEFAULT NULL,
   `fg_image` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
-</table>
-<table name="comment" view="colnames">
-<left>623</left>
-<top>7</top>
-<width>148</width>
-<height>173</height>
-<sql_create_table>CREATE TABLE `comment` (
-  `comment_id` int(10) NOT NULL,
-  `comment_post_id` int(10) DEFAULT NULL,
-  `comment_user_id` int(10) DEFAULT NULL,
-  `comment_title` varchar(50) DEFAULT NULL,
-  `comment_content` text,
-  `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`comment_id`),
-  KEY `comment_user_id` (`comment_user_id`),
-  KEY `comment_post_id` (`comment_post_id`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`comment_user_id`) REFERENCES `user` (`user_id`),
-  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="country" view="colnames">
 <left>738</left>
@@ -48,24 +29,23 @@
   `country_code` varchar(2) NOT NULL COMMENT 'example: sy',
   `country_name` varchar(50) DEFAULT NULL COMMENT 'مثال: سوريا',
   PRIMARY KEY (`country_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="food_categories" view="colnames">
 <left>192</left>
 <top>5</top>
 <width>145</width>
-<height>175</height>
+<height>152</height>
 <sql_create_table>CREATE TABLE `food_categories` (
   `fc_id` int(11) NOT NULL AUTO_INCREMENT,
   `fc_title` varchar(30) DEFAULT NULL COMMENT 'عنوان',
-  `fc_description` tinytext COMMENT 'وصف',
   `fc_image` varchar(50) DEFAULT NULL COMMENT 'رابط صورة مرفوعة',
   `fc_level` int(5) DEFAULT NULL COMMENT 'لترتيب التصنيفات',
   `fc_author_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`fc_id`),
   KEY `fc_author_id` (`fc_author_id`),
   CONSTRAINT `food_categories_ibfk_1` FOREIGN KEY (`fc_author_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="food_stuffs" view="colnames">
 <left>7</left>
@@ -91,13 +71,13 @@
   PRIMARY KEY (`f_id`),
   KEY `f_category_id` (`f_category_id`),
   CONSTRAINT `food_stuffs_ibfk_1` FOREIGN KEY (`f_category_id`) REFERENCES `food_categories` (`fc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="pages" view="colnames">
 <left>193</left>
-<top>194</top>
+<top>172</top>
 <width>145</width>
-<height>192</height>
+<height>182</height>
 <sql_create_table>CREATE TABLE `pages` (
   `page_id` int(10) NOT NULL AUTO_INCREMENT,
   `page_title` varchar(200) DEFAULT NULL,
@@ -109,11 +89,11 @@
   PRIMARY KEY (`page_id`),
   KEY `page_author_id` (`page_author_id`),
   CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`page_author_id`) REFERENCES `user` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="posts" view="colnames">
-<left>816</left>
-<top>108</top>
+<left>811</left>
+<top>91</top>
 <width>131</width>
 <height>192</height>
 <sql_create_table>CREATE TABLE `posts` (
@@ -130,7 +110,7 @@
   KEY `post_author_id` (`post_author_id`),
   CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`post_cat_id`) REFERENCES `categories` (`cat_id`),
   CONSTRAINT `posts_ibfk_2` FOREIGN KEY (`post_author_id`) REFERENCES `user` (`user_country`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="user" view="colnames">
 <left>398</left>
@@ -141,7 +121,7 @@
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_role` varchar(10) DEFAULT NULL COMMENT 'admin or member',
   `user_name` varchar(30) DEFAULT NULL,
-  `user_birthDate` timestamp NULL DEFAULT NULL COMMENT 'تاريخ الميلاد ومنه نشتق العمر',
+  `user_birthDate` date DEFAULT NULL COMMENT 'تاريخ الميلاد ومنه نشتق العمر',
   `user_email` varchar(30) DEFAULT NULL,
   `user_password` varchar(30) DEFAULT NULL,
   `user_photo` varchar(200) DEFAULT NULL,
@@ -154,17 +134,17 @@
   PRIMARY KEY (`user_id`),
   KEY `user_country_id` (`user_country`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`user_country`) REFERENCES `country` (`country_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="statistics" view="colnames">
-<left>548</left>
-<top>323</top>
+<left>549</left>
+<top>333</top>
 <width>101</width>
 <height>92</height>
 <sql_create_table>CREATE TABLE `statistics` (
   `visti_date` datetime DEFAULT NULL,
-  `visit_ip` varchar(100) COLLATE latin1_general_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci</sql_create_table>
+  `visit_ip` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 <table name="options" view="colnames">
 <left>399</left>
@@ -173,14 +153,32 @@
 <height>185</height>
 <sql_create_table>CREATE TABLE `options` (
   `id` int(1) NOT NULL DEFAULT '1',
-  `site_name` varchar(250) COLLATE latin1_general_ci DEFAULT NULL,
-  `site_tags` varchar(200) COLLATE latin1_general_ci DEFAULT NULL,
-  `site_description` varchar(200) COLLATE latin1_general_ci DEFAULT NULL,
-  `facebook` varchar(200) COLLATE latin1_general_ci DEFAULT NULL,
-  `twitter` varchar(200) COLLATE latin1_general_ci DEFAULT NULL,
-  `youtube` varchar(200) COLLATE latin1_general_ci DEFAULT NULL,
+  `site_name` varchar(250) DEFAULT NULL,
+  `site_tags` varchar(200) DEFAULT NULL,
+  `site_description` varchar(200) DEFAULT NULL,
+  `facebook` varchar(200) DEFAULT NULL,
+  `twitter` varchar(200) DEFAULT NULL,
+  `youtube` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci</sql_create_table>
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
+</table>
+<table name="comments" view="colnames">
+<left>629</left>
+<top>26</top>
+<width>148</width>
+<height>158</height>
+<sql_create_table>CREATE TABLE `comments` (
+  `comment_id` int(100) NOT NULL AUTO_INCREMENT,
+  `comment_post_id` int(100) NOT NULL,
+  `comment_user_id` int(100) NOT NULL,
+  `comment_content` text,
+  `comment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`comment_id`,`comment_post_id`,`comment_user_id`),
+  KEY `comment_post_id` (`comment_post_id`),
+  KEY `comment_user_id` (`comment_user_id`),
+  CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`comment_post_id`) REFERENCES `posts` (`post_id`),
+  CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`comment_user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8</sql_create_table>
 </table>
 </tables>
 </canvas>

@@ -8,7 +8,7 @@
         return s.substring(s.lastIndexOf('/') + 1, s.lastIndexOf('.'));
     }
     // ------------------------------------------
-    $("#browseFile1").click(function () {
+    $(".browseFile1").click(function () {
         $("#browseFile").click();
         $("#progress").show();
     });
@@ -40,7 +40,7 @@
 
     });
     // ------------------------------------------
-    $('#browseFile1').tooltip();
+    $('.browseFile1').tooltip();
 
     // ------------------------------------------
     $("#stampspan").click(function () {
@@ -56,8 +56,8 @@
 
 <form role="form" id="myForm" action="<?= base_url() ?>upload/up2" method="post" enctype="multipart/form-data">
     <input class="form-control hide" id="browseFile" type="file" name="myfile"/>
-    <button data-toggle="tooltip" data-placement="top" title="يسمح فقط برفع الصور" type="button" id="browseFile1"
-            class="btn btn-danger">
+    <button data-toggle="tooltip" data-placement="top" title="يسمح فقط برفع الصور" type="button"
+            class="browseFile1 btn btn-danger">
         <span class="glyphicon glyphicon-picture"></span> رفع صور
     </button>
 

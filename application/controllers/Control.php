@@ -39,7 +39,7 @@ class Control extends CI_Controller
         $this->load->view('control/options', $data);
         $this->footer();
     }
-
+    // ------------------------------------------
     /*تابع لتحديث جدول إعدادات الموقع*/
     function update_settings()
     {
@@ -62,7 +62,7 @@ class Control extends CI_Controller
         $this->load->model("food_categories_model");
         $data['food_categories'] = $this->food_categories_model->get_food_categories();
         $this->header("التصنيفات الغذائية");
-        $this->load->view("control/food_categories", $data);
+        $this->load->view("control/food_categories/view", $data);
         $this->footer();
     }
     // ------------------------------------------
@@ -79,20 +79,38 @@ class Control extends CI_Controller
         $this->food_categories_model->add_food_category($data);
         redirect($_SERVER["HTTP_REFERER"]);
     }
+
+    /* صفحة الإضافة التي تحمل في المودال */
+    function add_food_category_modal()
+    {
+        $this->load->view("control/food_categories/add");
+    }
+
     // ------------------------------------------
     /* تعديل تصنيف */
     function update_food_category($id)
     {
         $this->load->model("food_categories_model");
         $data = [
-            "page_title"      => $_POST['PagesTitle'],
-            "page_content"    => $_POST['PageBody2'],
-            "page_level"      => $_POST['PageLevel'],
-            "page_updated_at" => date("Y-m-d H:i:s"),
-            "page_author_id"  => 1,
+            "fc_title"     => $_POST['title'],
+            "fc_image"     => $_POST['imagesUpNames'],
+            "fc_level"     => $_POST['categoryLevel'],
+            "fc_author_id" => 1,
         ];
-        $this->food_categories_model->update_food_category($id, $data);
+        $this->food_categories_model->update_food_category($data,$id);
         redirect($_SERVER["HTTP_REFERER"]);
+    }
+
+    /* صفحة التعديل التي تحمل في المودال */
+    function edit_food_category_modal()
+    {
+        $data = [
+            "title" => $_POST["title"],
+            "id"    => $_POST["id"],
+            "level" => $_POST["level"],
+            "img"   => $_POST["img"]
+        ];
+        $this->load->view("control/food_categories/edit", $data);
     }
     // ------------------------------------------
     /* حذف تصنيف */
@@ -104,10 +122,13 @@ class Control extends CI_Controller
     // =============================================================================
     /* المواد الغذائية */
     /* عرض المواد الغذائية */
-    function get_food_stuffs()
+    function food_stuffs()
     {
-        $this->load->model('options_mdl');
-        $data['food_categories'] = $this->options_mdl->get_food_stuffs();
+        $this->load->model('food_stuffs_model');
+        $data['food_categories'] = $this->food_stuffs_model->get_food_stuffs();
+        $this->header("المواد الغذائية");
+        $this->load->view("control/food_stuffs/view", $data);
+        $this->footer();
     }
     // -------------------------------------------------------
     /* تحديث مادة غذائية  */
