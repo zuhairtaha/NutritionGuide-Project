@@ -191,3 +191,18 @@
 .padding-1em {
     padding: 1em;
 }
+
+/* إخفاء زر رفع الصور والختم */
+#upBtn, #checkBoxStampSpan {
+    display: none;
+}
+
+.label_info {
+    color: gray;
+    font-weight: normal;
+
+}
+
+.right_control_list a span, .right_control_list {
+    float: right;
+}

@@ -6,10 +6,15 @@ class Food_categories_model extends CI_Model
     /* جلب التصنيفات */
     function get_food_categories()
     {
-        $this->db->order_by("fc_level");
-        $q = $this->db->get("food_categories");
-        if ($q->num_rows() > 0) return $q->result();
-        else return false;
+        $sql = "
+        SELECT c.*, COUNT(s.f_id) AS num_foods
+        FROM food_stuffs AS s
+          INNER JOIN food_categories AS c
+            ON (s.f_category_id = c.fc_id)
+        GROUP BY c.fc_title
+        ORDER BY fc_level ASC
+            ";
+        return $this->db->query($sql)->result();
     }
 
     /* إضافة تصنيف */

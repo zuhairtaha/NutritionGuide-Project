@@ -40,11 +40,12 @@ $(function () {
     }
 
     delMySelf = function () {
-        $("#imagesUpNames").val("");
+        var imagesUpNames = $("#imagesUpNames");
+        var deleteFileUrl = base_url + "upload/unlink/" + imagesUpNames.val();
+        imagesUpNames.val("");
         anim($("#uploadedImagesRow.row").find("div.col-sm-6.col-md-4"), 'rubberBand');
         /*
-         var imagesUpNames = $("#imagesUpNames");
-         var str           = imagesUpNames.val();
+         var str = imagesUpNames.val();
          var imgSrc        = $(this).data("img");
          var res           = str.replace(imgSrc, "");
          res               = res.replace(",,", ",");
@@ -53,6 +54,9 @@ $(function () {
          imagesUpNames.val(res);
          */
         allowUploadOneImage();
+        $.post(deleteFileUrl, function (data) {
+            console.log(data);
+        });
     };
 
     $('a.btn-info').tooltip();
@@ -128,7 +132,7 @@ $(function () {
 // ----------------- slider
 
     $(".bs-example-modal-lg").modal();
-    $("textarea").autogrow();
+    // $("textarea").autogrow();
 ////////////
     var myApp;
     myApp = myApp || (function () {
@@ -197,7 +201,7 @@ $(function () {
         $("#add_images").click();
     });
 
-    $(".logo").hover(function () {
+    $(".logo,.img-responsive").hover(function () {
         anim2($(this), 'flash');
     });
 // end sider;
@@ -643,8 +647,7 @@ $(function () {
         });
     });
 // ------------------------------------------
-    $(".pagination a,.pagination strong").addClass("btn btn-sm btn-default");
-    $(".pagination strong").addClass("active");
+
 // ------------------------------------------
 // التعليقات
     $('#commentTextarea').keypress(function (e) {
@@ -960,6 +963,8 @@ $(function () {
         }
     });
 // ------------------------------------------
+
+
 }); // end document ready function
 
 

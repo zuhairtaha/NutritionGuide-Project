@@ -43,7 +43,20 @@ class Users_model extends CI_Model
             return true;
         } else return false;
     }
-    // ------------------------------------------
 
+    // ------------------------------------------
+    function get_users()
+    {
+        $q = $this->db->get("users");
+        if ($q->num_rows() > 0) return $q->result();
+        else return false;
+    }
+
+    // ------------------------------------------
+    function get_countries()
+    {
+        $q = $this->db->get("country");
+        return $q->result();
+    }
 
 }

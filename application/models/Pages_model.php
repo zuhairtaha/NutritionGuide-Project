@@ -14,7 +14,7 @@ class Pages_model extends CI_Model
     function getPages()
     {
         $sql = "
-        SELECT *
+        SELECT page_id,page_title,page_created_at,page_level,page_updated_at
         FROM pages
         ORDER BY page_level ASC
       ";
@@ -46,6 +46,18 @@ class Pages_model extends CI_Model
     {
         $this->db->where('page_id', $id);
         $this->db->delete('pages');
+    }
+
+    /* جلب صفحة */
+    function getPage($id)
+    {
+        $sql = "
+        SELECT *
+        FROM pages
+        WHERE page_id<=>$id
+        ORDER BY page_level ASC
+      ";
+        return $this->db->query($sql)->result();
     }
 
 }

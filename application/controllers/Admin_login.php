@@ -6,7 +6,7 @@ class Admin_login extends CI_Controller
     function index($err = 0)
     {
         $data["err"] = $err;
-        $this->load->view('control/login', $data);
+        $this->load->view('control/users/login', $data);
     }
 
 // ------------------------------------------

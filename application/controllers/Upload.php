@@ -295,7 +295,13 @@ class Upload extends CI_Controller
         $this->admin_model->updatePhoto($id, $imgUrl);
     }
     // ------------------------------------------
+    /* حذف ملف */
+    function unlink($fileName)
+    {
+        $file      = './assets/uploads/' . $fileName;
+        $fileThumb = './assets/uploads/thumb_' . $fileName;
+        if (unlink($file) && unlink($fileThumb))
+            echo "deleted successfully";
+    }
 
 }
-
-?>

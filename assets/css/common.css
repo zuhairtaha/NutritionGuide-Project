@@ -88,3 +88,45 @@ button.list-group-item {
 }
 
 /* -------- spinner ---------------------------------- */
+.text-align-right {
+    text-align: right;
+}
+
+.float-right {
+    float: right !important;
+}
+
+.li-right .media {
+    direction: rtl;
+}
+
+.li-right .media-body {
+    text-align: right;
+}
+
+.one_line {
+    line-height: 1em;
+    overflow: hidden;
+    display: inline-block;
+    height: 1em;
+}
+
+.two-lines {
+    line-height: 1.3em;
+    overflow: hidden;
+    display: inline-block;
+    height: 2.6em
+}
+
+.margin-bottom-1 {
+    margin-bottom: 1em;
+}
+
+.align-justify {
+    text-align: justify;
+}
+
+.margin-bottom-0 {
+    margin-bottom: 0;
+}
+

@@ -79,7 +79,7 @@
         <script src="<?= base_url() ?>assets/js/Chart.min.js"></script>
         <div style="width:100%">
             <div>
-                <canvas width="1094" height="273" id="canvas" style="width: 1094px; height: 273px;"></canvas>
+                <canvas id="canvas" height="150" width="600"></canvas>
             </div>
         </div>
 
@@ -88,7 +88,7 @@
                 return Math.round(Math.random() * 100)
             };
             var lineChartData = {
-                labels: ["2016-04-18", "2016-04-17", "2016-04-16", "2016-04-15", "2016-04-14", "2016-04-13", "2016-04-12", "2016-04-11", "2016-04-10", "2016-04-09", "2016-04-08", "2016-04-07", "2016-04-06", "2016-04-05", "2016-04-04",],
+                labels: [<? foreach($hits as $h) echo '"'.$h->d.'",'; ?>],
                 datasets: [
                     {
                         label: "إحصائيات الزوار",
@@ -98,7 +98,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [32, 59, 71, 104, 50, 60, 64, 157, 95, 57, 126, 109, 66, 96, 137,]
+                        data: [<? foreach($hits as $h) echo $h->h.","; ?>]
                     },
                     {
                         label: "إحصائيات الزيارات",
@@ -108,14 +108,14 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [72, 114, 117, 225, 59, 91, 96, 242, 180, 127, 381, 214, 147, 187, 299,]
+                        data: [<? foreach($hits as $h) echo $h->h2.","; ?>]
                     }
                 ]
 
-            };
+            }
 
             window.onload = function () {
-                var ctx       = document.getElementById("canvas").getContext("2d");
+                var ctx = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx).Line(lineChartData, {
                     responsive: true
                 });
