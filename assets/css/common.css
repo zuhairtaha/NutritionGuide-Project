@@ -41,6 +41,11 @@ button.list-group-item {
     text-align: right;
 }
 
+.gray_color {
+    color: #97939b;
+    font-size: 0.85em;
+}
+
 /* -------- spinner كلاس للأيقونات الدوارة مثل جاري التحميل ... الخ -------------------------------- */
 /* <i class="glyphicon glyphicon-repeat spinner"></i> */
 .spinner {

@@ -45,6 +45,14 @@
     <!-- https://daneden.github.io/animate.css/ المصدر -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/animate.min.css"/>
 
+    <!-- إضافة جي كويري لعرض التاريخ بصيغة (منذ ... مضت) -->
+    <script src="<?= base_url() ?>assets/js/jquery.timeago.js"></script>
+    <script src="<?= base_url() ?>assets/js/jquery.timeago.ar.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $("time.timeago").timeago();
+        });
+    </script>
 
 </head>
 <body>
@@ -80,79 +88,81 @@
 
 
     <div class="row no-margin">
-        <div id="controlPanelMenu" class="col-md-2 col-sm-1 col-xs-1 control-list-col fullHeight">
-            <div class="list-group rtl right_control_list">
+        <div id="controlPanelMenu" class="col-md-2 col-sm-1 control-list-col fullHeight">
+            <div class="list-group rtl">
 
                 <!--   أقسام لوحة التحكم    -->
 
                 <a href="<?= base_url() ?>control" data-cat="index"
                    class="list-group-item no-border-radius ">
-                    <i class="ti-bar-chart cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">الرئيسة</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-bar-chart"></i>
+                    <span class="rightMenuText">الرئيسة</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
                 <a href="<?= base_url() ?>control/food_categories" data-cat="food_categories"
                    class="cPanelMenuAnchor list-group-item no-border-radius">
-                    <i class="fa fa-cutlery cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">تصنيفات الأغذية </span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="fa fa-cutlery"></i>
+                    <span class="rightMenuText">تصنيفات الأغذية </span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
                 <a href="<?= base_url() ?>control/food_stuffs" data-cat="food_stuffs,edit_food_stuff"
                    class=" list-group-item no-border-radius">
-                    <i class="ti-apple cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">المواد الغذائية</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-apple"></i>
+                    <span class="rightMenuText">المواد الغذائية</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
                 <a href="<?= base_url() ?>control/parts" data-cat="parts"
                    class="list-group-item no-border-radius">
-                    <i class="ti-view-list cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">أقسام الموقع</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-view-list"></i>
+                    <span class="rightMenuText">أقسام الموقع</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>control/posts" data-cat="posts"
+                <a href="<?= base_url() ?>control/posts" data-cat="posts,edit_post"
                    class="list-group-item no-border-radius">
-                    <i class="ti-pencil-alt cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">المقالات</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-pencil-alt"></i>
+                    <span class="rightMenuText">المقالات</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
                 <a href="<?= base_url() ?>control/comments" data-cat="comments"
                    class="list-group-item no-border-radius">
-                    <i class="ti-comments cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">التعليقات</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-comments"></i>
+                    <span class="rightMenuText">التعليقات</span>
+                    <? if ($new_comments) { ?>
+                        <span id="new_comments" class="badge"><?=$new_comments?></span>
+                    <? } else { ?>
+                        <i class="ti-angle-left pull-left"></i>
+                    <? } ?>
                 </a>
 
                 <a href="<?= base_url() ?>control/pages" data-cat="pages"
                    class="list-group-item no-border-radius">
-                    <i class="ti-files cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">الصفحات</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-files"></i>
+                    <span class="rightMenuText">الصفحات</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
-                <a href="<?= base_url() ?>control/users" data-cat="users"
+                <a href="<?= base_url() ?>control/users" data-cat="users,edit_user"
                    class="list-group-item no-border-radius">
-                    <i class="ti-user cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">الأعضاء</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="ti-user"></i>
+                    <span class="rightMenuText">الأعضاء</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
 
                 <a href="<?= base_url() ?>control/options" data-cat="options"
                    class="cPanelMenuAnchor list-group-item no-border-radius">
-                    <i class="fa fa-cogs cpanel_part_icon"></i>
-                    <span class="visible-lg visible-md ">إعدادات</span>
-                    <i class="ti-angle-left pull-left visible-lg visible-md"></i>
+                    <i class="fa fa-cogs"></i>
+                    <span class="rightMenuText">إعدادات</span>
+                    <i class="ti-angle-left pull-left"></i>
                 </a>
-
-
 
 
             </div>
 
         </div>
-        <div class="col-md-10 col-sm-11 col-xs-11 " id="controlPanelContent">
+        <div class="col-md-10 col-sm-11" id="controlPanelContent">
 

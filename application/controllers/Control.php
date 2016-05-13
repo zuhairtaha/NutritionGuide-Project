@@ -7,11 +7,8 @@ class Control extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
         $data = array('lang' => 'ar');
         $this->session->set_userdata($data);
-
-
         $c1 = false;
         $c2 = false;
         if (current_url() == base_url("control/up1") || current_url() == base_url("control/up2") || current_url() == base_url("usercp")) $c1 = true;
@@ -24,8 +21,10 @@ class Control extends CI_Controller
     /* الهيدر */
     function header($title = "لوحة تحكم موقع الدليل الغذائي")
     {
-        $data['title'] = $title;
-        // جلب رابط الصفحة الحالية وتمريره إلى متغير في جافا سكربت بهدف تلوين خلفية زر الصحفة التي نحن فيها عن طريق جي كويري
+        $this->load->model("posts_model");
+        $data['new_comments'] = $this->posts_model->count_new_comments();
+        $data['title']        = $title;
+        /* جلب رابط الصفحة الحالية وتمريره إلى متغير في جافا سكربت بهدف تلوين خلفية زر الصحفة التي نحن فيها عن طريق جي كويري */
         $data['segment1'] = $this->uri->segment(2) ? $this->uri->segment(2) : "index";
         $this->load->view('control/template/header', $data);
     }
@@ -43,14 +42,17 @@ class Control extends CI_Controller
     public function index()
     {
         $this->load->model('options_model');
-        $data['hits']   = $this->options_model->get_statistics();
-        $data['online'] = $this->options_model->online();
+
+        $data['hits']           = $this->options_model->get_statistics();
+        $data['online']         = $this->options_model->online();
+        $data['users_count']    = $this->options_model->users_count();
+        $data['posts_count']    = $this->options_model->posts_count();
+        $data['comments_count'] = $this->options_model->comments_count();
+
         $this->header("لوحة التحكم | إحصائيات");
         $this->load->view('control/statistics', $data);
         $this->footer();
-
     }
-
     // =============================================================================
 
     // صفحة الإعدادات : اسم الموقع وروابط الصحفات الاجتماعية
@@ -74,7 +76,6 @@ class Control extends CI_Controller
             'facebook'         => $this->input->post('facebook'),
             'twitter'          => $this->input->post('twitter'),
             'youtube'          => $this->input->post('youtube')
-
         ];
         $this->options_model->update_options($ins_data);
         redirect($this->input->server('HTTP_REFERER')); // الرجعوع للصفحة السابقة
@@ -300,7 +301,6 @@ class Control extends CI_Controller
     }
 
     // ------------------------------------------
-
     /* تعديل قسم */
     function update_part($id)
     {
@@ -404,15 +404,24 @@ class Control extends CI_Controller
         $this->posts_model->delete_post($id);
     }
 
-// ------------------------------------------
-    /* جلب محتوى مقال */
-    function get_post_by_id($id)
-    {
-        $this->load->model("posts_model");
-        echo $this->posts_model->get_post_by_id($id);
-    }
-
     // ------------------------------------------
+    /* فورم تعديل مقال */
+    function edit_post($post_id)
+    {
+        $this->load->model("parts_model");
+        $this->load->model("posts_model");
+
+        $data['post_id'] = $post_id;
+        $data['parts']   = $this->parts_model->get_parts();
+        $data['post']    = $this->posts_model->get_post_by_id($post_id);
+
+        $this->header("تعديل " . $data['post'][0]->post_title);
+        $this->load->view('control/posts/edit', $data);
+        $this->footer();
+
+    }
+    // ------------------------------------------
+
     /* تعديل مقال */
     function update_post($id)
     {
@@ -431,10 +440,52 @@ class Control extends CI_Controller
 
     // =============================================================================
     /* التعليقات */
-    function comments()
+    function comments($offset = 0)
     {
+        $this->load->model("posts_model");
+
+        $this->load->library('pagination');
+        $config['base_url']         = base_url() . "control/comments/";
+        $config['per_page']         = 6;
+        $limit                      = $config['per_page'];
+        $config['num_links']        = 6;
+        $data['comments']           = $this->posts_model->get_all_comments($offset, $limit);
+        $totalRows                  = $this->posts_model->comments_count();
+        $config['total_rows']       = $totalRows;
+        $config['full_tag_open']    = "<ul class='pagination'>";
+        $config['full_tag_close']   = "</ul>";
+        $config['num_tag_open']     = '<li>';
+        $config['num_tag_close']    = '</li>';
+        $config['cur_tag_open']     = "<li class='disabled'><li class='active'><a href='#'>";
+        $config['cur_tag_close']    = "<span class='sr-only'></span></a></li>";
+        $config['next_tag_open']    = "<li>";
+        $config['next_tagl_close']  = "</li>";
+        $config['prev_tag_open']    = "<li>";
+        $config['prev_tagl_close']  = "</li>";
+        $config['first_tag_open']   = "<li>";
+        $config['first_tagl_close'] = "</li>";
+        $config['last_tag_open']    = "<li>";
+        $config['last_tagl_close']  = "</li>";
+
+        $this->pagination->initialize($config);
+
         $this->header("التعليقات");
+        $this->load->view('control/posts/comments', $data);
         $this->footer();
+    }
+    // ------------------------------------------
+    /* حذف تعليق */
+    function delete_comment($id)
+    {
+        $this->load->model("posts_model");
+        $this->posts_model->delete_comment($id);
+    }
+    // ------------------------------------------
+    /* تبديل حالة تعليق: موافق أو غير موافق */
+    function approve_comment($id)
+    {
+        $this->load->model("posts_model");
+        $this->posts_model->approve_comment($id);
     }
     // =============================================================================
     /* لوحة الإدارة .. الصفحات (محتوى صفحات مثل صفحة الهرم الغذائي, من نحن, ... الخ) */
@@ -504,13 +555,39 @@ class Control extends CI_Controller
         $this->load->view("control/users/view", $data);
         $this->footer();
     }
+    // ------------------------------------------
+    /* فورم تعديل بيانات عضو */
+    function edit_user($id)
+    {
+        $this->load->model("users_model");
+        $data['user'] = $this->users_model->get_user($id);
+        $this->header("تعديل بيانات عضو");
+        $this->load->view("control/users/edit", $data);
+        $this->footer();
+    }
+
+    /* تعديل بيانات عضو */
+    function update_user()
+    {
+        if ($_POST) {
+            $user_id = $this->input->post('user_id');
+            $data    = [
+                "user_name"         => $this->input->post('user_name'),
+                "user_email"        => $this->input->post('user_email'),
+                "user_phone_number" => $this->input->post('user_phone_number'),
+                "user_about"        => $this->input->post('user_about'),
+            ];
+            $this->load->model("users_model");
+            $this->users_model->update_user($data, $user_id);
+
+        } else redirect($_SERVER["HTTP_REFERER"]);
+    }
 
     // ------------------------------------------
     function logout()
     {
         $this->session->sess_destroy();
         redirect($_SERVER["HTTP_REFERER"]);
-
     }
     // =============================================================================
     /* التعليقات */

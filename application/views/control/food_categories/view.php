@@ -50,7 +50,7 @@
             <!-- الترتيب -->
             <td><?= $fc->fc_level ?></td>
             <!-- العنوان -->
-            <td><a target="_blank" href="<?= base_url() ?>n-<?= $fc->fc_id ?>">
+            <td><a target="_blank" href="<?= base_url() ?>category/<?= $fc->fc_id ?>">
                     <!-- الصورة -->
                     <img class="img-rounded" style="width:1.5em"
                          src="<?= base_url("assets/uploads/thumb_" . $fc->fc_image) ?>" alt=""/>

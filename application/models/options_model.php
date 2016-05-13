@@ -61,4 +61,20 @@ class options_model extends CI_Model
 
     }
 
+    /* إحصاء عدد الأعضاء */
+    function users_count()
+    {
+        return $this->db->count_all_results('users');
+    }
+
+    /* إحصاء عدد المقالات */
+    function posts_count(){
+        return $this->db->count_all_results('posts');
+    }
+
+    /* إحصاء عدد التعليقات */
+    function comments_count(){
+        return $this->db->count_all_results('comments');
+    }
+
 }

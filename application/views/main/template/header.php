@@ -8,8 +8,12 @@
         echo $T;
         ?>
     </title>
-    <!-- jQuery -->
+    <!-- jQuery مكتبة جي كويري -->
     <script src="<?= base_url() ?>assets/js/jquery-1.9.1.min.js"></script>
+
+    <!-- slick slider مكتبة سلايدشو أفقي -->
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick-theme.css"/>
 
     <!-- bootstrap + theme + rtl support -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap-3.3.6/css/bootstrap.min.css"/>
@@ -19,15 +23,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <!-- jQuery form (ajax forms) -->
+    <!-- jQuery form (ajax forms) مكتبة تعتمد على جي كويري لتفعيل الأجاكس على النماذج (فورم -->
     <script src="<?= base_url() ?>assets/js/jquery.form.js"></script>
     <!-- custom js -->
 
-
-    <!-- font awesome / icons -->
+    <!-- font awesome / icons مكتبة أيقونات الخطوط الشهيرة -->
     <link rel='stylesheet' href='<?= base_url() ?>assets/font-awesome-4.6.1/css/font-awesome.min.css' type='text/css'/>
-    <!-- themify-icons -->
+
+    <!-- themify-icons مكتبة أيقونات خطوط -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/themify-icons/themify-icons.css">
+
     <!--[if lt IE 8]><!-->
     <link rel="stylesheet" href="<?= base_url() ?>assets/themify-icons/ie7/ie7.css">
     <!--<![endif]-->
@@ -48,10 +53,6 @@
     <!-- https://daneden.github.io/animate.css/ المصدر -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/animate.min.css"/>
 
-    <!-- slick slider مكتبة شو أفقي -->
-
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick-theme.css"/>
 
     <!-- أيقونة الموقع -->
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/img/home_favicon.ico">
@@ -68,7 +69,8 @@
             $("time.timeago").timeago();
         });
     </script>
-
+    <!-- RSS feed -->
+    <link rel="alternate" type="application/rss+xml" title="" href="<?= base_url() ?>rss"/>
 </head>
 <body>
 
@@ -94,10 +96,116 @@
                 <div class="collapse navbar-collapse" id="users-navbar-collapse">
 
                     <ul class="nav navbar-nav">
-                        <li><a id="register-new-user" href="<?=base_url()?>welcome/register"> <i class="fa fa-user-plus"></i> تسجيل عضوية جديدة </a></li>
-                        <li><a id="user-log-in" href="#"> <i class="fa fa-sign-in"></i> تسجيل الدخول </a></li>
+                        <? if ($this->session->logged_in) { ?>
+
+                            <li>
+                                <a href="#"> أهلاً بك
+                                    <i class="fa fa-user"></i> <?= $this->session->user_name ?></a>
+                            </li>
+
+                            <? if ($this->session->user_role == "admin") { ?>
+                                <li>
+                                    <a target="_blank" href="<?= base_url() ?>control"><i class="fa fa-dashboard"></i>
+                                        لوحة تحكم الموقع</a>
+                                </li>
+                            <? } // end if session->user_role=="admin" ?>
+
+                            <!-- زر تفعيل العضوية -->
+                            <? if (!$this->session->user_active): ?>
+                                <li><a href="<?=base_url()?>active_page"><i class="ti-check"></i> تفعيل عضويتك</a></li>
+                            <? endif; ?>
+                            <li>
+                                <a href="<?= base_url() ?>logout"><i class="fa fa-sign-out"></i> تسجيل الخروج</a>
+                            </li>
+
+                        <? } else { ?>
+                            <li><a id="register-new-user" href="<?= base_url() ?>register"> <i
+                                        class="fa fa-user-plus"></i> تسجيل عضوية جديدة </a></li>
+                            <li><a id="user-login-anchor" href="<?= base_url() ?>login"> <i class="fa fa-sign-in"></i>
+                                    تسجيل الدخول </a></li>
+                        <? } ?>
                     </ul>
 
+                    <!-- مودال تسجيل الدخول -->
+                    <div id="login_modal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header margin-bottom-0 alert alert-warning">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title"> تسجيل الدخول</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="login_info"></p>
+
+                                    <form id="login_form" class="form" method="post" accept-charset="utf-8"
+                                          action="<?= base_url() ?>login">
+
+                                        <div class="form-group">
+                                            <label for="user_name"><i class="fa fa-user"></i> اسم المستخدم</label>
+                                            <input type="text" placeholder="اسم المستخدم" name="user_name"
+                                                   id="user_name" class="form-control" value="">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="user_password"><i class="fa fa-key"></i> كلمة المرور</label>
+                                            <input type="password" placeholder="كلمة المرور" name="user_password"
+                                                   id="user_password" class="form-control" value="">
+                                        </div>
+
+                                        <button class="btn btn-success btn-lg btn-block" type="submit"><i
+                                                class="fa fa-sign-in"></i> دخول
+                                        </button>
+
+
+                                    </form>
+
+                                    <p class="btn btn-link" data-toggle="modal" data-target="#myModal"><i
+                                            class="ti-lock"></i> نسيت كلمة المرور </p>
+
+
+                                </div>
+
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+
+
+                    <!-- مودال تسجيل الدخول -->
+
+                    <!-- بداية مودال نسيت كلمة المرور -->
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">أدخل بريدك الالكتروني ليتم إرسال كلمة المرور </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p id="notes"></p>
+
+                                    <form id="restPassForm" class="form" action="<?= base_url() ?>admin_login/reset"
+                                          method="post">
+                                        <input class="form-control" type="email" placeholder="بريدك الالكتروني"
+                                               name="email1"/><br/>
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                            إرسال
+                                        </button>
+                                    </form>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- نهاية مودال نسيت كلمة المرور -->
 
                     <!-- مودال البحث -->
                     <div id="search_modal" class="modal fade categoriesModal-lg" tabindex="-1" role="dialog">
@@ -165,7 +273,6 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
 
-
                     <!-- نهاية مودال البحث -->
 
 
@@ -191,8 +298,8 @@
     <h2 class="visible-xs logo_text"><?= $options[0]->site_name ?></h2>
 
     <!-- الشريط الأسود العلوي -->
-    <div class="row">
-        <nav class="navbar navbar-inverse no-border-radius">
+    <div class="row" id="blackNav_row">
+        <nav id="black_nav" class="navbar navbar-inverse no-border-radius">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -212,7 +319,8 @@
 
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="<?= base_url() ?>categories" class="dropdown-toggle" data-toggle="dropdown"
+                               role="button"
                                aria-haspopup="true" aria-expanded="false"><i class="fa fa-cutlery"></i>
                                 التصنيفات الغذائية <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -226,7 +334,8 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="<?= base_url() ?>parts" class="dropdown-toggle" data-toggle="dropdown"
+                               role="button"
                                aria-haspopup="true" aria-expanded="false"><i class="fa fa-list"></i>
                                 أقسام الموقع <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -235,6 +344,8 @@
                                         <a href="<?= base_url() ?>part/<?= $part->part_id ?>"><?= $part->part_title ?></a>
                                     </li>
                                 <? endforeach; ?>
+                                <!-- <li role="separator" class="divider"></li> -->
+
 
                             </ul>
                         </li>
@@ -244,7 +355,15 @@
                             <li class="visible-lg"><a href="<?= base_url() ?>page/<?= $page->page_id ?>">
                                     <i class="fa fa-file-text-o"></i> <?= $page->page_title ?></a></li>
                         <? endforeach; ?>
-                        <li class="visible-lg"><a href="<?= base_url() ?>contact_us"><i class="glyphicon glyphicon-envelope"></i> اتصل
+
+                        <li>
+                            <a class="visible-lg" href="<?= base_url() ?>BMI"><i class="glyphicon glyphicon-heart"></i>
+                                الوضع الصحي</a>
+                        </li>
+
+
+                        <li class="visible-lg"><a href="<?= base_url() ?>contact_us"><i
+                                    class="glyphicon glyphicon-envelope"></i> اتصل
                                 بنا</a></li>
 
 
@@ -259,7 +378,9 @@
                                         <a href="<?= base_url() ?>page/<?= $page->page_id ?>"><?= $page->page_title ?></a>
                                     </li>
                                 <? endforeach; ?>
-
+                                <li>
+                                    <a href="<?= base_url() ?>BMI"><i class="glyphicon glyphicon-heart"></i> الوضع الصحي</a>
+                                </li>
                             </ul>
                         </li>
 

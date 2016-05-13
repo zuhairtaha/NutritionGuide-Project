@@ -1,11 +1,4 @@
-<!-- إضافة جي كويري لعرض التاريخ بصيغة (منذ ... مضت) -->
-<script src="<?= base_url() ?>assets/js/jquery.timeago.js"></script>
-<script src="<?= base_url() ?>assets/js/jquery.timeago.ar.js"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        $("time.timeago").timeago();
-    });
-</script>
+
 
 
 <ol class="breadcrumb">
@@ -38,7 +31,7 @@
                     <h4 class="media-heading">
 
                         <!-- العنوان -->
-                        <a href="<?= base_url() . $p->post_id ?>"><i clas="ti-pencil-alt"></i> <?= $p->post_title ?>
+                        <a href="<?= base_url() . $p->post_id ?>"><i class="ti-pencil-alt"></i> <?= $p->post_title ?>
                         </a>
                     </h4>
 

@@ -2,6 +2,8 @@
 <script src="<?= base_url() ?>assets/bootstrap-3.3.6/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
 <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap-3.3.6/bootstrap-tagsinput/bootstrap-tagsinput.css">
 
+<div style="text-align: center;">test</div>
+
 
 <!-- upload form -------------- -->
 <form class="hide" action="<?= base_url() ?>upload/uploadMultiImgs" id="imgsUpForm" enctype="multipart/form-data"
@@ -81,7 +83,7 @@
 
                     <!-- الكلمات الدلالية / المفتاحية -->
                     <div class="form-group">
-                        <label for="post_tags"><i class="fa fa-tags"></i> الكلمات المفتاحية: <span class="label_info"> (ضع فاصلة , بين الكلمات) </span></label>
+                        <label for="post_tags"><i class="fa fa-tags"></i> الكلمات المفتاحية: <span class="label_info"> (ضع فاصلة بين الكلمات) </span></label>
                         <input data-role="tagsinput" type="text" class="form-control" id="post_tags" name="post_tags">
                     </div>
 
@@ -101,10 +103,10 @@
     <tr>
         <th>#</th>
         <th>العنوان</th>
-        <th>القسم</th>
-        <th>الكاتب</th>
-        <th>التاريخ</th>
-        <th>المشاهدات</th>
+        <th class="visible-lg visible-md visible-sm">القسم</th>
+        <th class="visible-lg visible-md">الكاتب</th>
+        <th class="visible-lg visible-md">التاريخ</th>
+        <th class="visible-lg visible-md">المشاهدات</th>
         <th>التحكم</th>
     </tr>
     <? foreach ($posts as $p): ?>
@@ -114,26 +116,26 @@
 
             <!-- العنوان -->
             <td>
-                <a target="_blank" href="<?= base_url() ?>n-<?= $p->post_id ?>">
+                <a target="_blank" href="<?= base_url() ?><?= $p->post_id ?>">
                     <i class="ti-pencil-alt"></i> <?= $p->post_title ?>
                 </a>
             </td>
 
             <!-- القسم -->
-            <td><i class="ti-view-list"></i> <?= $p->part_title ?> </td>
+            <td class="visible-lg visible-md visible-sm"><i class="ti-view-list"></i> <?= $p->part_title ?> </td>
 
             <!-- الكاتب -->
-            <td><i class="ti-user"></i> <?= $p->user_name ?> </td>
+            <td class="visible-lg visible-md"><i class="ti-user pull-right"></i>&nbsp;<?= $p->user_name ?> </td>
 
             <!-- تاريخ الإضافة -->
-            <td>
-                <i class="ti-calendar"></i>
+            <td class="visible-lg visible-md">
+                <i class="ti-alarm-clock pull-right"></i>&nbsp;
                 <time class="timeago" datetime="<?= $p->post_date ?>"><?= $p->post_date ?></time>
             </td>
 
             <!-- المشاهدات -->
-            <td>
-                <i class="ti-eye"></i> <?= $p->post_visits ?>
+            <td class="visible-lg visible-md">
+                <i class="ti-eye pull-right"></i>&nbsp; <?= $p->post_visits ?>
             </td>
             <td>
                 <!-- زر الحذف -->
@@ -142,14 +144,10 @@
                         class="glyphicon glyphicon-trash"></i></a>
 
                 <!-- زر التعديل -->
-                <button data-title="<?= $p->post_title ?>"
-                        data-id="<?= $p->post_id ?>"
-                        data-part_id="<?= $p->post_part_id ?>"
-                        data-tags="<?= $p->post_tags ?>"
-                        class="btn btn-xs btn-warning edit_post"
-                        data-toggle="modal" data-target="#edit_post_modal">
+
+                <a href="<?= base_url() ?>control/edit_post/<?= $p->post_id ?>" class="btn btn-xs btn-warning">
                     <i class="ti-pencil-alt"></i>
-                </button>
+                </a>
 
             </td>
 
@@ -165,85 +163,6 @@
         <?= $this->pagination->create_links() ?>
     </div>
 </div>
-
-
-<!-- بداية مودال تعديل المقال -->
-
-<div class="modal fade" id="edit_post_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div style="margin-bottom: 0;" class="modal-header alert alert-warning">
-                <button aria-label="Close" data-dismiss="modal" class="close" type="button">
-                    <span aria-hidden="true">×</span></button>
-                <h4 id="myLargeModalLabel" class="modal-title"><i class="glyphicon glyphicon-plus"></i> تعديل مقال
-                </h4></div>
-            <div style="padding: 1em;">
-                <form role="form" id="edit_post_form" action="<?= base_url() ?>control/edit_post" method="post">
-
-                    <div class="row">
-                        <div class="col-md-6"><input type="text" class="form-control" id="post_title_edit"
-                                                     name="post_title_edit" placeholder="عنوان المقال"/></div>
-                        <div class="col-md-6">
-
-                            <!-- الأقسام -->
-                            <select name="post_part_edi" id="post_part_edit" class="form-control">
-                                <option disabled="disabled" selected="selected" value="0">اختر القسم</option>
-                                <? foreach ($parts as $part): ?>
-                                    <option value="<?= $part->part_id ?>"><?= $part->part_title ?></option>
-                                <? endforeach; ?>
-                            </select>
-
-                        </div>
-
-
-                    </div>
-
-                    <!-- تحميل الصور -->
-                    <p style="margin:0.5em 0" title="لرفع الصور فقط" id="visibleUpImgsBtn" class="btn btn-success">
-                        <i id="upIcon" class="ti-upload"></i> رفع الصور <span id="upPercent">(0%)</span></p>
-                    <script> var uploadPath = "<?=base_url()?>assets/uploads/"; </script>
-
-                    <!-- / تحميل الصور -->
-
-                    <!--   محتوى المقال -->
-                    <!-- include summernote -->
-
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $('.summernote_edit').summernote({
-                                height: 150,
-                                tabsize: 2,
-                                direction: 'rtl',
-                                lang: 'ar-AR'
-                            });
-                        });
-                    </script>
-                    <textarea form="edit_post_form" title="ضع المقال هنا" name="post_content_edit"
-                              id="post_content_edit"
-                              class="summernote_edit"></textarea>
-                    <!-- / محتوى المقال -->
-
-                    <!-- الكلمات الدلالية / المفتاحية -->
-                    <div class="form-group">
-                        <label for="post_tags_edit"><i class="fa fa-tags"></i> الكلمات المفتاحية: <span
-                                class="label_info"> (ضع فاصلة , بين الكلمات) </span></label>
-                        <input data-role="tagsinput" type="text" class="form-control" id="post_tags_edit"
-                               name="post_tags_edit"/>
-                    </div>
-
-                    <!-- آي دي الكاتب -->
-                    <input type="hidden" name="author_id" value="<?= $this->session->user_id ?>"/>
-
-                    <button type="submit" class="btn btn-primary btn-block"><i
-                            class="ti-save"></i> حفظ
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- نهاية مودال تعديل المقال -->
 
 
 <script src="<?= base_url() . 'assets/js/' ?>upImgs.js"></script>

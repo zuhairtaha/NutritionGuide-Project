@@ -63,6 +63,14 @@ $route['(:num)']               = "welcome/post/$1";
 $route['categories']           = "welcome/categories";
 $route['parts']                = "welcome/parts";
 $route['search']               = "welcome/search";
+$route['register']             = "welcome/register";
+$route['logout']               = "welcome/logout";
+$route['login']                = "welcome/login";
+$route['add_comment']          = "welcome/add_comment";
+$route['rss']                  = "welcome/rss";
+$route['BMI']                  = "welcome/BMI";
+$route['active_page']          = "welcome/active_page";
+$route['active']          = "welcome/active";
 /*
 $route['search/(:any)']        = "welcome/search/$1";
 $route['search/(:any)/(:any)'] = "welcome/search/$1/$2";

@@ -117,7 +117,7 @@
     <? endfor; ?>
 
     <? for ($i = 4; $i < sizeof($parts); $i++): ?>
-        <div class="col-lg-4 col-sm-6 col-xs-12">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
             <div class="media margin-bottom-1">
                 <div class="media-left">
                     <a href="<?= base_url() . "category/" . $parts[$i]->part_id ?>">
@@ -252,58 +252,104 @@
 
 
 <!-- ---------------------------------------------------------------------------------------- -->
+<div class="row">
+    <div class="col-md-8">
 
 
-<!-- آخر المستجدات -->
-<h3 class="cat-title"><i class="fa fa-star"></i> آخر المستجدات </h3>
+        <!-- آخر المستجدات -->
 
-<p class="cat-title-after"></p>
-<ul class="nav nav-tabs last_news_tabs">
-    <li role="presentation" data-target="last_post_ul" class="active"><a href="#">
-            <i class="visible-xs fa fa-flag"></i>
-            <span class="visible-lg visible-md visible-sm"><i class="fa fa-flag"></i> آخر المقالات</span>
-        </a></li>
-    <li role="presentation" data-target="most_read_posts_ul"><a href="#">
-            <i class="visible-xs fa fa-newspaper-o"></i>
-            <span class="visible-lg visible-md visible-sm"><i class="fa fa-newspaper-o"></i> الأكثر قراءة</span>
-        </a></li>
-    <li role="presentation" data-target="last_comments_ul"><a href="#">
-            <i class="visible-xs fa fa-comments-o"></i>
-            <span class="visible-lg visible-md visible-sm"><i class="fa fa-comments-o"></i> آخر التعليقات</span>
-        </a>
-    </li>
-</ul>
+        <h3 class="cat-title"><i class="fa fa-star"></i> آخر المستجدات </h3>
 
-<ul class="last_ul_list" id="last_post_ul">
-    <? foreach ($last_posts as $last_post): ?>
-        <li>
-            <a href="<?= base_url() ?><?= $last_post->post_id ?>"><?= $last_post->post_title ?></a>
+        <p class="cat-title-after"></p>
+        <ul class="nav nav-tabs last_news_tabs">
+            <li role="presentation" data-target="last_post_ul" class="active"><a href="#">
+                    <i class="visible-xs fa fa-flag"></i>
+                    <span class="visible-lg visible-md visible-sm"><i class="fa fa-flag"></i> آخر المقالات</span>
+                </a></li>
+            <li role="presentation" data-target="most_read_posts_ul"><a href="#">
+                    <i class="visible-xs fa fa-newspaper-o"></i>
+                    <span class="visible-lg visible-md visible-sm"><i class="fa fa-newspaper-o"></i> الأكثر قراءة</span>
+                </a></li>
+            <li role="presentation" data-target="last_comments_ul"><a href="#">
+                    <i class="visible-xs fa fa-comments-o"></i>
+                    <span class="visible-lg visible-md visible-sm"><i class="fa fa-comments-o"></i> آخر التعليقات</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="last_ul_list" id="last_post_ul">
+            <? foreach ($last_posts as $last_post): ?>
+                <li>
+                    <a href="<?= base_url() ?><?= $last_post->post_id ?>"><?= $last_post->post_title ?></a>
             <span class="gray_color">, <i class="ti-time"></i>
                 <time class="timeago" datetime="<?= $last_post->post_date ?>"><?= $last_post->post_date ?></time>
             </span>
 
 
-        </li>
-    <? endforeach; ?>
-</ul>
+                </li>
+            <? endforeach; ?>
+        </ul>
 
-<ul class="last_ul_list hide" id="most_read_posts_ul">
-    <? foreach ($most_read_posts as $most_read_post): ?>
-        <li>
-            <a href="<?= base_url() ?><?= $most_read_post->post_id ?>"><?= $most_read_post->post_title ?></a>
-            <span class="gray_color">, <i class="fa fa-eye"></i> <?= $most_read_post->post_visits ?></span>
-        </li>
-    <? endforeach; ?>
-</ul>
+        <ul class="last_ul_list hide" id="most_read_posts_ul">
+            <? foreach ($most_read_posts as $most_read_post): ?>
+                <li>
+                    <a href="<?= base_url() ?><?= $most_read_post->post_id ?>"><?= $most_read_post->post_title ?></a>
+                    <span class="gray_color">, <i class="fa fa-eye"></i> <?= $most_read_post->post_visits ?></span>
+                </li>
+            <? endforeach; ?>
+        </ul>
 
-<ul class="last_ul_list hide" id="last_comments_ul">
-    <li>comment 1</li>
-    <li>comment 2</li>
-    <li>comment 3</li>
-    <li>comment 4</li>
-    <li>comment 4</li>
-    <li>comment 6</li>
-</ul>
-<!-- نهاية آخر المستجدات -->
-<!-- ---------------------------------------------------------------------------------------- -->
+        <ul class="last_ul_list hide" id="last_comments_ul">
+            <? foreach ($last_comments as $comment): ?>
+                <li><?= strip_tags($comment->comment_content) ?> ,على مقال
+                    <a href="<?= $comment->comment_post_id ?>"><?= $comment->post_title ?></a>
+                    <span class="gray_color"> <i class="ti-user"></i> <?= $comment->user_name ?>
+                        ,
+                <time class="timeago" datetime="<?= $comment->comment_date ?>"><?= $comment->comment_date ?></time>
+            </span>
+                </li>
+            <? endforeach; ?>
+        </ul>
+        <!-- نهاية آخر المستجدات -->
+        <!-- ---------------------------------------------------------------------------------------- -->
 
+    </div>
+    <div class="col-md-4">
+
+        <h3 class="cat-title"><i class="fa fa-thumbs-up"></i> تابعنا عبر </h3>
+        <p class="cat-title-after"></p>
+
+        <p>
+            <!-- صندوق فيس بوك -->
+
+        <div id="fb-root"></div>
+        <script>(function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js     = d.createElement(s);
+                js.id  = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=490083544529665";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div class="fb-page" data-href="http://facebook.com/nitritionguide" data-small-header="true"
+             data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true">
+            <div class="fb-xfbml-parse-ignore">
+                <blockquote cite="http://facebook.com/nitritionguide"><a href="http://facebook.com/nitritionguide">
+                        <i class="fa fa-refresh fa-spin fa-2x fa-fw margin-bottom"></i>
+                        <span class="sr-only">Loading...</span> صفحتنا على فيس بوك
+                    </a></blockquote>
+            </div>
+        </div>
+        <!-- نهاية صندوق فيس بوك -->
+        </p>
+
+        <p>
+            <a href="<?= base_url() ?>assets/com_nitritionguide_com.apk" class="btn btn-primary">
+                <i class="fa fa-android"></i> تحميل تطبيق أندرويد
+            </a>
+        </p>
+
+    </div>
+</div>
+<!--  -------------------------------------------------------------------- -->

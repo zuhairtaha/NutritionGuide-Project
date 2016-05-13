@@ -7,12 +7,12 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <?php echo(rand(10,100)); ?>
+                    <?=$comments_count?>
                 </div>
                 <div class="desc"> التعليقات
                 </div>
             </div>
-            <a class="more leftText" href="posts"> تفاصيل
+            <a class="more leftText" href="<?=base_url()?>control/comments"> تفاصيل
                 <i class="glyphicon glyphicon-chevron-right pull-right"></i>
             </a>
         </div>
@@ -23,11 +23,11 @@
             <div class="visual"><i class="ti-pencil-alt"></i></div>
             <div class="details">
                 <div class="number">
-                    <?php echo(rand(10,100)); ?>
+                    <?=$posts_count?>
                 </div>
-                <div class="desc"> عدد المنشورات</div>
+                <div class="desc"> عدد المقالات</div>
             </div>
-            <a class="more leftText" href="members"> تفاصيل
+            <a class="more leftText" href="<?=base_url()?>control/posts"> تفاصيل
                 <i class="glyphicon glyphicon-chevron-right pull-right"></i>
             </a>
         </div>
@@ -40,11 +40,11 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <?php echo(rand(10,100)); ?>
+                    <?= $users_count ?>
                 </div>
                 <div class="desc"> عدد الأعضاء</div>
             </div>
-            <a class="more leftText" href="posts"> تفاصيل
+            <a class="more leftText" href="<?=base_url()?>control/users"> تفاصيل
                 <i class="glyphicon glyphicon-chevron-right pull-right"></i>
             </a>
         </div>
@@ -57,12 +57,12 @@
             </div>
             <div class="details">
                 <div class="number">
-                    <?php echo(rand(10,100)); ?>
+                    <?= $online[0]->online ?>
                 </div>
                 <div class="desc"> المتواجدون الآن
                 </div>
             </div>
-            <a class="more leftText" href="posts"> تفاصيل
+            <a class="more leftText" href="<?=base_url()?>control/users"> تفاصيل
                 <i class="glyphicon glyphicon-chevron-right pull-right"></i>
             </a>
         </div>
@@ -88,7 +88,7 @@
                 return Math.round(Math.random() * 100)
             };
             var lineChartData = {
-                labels: [<? foreach($hits as $h) echo '"'.$h->d.'",'; ?>],
+                labels: [<? foreach ($hits as $h) echo '"' . $h->d . '",'; ?>],
                 datasets: [
                     {
                         label: "إحصائيات الزوار",
@@ -98,7 +98,7 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
-                        data: [<? foreach($hits as $h) echo $h->h.","; ?>]
+                        data: [<? foreach ($hits as $h) echo $h->h . ","; ?>]
                     },
                     {
                         label: "إحصائيات الزيارات",
@@ -108,14 +108,14 @@
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(151,187,205,1)",
-                        data: [<? foreach($hits as $h) echo $h->h2.","; ?>]
+                        data: [<? foreach ($hits as $h) echo $h->h2 . ","; ?>]
                     }
                 ]
 
             }
 
             window.onload = function () {
-                var ctx = document.getElementById("canvas").getContext("2d");
+                var ctx       = document.getElementById("canvas").getContext("2d");
                 window.myLine = new Chart(ctx).Line(lineChartData, {
                     responsive: true
                 });

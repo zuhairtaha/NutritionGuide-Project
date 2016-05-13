@@ -14,14 +14,7 @@ function highlight($c, $q)
 }
 
 ?>
-<!-- إضافة جي كويري لعرض التاريخ بصيغة (منذ ... مضت) -->
-<script src="<?= base_url() ?>assets/js/jquery.timeago.js"></script>
-<script src="<?= base_url() ?>assets/js/jquery.timeago.ar.js"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        $("time.timeago").timeago();
-    });
-</script>
+
 
 
 <div class="row">

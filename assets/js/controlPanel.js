@@ -1,3 +1,12 @@
+/* فنكشن إعادة ضبط عناصر قائمة التحكم حسب الحجم يستدعى عند الإقلاع وعند تغيير أبعاد الشاشة */
+function reset_size() {
+    var w = parseInt($(window).width());
+    if (w >= 768 && w <= 992)
+        $(".rightMenuText,i.ti-angle-left.pull-left").hide();
+    else
+        $(".rightMenuText,i.ti-angle-left.pull-left").show();
+}
+
 $(function () { // when document is ready
     // ------------------------------------------
     /* متغيرات عامة */
@@ -11,9 +20,9 @@ $(function () { // when document is ready
     /* ما يتعلق بالقالب */
 
     /* ضبط ارتفاع القائمة اليمنى مائة بالمائة */
-    var navbarHeight = $(".navbar-inverse").height(); // ارتفاع الشريط الأسود العلوي
+    var navbarHeight   = $(".navbar-inverse").height(); // ارتفاع الشريط الأسود العلوي
     var documentHeight = $(document).height(); // ارتفاع كامل الصفحة
-    var fullHeight = parseInt(documentHeight) - parseInt(navbarHeight); // الفرق بين الارتفاعين
+    var fullHeight     = parseInt(documentHeight) - parseInt(navbarHeight); // الفرق بين الارتفاعين
 
     /* تابع إعطاء ارتفاع 100% لمن يحمل كلاس fullHeight */
     function resetHeight() {
@@ -26,16 +35,12 @@ $(function () { // when document is ready
     });
 
 
-
     /* طي القائمة إذا كان الحجم صغيراً */
     $(window).resize(function () {
-        var w = parseInt($(window).width());
-        if (w < 767) {
-
-
-
-        }
+        reset_size();
     });
+    reset_size();
+
 
     /* خلفية غامقة لعنصر لوحة التحكم المفتوح عن طريق إضافة كلاس للعنصر الذي له نفس رابط الصفحة المفتوحة */
     $("#controlPanelMenu").find(".list-group-item").each(function () {
@@ -208,6 +213,44 @@ $(function () { // when document is ready
 
     });
 
+    /* تعديل بيانات مستخدم */
+    $("#save-loading").hide();
+    $("#user_edit_form").ajaxForm({
+        beforeSend: function (e) {
+            $("#save-loading").show();
+            $("#save-action").hide();
+        },
+        success: function () {
+        },
+        complete: function (response) {
+            $("#save-loading").hide();
+            $("#save-action").show();
+        }
+    });
+
 
     // ------------------------------------------
+    /* التعليقات */
+
+    /* زر حذف تعليق */
+    $(".deleteComment").click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $(this).closest("tr").fadeOut();
+        $.post(url);
+    });
+
+    /* الموافقة على تعليق */
+    $(".approveComment").click(function (e) {
+        var new_comments = parseInt($("#new_comments").html());
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $(this).toggleClass("btn-success");
+
+        if ($(this).hasClass("btn-success"))
+            $("#new_comments").html(new_comments - 1);
+        else
+            $("#new_comments").html(new_comments + 1);
+        $.post(url);
+    });
 });

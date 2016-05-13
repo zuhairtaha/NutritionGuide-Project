@@ -206,3 +206,6 @@
 .right_control_list a span, .right_control_list {
     float: right;
 }
+.parts_images_cp {
+    width: 4em;
+}

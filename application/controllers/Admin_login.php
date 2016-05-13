@@ -9,13 +9,13 @@ class Admin_login extends CI_Controller
         $this->load->view('control/users/login', $data);
     }
 
-// ------------------------------------------
+// -----------------------------------------------------------
     function login()
     {
         /* التحقق من بيانات دخول المدير إلى لوحة التحكم */
         $this->load->model("users_model");
-        $user_name = $_POST["username"];
-        $password  = sha1($_POST["password"]);
+        $user_name = $this->input->post('username');
+        $password  = sha1($this->input->post('password'));
         $admin     = $this->users_model->cheack_admin($user_name, $password);
         if ($admin) {
             $userData = [
@@ -32,8 +32,7 @@ class Admin_login extends CI_Controller
         }
     }
 
-
-    // ------------------------------------------
+// ------------------------------------------------------------------------
     /* إعادة ضبط كلمة المرور */
     function reset()
     {
@@ -45,21 +44,22 @@ class Admin_login extends CI_Controller
         $exist = $this->users_model->is_exist_email($email, $new_password);
         if ($exist) {
             $this->load->library('email');
-            $this->email->from('info@nitritionguide.com', 'Nitrition Guide');
+            $this->email->from('info@nitrition-guide.com', 'الدليل الغذائي الإلكتروني');
             $this->email->to($email);
-            $this->email->subject('استعادة كلمة مرور حسابك في موقع دليل التغذية');
-            $msg = 'كلمة المرور الخاصة بك هي ' . $new_password;
+            $this->email->subject('استعادة كلمة مرور حسابك');
+            $msg = '<div style="text-align: center;"><img src="http://nitrition-guide.com/assets/img/logo.png" /></div>';
+            $msg .= '<p>كلمة المرور الخاصة بك هي </p>';
+            $msg .= '<p>' . $new_password . '</p>';
+            $msg.= '<hr /><a href="'.base_url().'">الدليل الغذائي الإلكتروني</a>';
             $this->email->message($msg);
+            $this->email->set_mailtype('html');
             $this->email->send();
-            echo 'تم ارسال كلمة المرور الخاصة بك إلى بريدك';
+            echo '<p>تم ارسال كلمة المرور الخاصة بك إلى بريدك</p> <p>ملاحظة: قد تجد الرسالة في البريد الغير هام junk mail</p>';
         } else {
             echo 'يبدو أن هذا البريد الالكتروني غير مسجل لدينا';
         }
-
-
     }
-
-    // ------------------------------------------
+// ------------------------------------------------------------------------
 
 
 }

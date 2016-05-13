@@ -56,17 +56,36 @@ class Posts_model extends CI_Model
         $this->db->delete('posts');
     }
 
-    /* جلب مقال حسب الآي دي (من أجل مودال التعديل) عن طريق الأجاكس */
+    /* جلب مقال حسب الآي دي  */
     function get_post_by_id($id)
     {
-        $sql = "SELECT post_content FROM posts WHERE post_id<=>$id";
-        return $this->db->query($sql)->row("post_content");
+        $this->db->where('post_id', $id);
+        $q = $this->db->get('posts');
+        if ($q->num_rows() > 0) return $q->result();
+        else return false;
     }
 
     /* جلب آخر المقالات */
     function get_last_posts($limit)
     {
         $sql = " SELECT post_id,post_title,post_content,post_date FROM posts ORDER BY post_id DESC LIMIT $limit ";
+        return $this->db->query($sql)->result();
+    }
+
+    /* جلب آخر التعليقات */
+    function get_last_comments($limit, $offset = 0)
+    {
+        $sql = "
+                SELECT c.`comment_content`,c.`comment_date`,c.`comment_post_id`,p.`post_title`,u.`user_name`
+                FROM comments c
+                INNER JOIN posts p
+                ON c.`comment_post_id`<=>p.`post_id`
+                INNER JOIN users u
+                ON c.`comment_user_id`<=>u.`user_id`
+                WHERE c.`comment_approved`<=>TRUE 
+                ORDER BY c.`comment_id` DESC
+                LIMIT $offset, $limit
+            ";
         return $this->db->query($sql)->result();
     }
 
@@ -111,10 +130,78 @@ class Posts_model extends CI_Model
                 OR posts.post_tags LIKE '%$key%')
                 LIMIT 10
     ";
-        $q = $this->db->query($sql);
+        $q   = $this->db->query($sql);
         if ($q->num_rows() > 0) return $q->result();
         else return false;
     }
 
+    /* إضافة تعليق */
+    function add_comment($comment)
+    {
+        $this->db->insert("comments", $comment);
+    }
 
+    /* جلب تعليقات مقال */
+    function get_comments($post_id)
+    {
+        $sql = "
+                SELECT comments.*, users.user_name, users.user_photo 
+                FROM comments 
+                INNER JOIN users 
+                ON ( comments.comment_user_id = users.user_id ) 
+                WHERE comments.comment_post_id <=>$post_id
+                AND comment_approved<=>TRUE
+            ";
+        $q   = $this->db->query($sql);
+        if ($q->num_rows() > 0)
+            return $q->result();
+        else return false;
+    }
+
+    /* جلب التعليقات  */
+    function get_all_comments($offset, $limit)
+    {
+        $sql = "
+                SELECT c.*, p.`post_title`,u.`user_name`
+                FROM comments c
+                INNER JOIN posts p
+                ON c.`comment_post_id`<=>p.`post_id`
+                INNER JOIN users u
+                ON c.`comment_user_id`<=>u.`user_id`
+                ORDER BY c.`comment_id` DESC
+                LIMIT $offset, $limit
+            ";
+        return $this->db->query($sql)->result();
+    }
+
+    /* إحصاء عدد التعليقات */
+    function comments_count()
+    {
+        return $this->db->count_all_results('comments');
+    }
+
+    /* حذف تعليق */
+    function delete_comment($id)
+    {
+        $this->db->where('comment_id', $id);
+        $this->db->delete('comments');
+    }
+
+    /* تبديل حالة تعليق: موافق أو غير موافق */
+    function approve_comment($id)
+    {
+        $current_statue = $this->db->where("comment_id", $id)
+            ->get("comments")->row()->comment_approved;
+        if ($current_statue)
+            $this->db->where("comment_id", $id)->update('comments', ['comment_approved' => false]);
+        else
+            $this->db->where("comment_id", $id)->update('comments', ['comment_approved' => true]);
+    }
+
+    /* جلب عدد التعليقات */
+    function count_new_comments()
+    {
+        $this->db->where("comment_approved", false);
+        return $this->db->count_all_results('comments');
+    }
 }

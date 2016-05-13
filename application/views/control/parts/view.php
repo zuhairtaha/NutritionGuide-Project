@@ -33,14 +33,14 @@
 
 <!-- نهاية مودال إضافة قسم -->
 
-<table class="table">
+<table class="table table-responsive">
     <thead>
     <tr>
         <th>#</th>
         <th>الترتيب</th>
         <th>العنوان</th>
-        <th>الوصف</th>
-        <th>التحكم</th>
+
+        <th style="width:5em">التحكم</th>
     </tr>
     </thead>
     <tbody>
@@ -48,20 +48,37 @@
         <tr>
             <!-- الرقم التسلسلي -->
             <td><?= $p->part_id ?></td>
+
             <!-- الترتيب -->
             <td><?= $p->part_level ?></td>
+
             <!-- العنوان -->
-            <td><a target="_blank" href="<?= base_url() ?>n-<?= $p->part_id ?>">
-                    <!-- الصورة -->
-                    <img class="img-rounded" style="width:1.5em"
-                         src="<?= base_url("assets/uploads/thumb_" . $p->part_image) ?>" alt=""/>
-                    <?= $p->part_title ?></a></td>
-            <td><?= $p->part_description ?></td>
+            <td>
+
+                <div class="media">
+                    <div class="media-right">
+                        <img class="media-object parts_images_cp"
+                             src="<?= base_url("assets/uploads/thumb_" . $p->part_image) ?>" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <a target="_blank" href="<?= base_url() ?>part/<?= $p->part_id ?>">
+                            <h4 class="media-heading"><?= $p->part_title ?></h4>
+                        </a>
+                        <?= $p->part_description ?>
+                    </div>
+                </div>
+            </td>
+
+            <!-- الوصف -->
+
+
+            <!-- التحكم -->
             <td>
                 <!-- زر حذف قسم -->
                 <a class="btn btn-danger btn-xs deletePart"
                    href="<?= base_url() ?>control/delete_part/<?= $p->part_id ?>"><i
                         class="glyphicon glyphicon-trash"></i></a>
+
                 <!-- زر تعديل قسم -->
                 <button data-title="<?= $p->part_title ?>"
                         data-level="<?= $p->part_level ?>"

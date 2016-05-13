@@ -132,7 +132,7 @@ $(function () {
 // ----------------- slider
 
     $(".bs-example-modal-lg").modal();
-    // $("textarea").autogrow();
+     $(".auto_grow").autogrow();
 ////////////
     var myApp;
     myApp = myApp || (function () {

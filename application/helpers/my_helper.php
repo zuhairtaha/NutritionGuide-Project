@@ -93,8 +93,12 @@ if (!function_exists('getFirstImgFromVideo')) {
 if (!function_exists('get_country')) {
     function get_country()
     {
-        $country_code = file_get_contents("http://ipinfo.io/" . $_SERVER['REMOTE_ADDR'] . "/country");
-        return strtolower($country_code);
+        if (file_get_contents("http://ipinfo.io/" . $_SERVER['REMOTE_ADDR'] . "/country")) {
+            $country_code = file_get_contents("http://ipinfo.io/" . $_SERVER['REMOTE_ADDR'] . "/country");
+            preg_match("/\w+/", $country_code, $k);
+            $k = $k[0];
+            return strtoupper($k);
+        } else return false;
     }
 }
 

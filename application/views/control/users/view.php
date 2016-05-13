@@ -1,11 +1,5 @@
-<!-- إضافة جي كويري لعرض التاريخ بصيغة (منذ ... مضت) -->
-<script src="<?= base_url() ?>assets/js/jquery.timeago.js"></script>
-<script src="<?= base_url() ?>assets/js/jquery.timeago.ar.js"></script>
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        $("time.timeago").timeago();
-    });
-</script>
+<!-- أسهل مكتبة أعلام الدول: الرابط: https://github.com/lipis/flag-icon-css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.1.0/css/flag-icon.css"/>
 
 
 <table class="table">
@@ -16,30 +10,55 @@
     <th>البريد الالكتروني</th>
     <th>تاريخ التسجيل</th>
     <th>آخر دخول</th>
+    <th>التحكم</th>
     </thead>
     <tbody>
     <? foreach ($users as $u): ?>
         <tr>
-            <td><?= $u->user_id ?></td>
+
+            <!-- العلم والرقم -->
             <td>
-                <i class="ti-user"></i>
+                <span class="flag-icon flag-icon-<?= strtolower($u->user_country) ?> "></span>
+                <?= $u->user_id ?>
+            </td>
+
+            <!-- الاسم -->
+            <td>
+                <i class="ti-user pull-right"></i>&nbsp;
                 <?= $u->user_name ?>
             </td>
+
+            <!-- نوع العضوية -->
             <td>
-                <i class="ti-star"></i>
-                <?= $u->user_role ?>
+                <? if ($u->user_role) { ?>
+                    <i class="ti-star pull-right"></i>&nbsp;مدير
+                <? } else { ?>
+                    <i class=" ti-control-record "></i>&nbsp;عضو
+                <? } ?>
             </td>
+
+            <!-- البريد الالكتروني -->
             <td>
-                <i class="ti-email"></i>
+                <i class="ti-email pull-right"></i>&nbsp;
                 <?= $u->user_email ?>
             </td>
+
+            <!-- تاريخ التسجيل -->
             <td>
-                <i class="ti-calendar"></i>
-                <?= $u->user_registeration_date ?>
+                <i class="fa fa-calendar pull-right"></i>&nbsp;
+                <time class="timeago" datetime="<?= $u->user_registration_date ?>"></time>
             </td>
+
+            <!-- آخر دخول -->
             <td>
-                <i class="ti-timer"></i>
+                <i class="ti-timer pull-right"></i>&nbsp;
                 <time class="timeago" datetime="<?= $u->user_last_login ?>"></time>
+            </td>
+
+            <!-- التحكم -->
+            <td>
+                <a href="<?= base_url() ?>control/edit_user/<?= $u->user_id ?>" class="btn btn-xs btn-warning"><i
+                        class="ti ti-pencil-alt"></i></a>
             </td>
 
         </tr>
