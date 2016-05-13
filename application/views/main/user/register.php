@@ -6,22 +6,22 @@
         <!-- اسم المستخدم -->
         <div class="form-group">
             <label for="user_name"><i class="fa fa-user"></i> اسم المستخدم</label>
-            <input type="text" placeholder="ضع اسمك" name="user_name" id="user_name" class="form-control" value="">
+            <input type="text" placeholder="ضع اسمك" name="user_name" id="user_name" class="form-control" >
         </div>
 
         <!-- البريد الالكتروني -->
         <div class="form-group">
             <label for="user_email"><i class="glyphicon glyphicon-envelope"></i> البريد الالكتروني</label>
-            <input type="email" placeholder="أدخل بريدك الإلكترني" name="user_email" id="user_email" class="form-control"
-                   value="">
+            <input type="email" placeholder="أدخل بريدك الإلكترني" name="user_email" id="user_email"
+                   class="form-control"
+            >
         </div>
 
         <!-- كلمة المرور -->
         <div class="form-group">
             <label for="user_password"><i class="fa fa-key"></i> كلمة المرور</label>
             <input type="password" placeholder="كلمة المرور" name="user_password" id="user_password"
-                   class="form-control"
-                   value="">
+                   class="form-control">
         </div>
 
         <!-- البلد -->
@@ -54,8 +54,7 @@
         <div class="form-group">
             <label for="user_birthDate"><i class="fa fa-calendar"></i> تاريخ الميلاد</label>
             <input type="text" placeholder="yyyy-mm-dd تاريخ الميلاد" name="user_birthDate" id="user_birthDate"
-                   class="form-control"
-                   value="">
+                   class="form-control">
         </div>
 
 

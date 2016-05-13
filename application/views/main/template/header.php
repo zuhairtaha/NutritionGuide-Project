@@ -112,7 +112,8 @@
 
                             <!-- زر تفعيل العضوية -->
                             <? if (!$this->session->user_active): ?>
-                                <li><a href="<?=base_url()?>active_page"><i class="ti-check"></i> تفعيل عضويتك</a></li>
+                                <li><a href="<?= base_url() ?>active_page"><i class="ti-check"></i> تفعيل عضويتك</a>
+                                </li>
                             <? endif; ?>
                             <li>
                                 <a href="<?= base_url() ?>logout"><i class="fa fa-sign-out"></i> تسجيل الخروج</a>
@@ -144,13 +145,13 @@
                                         <div class="form-group">
                                             <label for="user_name"><i class="fa fa-user"></i> اسم المستخدم</label>
                                             <input type="text" placeholder="اسم المستخدم" name="user_name"
-                                                   id="user_name" class="form-control" value="">
+                                                   id="user_name" class="form-control">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="user_password"><i class="fa fa-key"></i> كلمة المرور</label>
                                             <input type="password" placeholder="كلمة المرور" name="user_password"
-                                                   id="user_password" class="form-control" value="">
+                                                   id="user_password" class="form-control">
                                         </div>
 
                                         <button class="btn btn-success btn-lg btn-block" type="submit"><i
