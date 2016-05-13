@@ -253,9 +253,9 @@ class Welcome extends CI_Controller
         /* إذا كان تم إرسال بيانات تسجيل عبر الفورم */
         if ($_POST) {
             $data = [
-                "user_name_register"     => $this->input->post('user_name_register'),
-                "user_email_register"    => $this->input->post('user_email_register'),
-                "user_password_register" => sha1($this->input->post('user_password_register')),
+                "user_name"              => $this->input->post('user_name'),
+                "user_email"             => $this->input->post('user_email'),
+                "user_password"          => sha1($this->input->post('user_password')),
                 "user_country"           => $this->input->post('user_country'),
                 "user_gender"            => $this->input->post('user_gender'),
                 "user_birthDate"         => $this->input->post('user_birthDate'),
