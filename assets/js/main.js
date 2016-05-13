@@ -128,12 +128,12 @@ $(document).ready(function () {
     /* التحقق من ملئ كافة الحقول في فورم التسجيل قبل إرساله */
     $("#register_form").submit(function (e) {
         var err       = "";
-        var user_name = $("#user_name").val();
-        if (!user_name) err += "لم تدخل اسم المستخدم <br />";
-        var user_email = $("#user_email").val();
-        if (!user_email) err += "لم تدخل بريدك الإلكتروني <br />";
-        var user_password = $("#user_password").val();
-        if (!user_password) err += "لم تدخل كلمة المرور <br />";
+        var user_name_register = $("#user_name").val();
+        if (!user_name_register) err += "لم تدخل اسم المستخدم <br />";
+        var user_email_register = $("#user_email").val();
+        if (!user_email_register) err += "لم تدخل بريدك الإلكتروني <br />";
+        var user_password_register = $("#user_password").val();
+        if (!user_password_register) err += "لم تدخل كلمة المرور <br />";
         var user_birthDate = $("#user_birthDate").val();
         if (!user_birthDate) err += "لم تدخل تاريخ ميلادك <br />";
 

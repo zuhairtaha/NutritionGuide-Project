@@ -5,22 +5,22 @@
 
         <!-- اسم المستخدم -->
         <div class="form-group">
-            <label for="user_name"><i class="fa fa-user"></i> اسم المستخدم</label>
-            <input type="text" placeholder="ضع اسمك" name="user_name" id="user_name" class="form-control" >
+            <label for="user_name_register"><i class="fa fa-user"></i> اسم المستخدم</label>
+            <input type="text" placeholder="ضع اسمك" name="user_name_register" id="user_name_register" class="form-control" >
         </div>
 
         <!-- البريد الالكتروني -->
         <div class="form-group">
-            <label for="user_email"><i class="glyphicon glyphicon-envelope"></i> البريد الالكتروني</label>
-            <input type="email" placeholder="أدخل بريدك الإلكترني" name="user_email" id="user_email"
+            <label for="user_email_register"><i class="glyphicon glyphicon-envelope"></i> البريد الالكتروني</label>
+            <input type="email" placeholder="أدخل بريدك الإلكترني" name="user_email_register" id="user_email_register"
                    class="form-control"
             >
         </div>
 
         <!-- كلمة المرور -->
         <div class="form-group">
-            <label for="user_password"><i class="fa fa-key"></i> كلمة المرور</label>
-            <input type="password" placeholder="كلمة المرور" name="user_password" id="user_password"
+            <label for="user_password_register"><i class="fa fa-key"></i> كلمة المرور</label>
+            <input type="password" placeholder="كلمة المرور" name="user_password_register" id="user_password_register"
                    class="form-control">
         </div>
 
