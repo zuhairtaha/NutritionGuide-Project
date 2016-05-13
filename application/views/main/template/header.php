@@ -120,7 +120,7 @@
 
                         <? } else { ?>
                             <li><a id="register-new-user" href="<?= base_url() ?>register"> <i
-                                        class="fa fa-user-plus"></i> تسجيل عضوية جديدة </a></li>
+                                        class="fa fa-user-plus"></i> تسجيل عضو جديد </a></li>
                             <li><a id="user-login-anchor" href="<?= base_url() ?>login"> <i class="fa fa-sign-in"></i>
                                     تسجيل الدخول </a></li>
                         <? } ?>

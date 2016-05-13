@@ -120,7 +120,7 @@ class Users_model extends CI_Model
     function active($code)
     {
         $str = preg_replace('/\D/', '', $code); /* أخذ الرقم من الكود الواصل */
-        $id  = ($str + 7) / 70; /* فك تشفير الرقم إلى الآي دي */
+        $id  = ($str + 7) / 53; /* فك تشفير الرقم إلى الآي دي */
         $this->db->where("user_id", $id);
         $q = $this->db->get("users");
         if ($q->num_rows() > 0) { /* إذا وجد عضو يحمل هذا الآي دي */

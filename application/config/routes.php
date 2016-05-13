@@ -70,7 +70,7 @@ $route['add_comment']          = "welcome/add_comment";
 $route['rss']                  = "welcome/rss";
 $route['BMI']                  = "welcome/BMI";
 $route['active_page']          = "welcome/active_page";
-$route['active/(:num)']        = "welcome/active/$1";
+$route['active/(:any)']        = "welcome/active/$1";
 /*
 $route['search/(:any)']        = "welcome/search/$1";
 $route['search/(:any)/(:any)'] = "welcome/search/$1/$2";

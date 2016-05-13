@@ -1,3 +1,4 @@
+<p>تم إرسال رابط التفعيل إلى بريدك الالكتروني. قم بزيارته والضغط على رابط التفعيل</p>
 <?
 $id      = $this->session->user_id;
 $r       = substr(str_shuffle(str_repeat("abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);

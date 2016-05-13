@@ -16,48 +16,7 @@ class Welcome extends CI_Controller
 
 // ------------------------------------------
     /* هيدر الموقع */
-    function header($title = null)
-    {
-        $data["options"]    = $this->options_model->get_options();
-        $data["categories"] = $this->food_categories_model->get_food_categories();
-        $data["pages"]      = $this->pages_model->getPages();
-        $data["parts"]      = $this->parts_model->get_parts();
-        $data["title"]      = $title;
 
-        $this->load->view("main/template/header", $data);
-    }
-    // ------------------------------------------
-    /* فوتر الموقع */
-    function footer()
-    {
-        $data["options"] = $this->options_model->get_options();
-        $this->load->view("main/template/footer", $data);
-        $this->options_model->add_visit();
-    }
-    // ------------------------------------------
-
-    /* الصفحة الرئيسة وتحوي: عينة عشوائية لثمانية مواعد غذائية */
-    public function index()
-    {
-        $this->load->model("food_stuffs_model");
-        $this->load->model("posts_model");
-        $this->load->model("parts_model");
-        $this->load->helper("my_helper");
-
-        $data["categories"]         = $this->food_categories_model->get_food_categories();
-        $data["random_food_stuffs"] = $this->food_stuffs_model->get_random_sample(10);
-        $data["last_posts"]         = $this->posts_model->get_last_posts(6);
-        $data["last_comments"]      = $this->posts_model->get_last_comments(6);
-        $data["most_read_posts"]    = $this->posts_model->get_most_read_posts(6);
-        $data["parts"]              = $this->parts_model->get_parts();
-        $this->header();
-        $this->load->view("main/home/slideShow");
-        $this->load->view("main/home/content", $data);
-        $this->footer();
-    }
-
-    // ------------------------------------------
-    /* الصفحات */
     function page($id)
     {
         $data["page"] = $this->pages_model->getPage($id);
@@ -68,6 +27,40 @@ class Welcome extends CI_Controller
         $this->header($data["page"][0]->page_title);
         $this->load->view("main/page/view", $data);
         $this->footer();
+    }
+    // ------------------------------------------
+    /* فوتر الموقع */
+
+    function error($msg = "")
+    {
+        $this->header("خطأ");
+        $data["error"] = $msg;
+        $this->load->view('main/error/view', $data);
+        $this->footer();
+    }
+    // ------------------------------------------
+
+    /* الصفحة الرئيسة وتحوي: عينة عشوائية لثمانية مواعد غذائية */
+
+    function header($title = null)
+    {
+        $data["options"]    = $this->options_model->get_options();
+        $data["categories"] = $this->food_categories_model->get_food_categories();
+        $data["pages"]      = $this->pages_model->getPages();
+        $data["parts"]      = $this->parts_model->get_parts();
+        $data["title"]      = $title;
+
+        $this->load->view("main/template/header", $data);
+    }
+
+    // ------------------------------------------
+    /* الصفحات */
+
+    function footer()
+    {
+        $data["options"] = $this->options_model->get_options();
+        $this->load->view("main/template/footer", $data);
+        $this->options_model->add_visit();
     }
 
     // ------------------------------------------
@@ -305,12 +298,34 @@ class Welcome extends CI_Controller
         $data["countries"]       = $this->users_model->get_countries();
         $data["user_current_ip"] = $this->input->ip_address();
         $this->load->helper("my_helper");
-        $this->header("تسجيل عضوية جديدة");
+        $this->header("تسجيل عضو جديد");
         $this->load->view('main/user/register', $data);
         $this->footer();
     }
     // ------------------------------------------
     /* تسجيل الدخول */
+
+    public function index()
+    {
+        $this->load->model("food_stuffs_model");
+        $this->load->model("posts_model");
+        $this->load->model("parts_model");
+        $this->load->helper("my_helper");
+
+        $data["categories"]         = $this->food_categories_model->get_food_categories();
+        $data["random_food_stuffs"] = $this->food_stuffs_model->get_random_sample(10);
+        $data["last_posts"]         = $this->posts_model->get_last_posts(6);
+        $data["last_comments"]      = $this->posts_model->get_last_comments(6);
+        $data["most_read_posts"]    = $this->posts_model->get_most_read_posts(6);
+        $data["parts"]              = $this->parts_model->get_parts();
+        $this->header();
+        $this->load->view("main/home/slideShow");
+        $this->load->view("main/home/content", $data);
+        $this->footer();
+    }
+    // ------------------------------------------
+    /* تسجيل الخروج: تفريغ السيشن وإعادة توجيه */
+
     function login()
     {
         $err = "";
@@ -343,14 +358,16 @@ class Welcome extends CI_Controller
 
     }
     // ------------------------------------------
-    /* تسجيل الخروج: تفريغ السيشن وإعادة توجيه */
+    /* صفحة تفعيل العضوية */
+
     function logout()
     {
         $this->session->sess_destroy();
         redirect(base_url());
     }
     // ------------------------------------------
-    /* صفحة تفعيل العضوية */
+    /* رابط تفعيل العضو الوارد من بريده */
+
     function active_page()
     {
         if (!$this->session->logged_in) {
@@ -363,8 +380,9 @@ class Welcome extends CI_Controller
         $this->load->view("main/user/active_page", $data);
         $this->footer();
     }
+
     // ------------------------------------------
-    /* رابط تفعيل العضو الوارد من بريده */
+
     function active($code)
     {
         $this->load->model('users_model');
@@ -383,7 +401,7 @@ class Welcome extends CI_Controller
                     "user_active"     => $data['user'][0]->user_active
                 ];
                 $this->session->set_userdata($user_data);
-                echo "true";
+
             }
             // -------------
             $this->header("تم تفعيل حسابك");
@@ -393,8 +411,9 @@ class Welcome extends CI_Controller
 
 
     }
-
     // ------------------------------------------
+    /* التغذية الإخبارية RSS feed */
+
     function test()
     {
         echo '<meta charset="utf-8" />';
@@ -407,8 +426,9 @@ class Welcome extends CI_Controller
             echo $this->input->post('zz');
         }
     }
-    // ------------------------------------------
-    /* التغذية الإخبارية RSS feed */
+// ------------------------------------------
+    /*  الوضع الصحي */
+
     function rss()
     {
         $this->load->helper("my_helper");
@@ -417,22 +437,14 @@ class Welcome extends CI_Controller
         $data["options"]    = $this->options_model->get_options();
         $this->load->view("main/post/rss", $data);
     }
-// ------------------------------------------
-    /*  الوضع الصحي */
+
+    // ------------------------------------------
+    /* صفحة الخطأ */
+
     function BMI()
     {
         $this->header("الوضع الصحي");
         $this->load->view('main/page/bmi');
-        $this->footer();
-    }
-
-    // ------------------------------------------
-    /* صفحة الخطأ */
-    function error($msg = "")
-    {
-        $this->header("خطأ");
-        $data["error"] = $msg;
-        $this->load->view('main/error/view', $data);
         $this->footer();
     }
 }
