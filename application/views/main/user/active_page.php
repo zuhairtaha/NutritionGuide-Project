@@ -1,7 +1,7 @@
 <?
 $id      = $this->session->user_id;
 $r       = substr(str_shuffle(str_repeat("abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
-$msg     = "<h1>لتفعيل عضويتك فضلاً اضغط على الرابط التالي<br /><a href=\"" . base_url() . "active/" . $r . ($id * 70 - 7) . "\">Activate your account</a></h1>";
+$msg     = "<h1>لتفعيل عضويتك فضلاً اضغط على الرابط التالي<br /><a href=\"" . base_url() . "active/" . $r . ($id * 53 - 7) . "\">Activate your account</a></h1>";
 $to      = $user[0]->user_email;
 $subject = "تفعيل عضويتك في موقع دليل التغذية الإلكتروني";
 $headers = "MIME-Version: 1.0" . "\r\n";
