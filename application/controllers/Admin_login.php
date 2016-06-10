@@ -9,7 +9,7 @@ class Admin_login extends CI_Controller
         $this->load->view('control/users/login', $data);
     }
 
-// -----------------------------------------------------------
+// ----------------------------------------------------------- 
     function login()
     {
         /* التحقق من بيانات دخول المدير إلى لوحة التحكم */
@@ -19,7 +19,7 @@ class Admin_login extends CI_Controller
         $admin     = $this->users_model->cheack_admin($user_name, $password);
         if ($admin) {
             $userData = [
-                'logged_in_admin' => TRUE,
+                'logged_in' => TRUE,
                 "user_id"         => $admin[0]->user_id,
                 "user_name"       => $admin[0]->user_name,
                 "user_photo"      => $admin[0]->user_photo,

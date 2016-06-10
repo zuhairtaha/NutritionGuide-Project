@@ -61,7 +61,7 @@
         <span class="glyphicon glyphicon-picture"></span> رفع صور
     </button>
 
-    <? if ($this->session->logged_in_admin) { ?>
+    <? if ($this->session->logged_in) { ?> 
         <span id="checkBoxStampSpan">
      <input type="checkbox" checked="checked" name="withStamp" id="checkboxStamp"/>
      <span style="cursor: pointer;" id="stampspan">ختم بشعار الموقع</span>

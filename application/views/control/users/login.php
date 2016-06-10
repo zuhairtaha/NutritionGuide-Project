@@ -114,7 +114,7 @@
         <div class="col-lg-6 center-block">
 
             <?
-            if ($this->session->userdata('logged_in_admin')) {
+            if ($this->session->logged_in && $this->session->user_role == "admin") {
                 redirect(base_url() . "manage/home");
             } else {
                 ?>

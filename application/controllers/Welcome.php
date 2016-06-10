@@ -339,7 +339,7 @@ class Welcome extends CI_Controller
             echo "<div class='alert alert-danger'>" . $err . "</div>";
             return;
         }
-        $sha1_password = sha1((string)$user_password);
+        $sha1_password = sha1((string)$user_password); 
         //echo '<pre>'; print_r($user_name.','. $sha1_password); echo '</pre>'; die();
         $data['user'] = $this->users_model->check_login_data($user_name, $sha1_password);
         if ($data['user']) {

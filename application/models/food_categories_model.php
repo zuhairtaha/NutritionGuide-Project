@@ -1,4 +1,4 @@
-<?php
+<?PHP
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Food_categories_model extends CI_Model

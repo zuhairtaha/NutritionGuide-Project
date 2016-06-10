@@ -70,7 +70,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="<?= base_url() ?>"><i class="ti-home"></i> رئيسية الموقع</a></li>
                         <!-- إذا كان المدير مسجلاً دخوله -->
-                        <? if ($this->session->logged_in_admin) { ?>
+                        <? if ($this->session->logged_in) { ?> 
                             <li>
                                 <a href="#" data-toggle="tooltip" data-placement="bottom"
                                    title="آخر دخول: <?= $this->session->user_last_login ?>">

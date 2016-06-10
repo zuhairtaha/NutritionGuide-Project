@@ -74,8 +74,6 @@ footer.well {
     margin-left: 1em;
 }
 
-
-
 .logo_text {
     text-align: center;
     color: darkorange;
@@ -104,24 +102,26 @@ div#search_results_div {
     border: 0;
 }
 
-
-.datepicker-orient-bottom{
-    width:230px;
+.datepicker-orient-bottom {
+    width: 230px;
 }
+
 .comment_user_photo {
     background: #e49568;
     color: #fff;
     margin-left: 0.3em;
     font-size: 4em;
     border-radius: 0.1em;
-    width:1.2em;
-    height:1.2em;
-    text-align:center;
-    color:rgba(255,255,255,0.8);
+    width: 1.2em;
+    height: 1.2em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
 }
-.margin-top-1{
-    margin-top:1em;
+
+.margin-top-1 {
+    margin-top: 1em;
 }
+
 #logo_row > a {
     display: inline-block;
 }
@@ -134,13 +134,20 @@ div#search_results_div {
     padding: 0.2em;
     color: #fff;
 }
+
 .row.demo-1 {
     margin-bottom: 1em !important;
     margin-top: -4.4em !important;
 }
-#black_nav .container-fluid{
+
+#black_nav .container-fluid {
     z-index: 999999999;
 }
-footer .btn i{
-    font-size:1.6em;
+
+footer .btn i {
+    font-size: 1.6em;
+}
+
+.first3parts {
+    float: left;
 }

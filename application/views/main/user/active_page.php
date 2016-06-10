@@ -1,4 +1,3 @@
-<p>تم إرسال رابط التفعيل إلى بريدك الالكتروني. قم بزيارته والضغط على رابط التفعيل</p>
 <?
 $id      = $this->session->user_id;
 $r       = substr(str_shuffle(str_repeat("abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
@@ -9,3 +8,7 @@ $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= 'From: <info@nitrition-guide.com>' . "\r\n";
 mail($to, $subject, $msg, $headers);
+?>
+<p>تم إرسال رابط التفعيل إلى بريدك الالكتروني</p>
+<p><?= $to ?></p>
+<p>قم بزيارته والضغط على رابط التفعيل</p>

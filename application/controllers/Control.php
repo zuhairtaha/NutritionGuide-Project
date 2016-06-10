@@ -12,7 +12,7 @@ class Control extends CI_Controller
         $c1 = false;
         $c2 = false;
         if (current_url() == base_url("control/up1") || current_url() == base_url("control/up2") || current_url() == base_url("usercp")) $c1 = true;
-        if ($this->session->userdata('logged_in_admin') == true) $c2 = true;
+        if ($this->session->logged_in && $this->session->user_role == "admin") $c2 = true;
         if ($c1 == false && $c2 == false) redirect(base_url("admin_login"));
     }
     // -------------------------------------------

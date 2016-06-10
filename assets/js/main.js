@@ -128,14 +128,18 @@ $(document).ready(function () {
     /* التحقق من ملئ كافة الحقول في فورم التسجيل قبل إرساله */
     $("#register_form").submit(function (e) {
         var err       = "";
-        var user_name = $("#user_name",this).val();
+        var user_name = $("#user_name", this).val();
         if (!user_name) err += "لم تدخل اسم المستخدم <br />";
-        var user_email = $("#user_email").val();
+        var user_email = $("#user_email", this).val();
         if (!user_email) err += "لم تدخل بريدك الإلكتروني <br />";
-        var user_password = $("#user_password").val();
+        var user_password = $("#user_password", this).val();
         if (!user_password) err += "لم تدخل كلمة المرور <br />";
-        var user_birthDate = $("#user_birthDate").val();
+        var user_birthDate = $("#user_birthDate", this).val();
         if (!user_birthDate) err += "لم تدخل تاريخ ميلادك <br />";
+        else {
+            var y = parseInt(/\d{4}/.exec(user_birthDate)[0]);
+            if (y < 1916 || y > 2001)err += "تاريخ الميلاد يبدو غير صالح <br />";
+        }
 
         if (err != "") {
             e.preventDefault();

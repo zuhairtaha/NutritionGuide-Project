@@ -71,6 +71,7 @@
     </script>
     <!-- RSS feed -->
     <link rel="alternate" type="application/rss+xml" title="" href="<?= base_url() ?>rss"/>
+    <meta name="google-site-verification" content="f8gqqGjaGb5-VI6mmY-iptd_D8yuElBC7TF9TC3ehxQ" />
 </head>
 <body>
 
@@ -103,7 +104,7 @@
                                     <i class="fa fa-user"></i> <?= $this->session->user_name ?></a>
                             </li>
 
-                            <? if ($this->session->user_role == "admin") { ?>
+                            <? if ($this->session->user_role == "admin") { ?> 
                                 <li>
                                     <a target="_blank" href="<?= base_url() ?>control"><i class="fa fa-dashboard"></i>
                                         لوحة تحكم الموقع</a>
