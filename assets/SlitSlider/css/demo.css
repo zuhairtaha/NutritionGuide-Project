@@ -1,48 +1,47 @@
-
 /* Header Style */
 .codrops-top {
-	line-height: 24px;
-	font-size: 11px;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.8);
-	text-transform: uppercase;
-	z-index: 9999;
-	position: relative;
-	font-family: Cambria, Georgia, serif;
-	box-shadow: 1px 0px 2px rgba(0,0,0,0.2);
+    line-height: 24px;
+    font-size: 11px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    z-index: 9999;
+    position: relative;
+    font-family: Cambria, Georgia, serif;
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .codrops-top a {
-	padding: 0px 10px;
-	letter-spacing: 1px;
-	color: #333;
-	display: inline-block;
+    padding: 0 10px;
+    letter-spacing: 1px;
+    color: #333;
+    display: inline-block;
 }
 
 .codrops-top a:hover {
-	background: rgba(255,255,255,0.6);
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .codrops-top span.right {
-	float: right;
+    float: right;
 }
 
 .codrops-top span.right a {
-	float: left;
-	display: block;
+    float: left;
+    display: block;
 }
 
 /* Demo Buttons Style */
 .codrops-demos {
-	float: right;
-	padding-top: 10px;
+    float: right;
+    padding-top: 10px;
 }
 
 .demo-1 .codrops-demos {
-	position: absolute;
-	z-index: 2000;
-	top: 30px;
-	left: 30px;
+    position: absolute;
+    z-index: 2000;
+    top: 30px;
+    left: 30px;
 }
 
 .codrops-demos a {
@@ -55,12 +54,12 @@
 }
 
 .codrops-demos a:hover {
-	color: #883d59;
-	border-color: #883d59;
+    color: #883d59;
+    border-color: #883d59;
 }
 
 .codrops-demos a.current-demo,
 .codrops-demos a.current-demo:hover {
-	color: #aaa;
-	border-color: #aaa;
+    color: #aaa;
+    border-color: #aaa;
 }

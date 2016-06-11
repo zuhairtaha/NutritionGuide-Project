@@ -1,11 +1,19 @@
+/* 12-6-2016 */
+
+/* تابع إذا كان العنصر موجود */
+function checkDom(dom) {
+    return !!(typeof(dom) != 'undefined' && dom != null);
+}
+
 $(function () {
     var inputFile = $('input#file');
-    var iUF = $("#imgsUpForm");
+    var iUF       = $("#imgsUpForm");
     var uploadURI = iUF.attr('action');
 // var progressBar = $('#progress-bar');
     $("#upPercent").html("");
     iUF.hide();
 // listFilesOnServer();
+
 // ------------------------------------------
     $("#visibleUpImgsBtn").click(function () {
         $("#file").click();
@@ -43,25 +51,21 @@ $(function () {
                     $.each(json, function (index, value) {
                         //console.log(value);
                         //console.log(uploadPath + value);
+                        var img_url = uploadPath + value;
+                        var apnd    = '<img class="img-responsive" src="' + uploadPath + value + '"/><br />';
 
-                        var apnd = '<img src="' + uploadPath + value + '"/><br />';
-                        $(".panel-body").append(apnd);
-                        $('button.note-btn.btn.btn-default.btn-sm.btn-codeview').click().click();
-                        //$('button.note-btn.btn.btn-default.btn-sm.btn-codeview').click();
-                        //$(( ( document.getSelection() ).anchorNode).parentNode).append(apnd);
-                        // window.getSelection().anchorNode.parentNode.append(apnd);
-                        //$('div.note-editing-area > textarea').append(apnd);
+                        /* إضافة رابط الصورة في صفحة إضافة بنر */
+                        var current_url = window.location.pathname;
+                        if (current_url.match(/add_banner/gi)) {
+                            $("#image").val(img_url);
+                            $("#div_img_banner").html(apnd);
+                        }
 
-
-                        /*
-                         var selection = document.getSelection();
-                         var cursorPos = selection.anchorOffset;
-                         var oldContent = selection.anchorNode.nodeValue;
-                         var toInsert = '<img src="' + uploadPath + value + '"/><br />';
-                         var newContent = oldContent.substring(0, cursorPos) + toInsert + oldContent.substring(cursorPos);
-                         selection.anchorNode.nodeValue = newContent;
-                         */
-
+                        /* إضافة الصور المرفوعة إلى محرر summernote بعهد الانتهاء */
+                        /* http://summernote.org/deep-dive */
+                        if (current_url.match(/posts|edit_post/gi)) {
+                            $(".summernote").summernote("insertImage", img_url, '');
+                        }
                     });
                     //$('.progress').hide(); // hide after complete
                     $('#upIcon').removeClass("fa-refresh fa-spin fa-fw margin-bottom").addClass("fa-upload");
@@ -97,4 +101,6 @@ $(function () {
     }
 
 // ------------------------------------------
+    $('.note-btn[data-original-title="Cleaner"]').html('<i class="ti-paint-bucket"></i>');
+
 });

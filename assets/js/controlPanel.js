@@ -1,3 +1,8 @@
+/* فحص عنصر إن كان موجود أم لا */
+function checkDom(dom) {
+    return !!(typeof(dom) != 'undefined' && dom != null);
+}
+
 /* فنكشن إعادة ضبط عناصر قائمة التحكم حسب الحجم يستدعى عند الإقلاع وعند تغيير أبعاد الشاشة */
 function reset_size() {
     var w = parseInt($(window).width());
@@ -213,6 +218,19 @@ $(function () { // when document is ready
 
     });
 
+    /* لملئ حقل الكلمات الدلالية تلقائياً من العنوان */
+    if (checkDom($("#post_title"))) {
+        $("#post_title").keyup(function () {
+            var title = $(this).val();
+            console.log(title);
+            var keys = title.replace(/\s/g, ', ');
+            $('#post_tags').tagsinput('removeAll');
+            $('#post_tags').tagsinput('add', keys);
+        });
+    }
+
+
+
     /* تعديل بيانات مستخدم */
     $("#save-loading").hide();
     $("#user_edit_form").ajaxForm({
@@ -253,4 +271,18 @@ $(function () { // when document is ready
             $("#new_comments").html(new_comments + 1);
         $.post(url);
     });
+
+    /* الموافقة على مقال */
+    $(".approvePost").click(function (e) {
+        var new_posts = parseInt($("#new_posts").html());
+        e.preventDefault();
+        var url = $(this).attr("href");
+        $(this).toggleClass("btn-success");
+        if ($(this).hasClass("btn-success"))
+            $("#new_posts").html(new_posts - 1);
+        else
+            $("#new_posts").html(new_posts + 1);
+        $.post(url);
+    });
+
 });

@@ -1,8 +1,6 @@
 <!-- إضافة جي كويري للكلمات الدلالية  -->
 <script src="<?= base_url() ?>assets/bootstrap-3.3.6/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
-<link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap-3.3.6/bootstrap-tagsinput/bootstrap-tagsinput.css">
-
-<div style="text-align: center;">test</div>
+<link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap-3.3.6/bootstrap-tagsinput/bootstrap-tagsinput.min.css">
 
 
 <!-- upload form -------------- -->
@@ -57,14 +55,13 @@
                     <!-- تحميل الصور -->
                     <p style="margin:0.5em 0" title="لرفع الصور فقط" id="visibleUpImgsBtn" class="btn btn-success">
                         <i id="upIcon" class="ti-upload"></i> رفع الصور <span id="upPercent">(0%)</span></p>
-                    <script> var uploadPath = "<?=base_url()?>assets/uploads/"; </script>
-
+                    <script> var uploadPath = "<?=base_url()?>assets/uploads/"; </script> 
                     <!-- / تحميل الصور -->
 
                     <!--   محتوى المقال -->
                     <!-- include summernote -->
                     <link rel="stylesheet" href="<?= base_url() ?>assets/summernote/summernote.css"/>
-                    <script type="text/javascript" src="<?= base_url() ?>assets/summernote/summernote.js"></script>
+                    <script type="text/javascript" src="<?= base_url() ?>assets/summernote/summernote.min.js"></script>
                     <script type="text/javascript"
                             src="<?= base_url() ?>assets/summernote/lang/summernote-ar-AR.js"></script>
                     <script type="text/javascript">
@@ -147,6 +144,12 @@
 
                 <a href="<?= base_url() ?>control/edit_post/<?= $p->post_id ?>" class="btn btn-xs btn-warning">
                     <i class="ti-pencil-alt"></i>
+                </a>
+
+                <!-- زر الموافقة أو عدمها -->
+                <? if ($p->post_approved) $AppClass = "btn-success"; else $AppClass = "btn-default"; ?>
+                <a href="<?= base_url() ?>control/approve_post/<?= $p->post_id ?>"
+                   class="btn <?= $AppClass ?> btn-xs approvePost"><i class="ti-check"></i>
                 </a>
 
             </td>

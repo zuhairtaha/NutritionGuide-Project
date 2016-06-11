@@ -125,7 +125,11 @@
                    class="list-group-item no-border-radius">
                     <i class="ti-pencil-alt"></i>
                     <span class="rightMenuText">المقالات</span>
-                    <i class="ti-angle-left pull-left"></i>
+                    <? if ($new_posts) { ?>
+                        <span id="new_posts" class="badge"><?=$new_posts?></span>
+                    <? } else { ?>
+                        <i class="ti-angle-left pull-left"></i>
+                    <? } ?>
                 </a>
 
                 <a href="<?= base_url() ?>control/comments" data-cat="comments"

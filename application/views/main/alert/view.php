@@ -5,7 +5,8 @@
 
             <?= $error ?>
         </h3>
-        <p>يمكنك التوجه إلى الصفحة الرئيسة أو استعمال ميزة البحث</p>
+        <hr/>
+        
         <p>
             <? if (!empty($_SERVER["HTTP_REFERER"])) { ?>
                 <a href="<?= $_SERVER["HTTP_REFERER"] ?>" class="btn btn-link"><i class="fa fa-backward"></i> العودة إلى

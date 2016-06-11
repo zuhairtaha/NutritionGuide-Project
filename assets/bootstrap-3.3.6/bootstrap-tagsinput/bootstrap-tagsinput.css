@@ -59,7 +59,7 @@
 
 .bootstrap-tagsinput .tag [data-role="remove"]:after {
     content: "×";
-    padding: 0px 2px;
+    padding: 0 2px;
 }
 
 .bootstrap-tagsinput .tag [data-role="remove"]:hover {

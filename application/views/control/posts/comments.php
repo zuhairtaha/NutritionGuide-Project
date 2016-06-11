@@ -37,7 +37,8 @@
                 <!-- زر الموافقة أو عدمها -->
                 <? if ($comment->comment_approved) $AppClass = "btn-success"; else $AppClass = "btn-default"; ?>
                 <a href="<?= base_url() ?>control/approve_comment/<?= $comment->comment_id ?>"
-                   class="btn <?= $AppClass ?> btn-xs approveComment"><i class="ti-check"></i></a>
+                   class="btn <?= $AppClass ?> btn-xs approveComment"><i class="ti-check"></i>
+                </a>
             </td>
         </tr>
     <? endforeach; ?>

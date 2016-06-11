@@ -1,50 +1,105 @@
+/* تمديد مكتبة jQuery بتابع الحركة. المصدر: https://github.com/daneden/animate.css  */
+// usage:  $("#selector").animateCss("swing");
+
+var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+$.fn.extend({
+    animateCss: function (animationName) {
+        $(this).addClass('animated ' + animationName).one(animationEnd, function () {
+            $(this).removeClass('animated ' + animationName);
+        });
+    }
+});
+// ------------------------------------------
+
+/* رابط الصفحة الحالية */
+var current_url = window.location.href;
+// ------------------------------------------
+
+/* فحص عنصر إن كان موجود أم لا */
+function checkDom(dom) {
+    return !!(typeof(dom) != 'undefined' && dom != null);
+}
+// ------------------------------------------
+/* مودال جاري التعديل */
+// pleaseWaitDiv.modal();    pleaseWaitDiv.modal('hide');
+var pleaseWaitDiv = $('\
+<div class="modal fade loadingBox" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">\
+    <div class="modal-dialog modal-sm">\
+        <div class="modal-content">\
+            <div class="modal-header">\
+            <h4 id="mySmallModalLabel" class="modal-title center">جاري التعديل</h4>\
+            </div>\
+            <div class="modal-body">\
+                <div class="progress left">\
+                    <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">\
+                    </div>\
+                </div> \
+            </div>\
+        </div>\
+    </div>\
+</div>\
+');
+
+// ------------------------------------------
+
+/* تنبيه إن كان المتصفح لا يدعم html5 */
+var test_canvas = document.createElement("canvas"); //try and create sample canvas element
+var canvasback  = (test_canvas.getContext) ? true : false; //check if object supports getContext() method, a method of the canvas element
+if (!canvasback) alert('يرجى تحديث متصفح الانترنت لديك لآخر إصدار لأنه لايدعم HTML5'); //alerts true if browser supports canvas element
+// ------------------------------------------
+
 var loadingBar     = '<div class="progress left"> <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"> </div></div> ';
 var search_section = "posts";
 
 $(document).ready(function () {
-    /* -------------------- start ---------------------------- */
+    /* -------------------- start document.ready---------------------------- */
+    $('.tooltip1').tooltip();
+    $('[title]').tooltip();
+
+    // ------------------------------------------
 
     /* الشريط المتحرك الأفقي لعرض التصنيفات الغذائية */
-    $("#horizontal_food_categories").slick({
-        dots: true,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        rtl: true,
-        autoplay: true,
-        arrows: true,
+    if (base_url == current_url) {
+        $("#horizontal_food_categories").slick({
+            dots: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            rtl: true,
+            autoplay: true,
+            arrows: true,
 
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
+            responsive: [
+                {
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                        infinite: true,
+                        dots: true
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2
+                    }
                 }
-            },
-            {
-                breakpoint: 600,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
-                }
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2
-                }
-            }
-            // You can unslick at a given breakpoint now by adding:
-            // settings: "unslick"
-            // instead of a settings object
-        ]
-    });
-
+                // You can unslick at a given breakpoint now by adding:
+                // settings: "unslick"
+                // instead of a settings object
+            ]
+        });
+    }
 
     /* اخر المستجدات */
 
@@ -125,6 +180,7 @@ $(document).ready(function () {
         }
     });
 
+
     /* التحقق من ملئ كافة الحقول في فورم التسجيل قبل إرساله */
     $("#register_form").submit(function (e) {
         var err       = "";
@@ -164,7 +220,6 @@ $(document).ready(function () {
         complete: function (response) {
             var r = response.responseText;
             if (r == "true") {
-                var current_url      = window.location.href;
                 window.location.href = current_url;
                 r                    = "أهلاً وسهلاً بك";
             }
@@ -190,7 +245,7 @@ $(document).ready(function () {
             </h4>\
             ' + comment_content + '\
             <p class="gray_color">\
-                <i class="fa fa-clock-o"></i>\
+                <i class="fa fa-hourglass-half" aria-hidden="true"></i> سيتم إضافة التعليق بعد موافقة الإدارة\
                 <time class="timeago" datetime="' + now_date + '"></time>\
             </p>\
             </div>\
@@ -279,6 +334,109 @@ $(document).ready(function () {
 
     });
 
+    /* إظهار الأقسام */
+    $("#categories_row").show();
+
+    /* textarea يكبر ويصغر حسب عدد الأسطر */
+    $(".auto_grow").autogrow();
+
+    // ------------------------------------------
+
+    /* إرسال إيميل : أجاكس */
+    $(".sendMailForm").ajaxForm({
+        beforeSend: function () {
+            $('.mailingBox').modal();
+            $("#resultHere2").html(loadingBar);
+        },
+        success: function () {
+            // -----
+        },
+        complete: function (response) {
+            var r = response.responseText;
+            $("#mySmallModalLabel2").html(" إرسال رسالة ");
+            $("#resultHere2").html(r);
+        }
+    });
+    // ------------------------------------------
+    // long shadow ظل أيقونات طويل
+    $('[data-shadow]').each(function (i, value) {
+        var t     = $(this).data('shadow');
+        var n, sh = "", long1 = 150;
+        for (n = 1; n <= long1; n++) {
+            sh = sh + n + "px " + n + "px " + t;
+            if (n != long1) sh = sh + ", ";
+        }
+        $(this).css("text-shadow", sh);
+        $(this).css("position", "static");
+    });
+    // ------------------------------------------
+
+    /* لمنع رفع أكثر من صورة للتصنيفات الأغذاية عن طريق إخفاء الزر إذا كانت هناك صورة مرفوعة */
+    function allowUploadOneImage() {
+        if ($("#imagesUpNames").val()) {
+            $(".uploadImgs").hide();
+        }
+        else $(".uploadImgs").show();
+    }
+
+    function allowUploadOneImageEdt() {
+        if ($("#imagesUpNamesEdt").val()) {
+            $("#postEditContnt").find("#imagesUpNamesEdt").hide();
+        }
+        else  $("#postEditContnt").find("#imagesUpNamesEdt").show();
+    }
+
+// ------------------------------------------
+    // floating button (header) زر عائم (لم يضف بعد)
+    $('#floating-div').bind("mouseenter click", function () {
+        $(".floating-blue").fadeIn("fast", function () {
+            $(".floating-green").fadeIn();
+        });
+    }).bind("mouseleave", function () {
+        $(".floating-green").fadeOut("fast", function () {
+            $(".floating-blue").fadeOut();
+        });
+    });
+    // ------------------------------------------
+
+    /* لتصبح مقاطع الفيديو بأبعاد تجاوبية */
+    $('iframe').wrap('<div class="embed-responsive embed-responsive-16by9">');
+    // ------------------------------------------
+
+    /* عند مررو الماوس على صورة اللوغو */
+    $("#logo_img").hover(function () {
+        $(this).animateCss("flipInX");
+    }).animateCss("bounceInLeft");
+
+    /* لملئ حقل الكلمات الدلالية تلقائياً من العنوان */
+    if (checkDom($("#post_title"))) {
+        $("#post_title").keyup(function () {
+            var title = $(this).val();
+            console.log(title);
+            var keys = title.replace(/\s/g, ', ');
+            $('#post_tags').tagsinput('removeAll');
+            $('#post_tags').tagsinput('add', keys);
+        });
+    }
+    // ------------------------------------------
+    /* المقالات */
+    /* إضافة مقال */
+    $('#add_post_form').submit(function (e) {
+        var title   = $('#post_title').val();
+        var part    = $('#post_part').val();
+        var content = $("#post_content").val();
+        var tags    = $("#post_tags").val();
+        var err     = '';
+
+        if (!title) err += "لايوجد عنوان ";
+        if (!content) err += "لايوجد محتوى";
+        if (!tags) err += "لم تضف الكلمات الدلالية";
+        if (!part) err += "لم تختر القسم المناسب";
+        if (err) {
+            e.preventDefault();
+            alert(err);
+        }
+    });
     /* ---------------------- end --------------------------- */
 
 });

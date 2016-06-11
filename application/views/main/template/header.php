@@ -12,8 +12,8 @@
     <script src="<?= base_url() ?>assets/js/jquery-1.9.1.min.js"></script>
 
     <!-- slick slider مكتبة سلايدشو أفقي -->
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick-theme.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/slick/slick-theme.min.css"/>
 
     <!-- bootstrap + theme + rtl support -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/bootstrap-3.3.6/css/bootstrap.min.css"/>
@@ -24,30 +24,27 @@
 
 
     <!-- jQuery form (ajax forms) مكتبة تعتمد على جي كويري لتفعيل الأجاكس على النماذج (فورم -->
-    <script src="<?= base_url() ?>assets/js/jquery.form.js"></script>
+    <script src="<?= base_url() ?>assets/js/jquery.form.min.js"></script>
     <!-- custom js -->
 
     <!-- font awesome / icons مكتبة أيقونات الخطوط الشهيرة -->
     <link rel='stylesheet' href='<?= base_url() ?>assets/font-awesome-4.6.1/css/font-awesome.min.css' type='text/css'/>
 
     <!-- themify-icons مكتبة أيقونات خطوط -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/themify-icons/themify-icons.min.css">
 
     <!--[if lt IE 8]><!-->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/themify-icons/ie7/ie7.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/themify-icons/ie7/ie7.min.css">
     <!--<![endif]-->
 
     <!-- auto-grow textarea -->
-    <script src="<?= base_url() ?>assets/js/autoGrowTextarea.js"></script>
+    <script src="<?= base_url() ?>assets/js/autoGrowTextarea.min.js"></script>
     <script> var base_url = '<?=base_url()?>'; </script>
 
     <!-- custom css -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/welcome.css"/>
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/welcome.min.css"/>
     <!-- common css -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.css"/>
-
-    <!-- custom js -->
-    <script src="<?= base_url() ?>assets/js/myscript.js"></script>
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/common.min.css"/>
 
     <!-- مكتبة مؤثرات حركية -->
     <!-- https://daneden.github.io/animate.css/ المصدر -->
@@ -58,12 +55,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/img/home_favicon.ico">
 
     <!-- مؤثرات حركية عند مرور الماوس على الصور -->
-    <link rel="stylesheet" href="<?= base_url() ?>assets/css/set1.css"/>
+    <link rel="stylesheet" href="<?= base_url() ?>assets/css/set1.min.css"/>
 
 
     <!-- إضافة جي كويري لعرض التاريخ بصيغة (منذ ... مضت) -->
-    <script src="<?= base_url() ?>assets/js/jquery.timeago.js"></script>
-    <script src="<?= base_url() ?>assets/js/jquery.timeago.ar.js"></script>
+    <script src="<?= base_url() ?>assets/js/jquery.timeago.min.js"></script>
+    <script src="<?= base_url() ?>assets/js/jquery.timeago.ar.min.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function () {
             $("time.timeago").timeago();
@@ -71,7 +68,7 @@
     </script>
     <!-- RSS feed -->
     <link rel="alternate" type="application/rss+xml" title="" href="<?= base_url() ?>rss"/>
-    <meta name="google-site-verification" content="f8gqqGjaGb5-VI6mmY-iptd_D8yuElBC7TF9TC3ehxQ" />
+    <meta name="google-site-verification" content="f8gqqGjaGb5-VI6mmY-iptd_D8yuElBC7TF9TC3ehxQ"/>
 </head>
 <body>
 
@@ -99,34 +96,72 @@
                     <ul class="nav navbar-nav">
                         <? if ($this->session->logged_in) { ?>
 
-                            <li>
-                                <a href="#"> أهلاً بك
-                                    <i class="fa fa-user"></i> <?= $this->session->user_name ?></a>
+
+                            <li class="dropdown">
+                                <!-- اسم المستخدم الذي سجل دخوله -->
+                                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown"
+                                   class="dropdown-toggle" href="http://localhost:82/pr1/categories">
+                                    <i class="ti-user"></i> <?= $this->session->user_name ?>
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- زر تفعيل العضوية -->
+                                    <? if (!$this->session->user_active) { ?>
+                                        <li>
+                                            <a href="<?= base_url() ?>active_page"><i class="ti-check"></i> تفعيل عضويتك</a>
+                                        </li>
+                                    <? }
+                                    if ($this->session->user_role == "admin") { ?>
+                                        <li>
+                                            <a target="_blank" href="<?= base_url() ?>control"><i
+                                                    class="fa fa-dashboard"></i> لوحة تحكم الموقع</a>
+                                        </li>
+                                    <? } // end if session->user_role=="admin" ?>
+
+                                    <!-- رابط الدخول لمقالات المستخدم الذي سجل دخوله -->
+                                    <li>
+                                        <a href="<?= base_url() ?>user_posts">
+                                            <i class="ti-pencil-alt"></i> مقالاتي
+                                            <span class="badge"><?=$counts[0]->posts_count?></span>
+                                        </a>
+                                    </li>
+
+                                    <!-- رابط تعليقات المستخدم -->
+                                    <li>
+                                        <a href="<?= base_url() ?>user_comments">
+                                            <i class="ti-comments"></i> تعليقاتي
+                                            <span class="badge"><?=$counts[0]->comments_count?></span>
+                                        </a>
+                                    </li>
+
+                                    <!-- رابط إضافة مقال -->
+                                    <li>
+                                        <a href="<?= base_url() ?>add_post"><i class="ti-plus"></i> إضافة مقال </a>
+                                    </li>
+
+                                    <!-- تسجيل الخروج -->
+                                    <li>
+                                        <a href="<?= base_url() ?>logout"><i class="ti-new-window"></i> خروج</a>
+                                    </li>
+                                </ul>
                             </li>
 
-                            <? if ($this->session->user_role == "admin") { ?> 
-                                <li>
-                                    <a target="_blank" href="<?= base_url() ?>control"><i class="fa fa-dashboard"></i>
-                                        لوحة تحكم الموقع</a>
-                                </li>
-                            <? } // end if session->user_role=="admin" ?>
-
-                            <!-- زر تفعيل العضوية -->
-                            <? if (!$this->session->user_active): ?>
-                                <li><a href="<?= base_url() ?>active_page"><i class="ti-check"></i> تفعيل عضويتك</a>
-                                </li>
-                            <? endif; ?>
-                            <li>
-                                <a href="<?= base_url() ?>logout"><i class="fa fa-sign-out"></i> تسجيل الخروج</a>
-                            </li>
 
                         <? } else { ?>
                             <li><a id="register-new-user" href="<?= base_url() ?>register"> <i
-                                        class="fa fa-user-plus"></i> تسجيل عضو جديد </a></li>
+                                        class="fa fa-user-plus"></i> تسجيل </a></li>
                             <li><a id="user-login-anchor" href="<?= base_url() ?>login"> <i class="fa fa-sign-in"></i>
-                                    تسجيل الدخول </a></li>
+                                    دخول </a></li>
                         <? } ?>
                     </ul>
+
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>
+                            <a href="<?= base_url() ?>BMI">
+                                <i class="ti-heart"></i> مؤشر كتلة الجسم</a>
+                        </li>
+                    </ul>
+
 
                     <!-- مودال تسجيل الدخول -->
                     <div id="login_modal" class="modal fade" tabindex="-1" role="dialog">
@@ -290,10 +325,10 @@
     <!-- اللوغو -->
     <div class="row visible-sm visible-lg visible-md" id="logo_row">
         <a href="<?= base_url() ?>">
-            <img <?= $options[0]->site_name ?>
-                title="<?= $options[0]->site_name ?>"
-                class="img-responsive"
-                src="<?= base_url() ?>assets/img/logo.png"/>
+            <img id="logo_img" <?= $options[0]->site_name ?>
+                 title="<?= $options[0]->site_name ?>"
+                 class="img-responsive"
+                 src="<?= base_url() ?>assets/img/logo.png"/>
         </a>
     </div>
 
@@ -358,11 +393,6 @@
                                     <i class="fa fa-file-text-o"></i> <?= $page->page_title ?></a></li>
                         <? endforeach; ?>
 
-                        <li>
-                            <a class="visible-lg" href="<?= base_url() ?>BMI"><i class="glyphicon glyphicon-heart"></i>
-                                الوضع الصحي</a>
-                        </li>
-
 
                         <li class="visible-lg"><a href="<?= base_url() ?>contact_us"><i
                                     class="glyphicon glyphicon-envelope"></i> اتصل
@@ -380,9 +410,6 @@
                                         <a href="<?= base_url() ?>page/<?= $page->page_id ?>"><?= $page->page_title ?></a>
                                     </li>
                                 <? endforeach; ?>
-                                <li>
-                                    <a href="<?= base_url() ?>BMI"><i class="glyphicon glyphicon-heart"></i> الوضع الصحي</a>
-                                </li>
                             </ul>
                         </li>
 

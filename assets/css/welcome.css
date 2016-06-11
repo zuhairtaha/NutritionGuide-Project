@@ -1,6 +1,5 @@
 body {
     background: url(../img/bg.jpg) fixed;
-
 }
 
 #logo_row {
@@ -150,4 +149,16 @@ footer .btn i {
 
 .first3parts {
     float: left;
+}
+
+.social_btn {
+    width: 31px;
+}
+
+.tooltip-inner {
+    font-family: "HelveticaNeue", serif !important;
+}
+
+.centerText {
+    text-align: center;
 }

@@ -13,9 +13,8 @@ class Welcome extends CI_Controller
         $this->load->model("pages_model");
         $this->load->model("parts_model");
     }
-
-// ------------------------------------------
-    /* هيدر الموقع */
+    // ------------------------------------------
+    /* الرئيسة */
 
     function page($id)
     {
@@ -28,19 +27,9 @@ class Welcome extends CI_Controller
         $this->load->view("main/page/view", $data);
         $this->footer();
     }
-    // ------------------------------------------
-    /* فوتر الموقع */
 
-    function error($msg = "")
-    {
-        $this->header("خطأ");
-        $data["error"] = $msg;
-        $this->load->view('main/error/view', $data);
-        $this->footer();
-    }
     // ------------------------------------------
-
-    /* الصفحة الرئيسة وتحوي: عينة عشوائية لثمانية مواعد غذائية */
+    /* الصفحات */
 
     function header($title = null)
     {
@@ -49,12 +38,15 @@ class Welcome extends CI_Controller
         $data["pages"]      = $this->pages_model->getPages();
         $data["parts"]      = $this->parts_model->get_parts();
         $data["title"]      = $title;
+        if ($this->session->logged_in) {
+            $this->load->model("posts_model");
+            $data["counts"] = $this->posts_model->user_count_posts_comments($this->session->user_id);
+        }
 
         $this->load->view("main/template/header", $data);
     }
-
     // ------------------------------------------
-    /* الصفحات */
+    /* عرض التنبيهات والأخطاء */
 
     function footer()
     {
@@ -62,8 +54,9 @@ class Welcome extends CI_Controller
         $this->load->view("main/template/footer", $data);
         $this->options_model->add_visit();
     }
-
     // ------------------------------------------
+
+    /* الهيدر */
 
     function about()
     {
@@ -71,15 +64,17 @@ class Welcome extends CI_Controller
     }
 
     // ------------------------------------------
-    /* صفحة فورم اتصل بنا */
+    /* الفوتر */
+
     function contact_us()
     {
         $this->header("اتصل بنا");
         $this->load->view("main/contact/view");
         $this->footer();
     }
+
     // ------------------------------------------
-    /* إرسالة الرسالة */
+
     function send_mail()
     {
         $this->load->library("email");
@@ -92,9 +87,8 @@ class Welcome extends CI_Controller
     }
 
     // ------------------------------------------
-    /* التصنيفات الغذائية */
+    /* صفحة فورم اتصل بنا */
 
-    /* عرض كافة التصنيفات */
     function categories()
     {
         $data["categories"] = $this->food_categories_model->get_food_categories();
@@ -103,14 +97,14 @@ class Welcome extends CI_Controller
         $this->footer();
     }
     // ------------------------------------------
+    /* إرسالة الرسالة */
 
-    /* عرض تصنيف */
     function category($id)
     {
         $this->load->model("food_stuffs_model");
         $data["food_stuffs"] = $this->food_stuffs_model->get_food_stuffs_of_category($id);
         if (!$data["food_stuffs"]) {
-            $this->error("رابط التصنيف الذي طلبته غير موجود أو أنه لايوجد فيه مواد غذائية بعد");
+            $this->alert("رابط التصنيف الذي طلبته غير موجود أو أنه لايوجد فيه مواد غذائية بعد");
             return;
         }
         $data["id"] = $id;
@@ -118,14 +112,29 @@ class Welcome extends CI_Controller
         $this->load->view("main/categories/view", $data);
         $this->footer();
     }
+
     // ------------------------------------------
-    /* المواد الغذائية */
+    /* التصنيفات الغذائية */
+
+    /* عرض كافة التصنيفات */
+
+    function alert($msg = "")
+    {
+        $this->header($msg);
+        $data["error"] = $msg;
+        $this->load->view('main/alert/view', $data);
+        $this->footer();
+    }
+    // ------------------------------------------
+
+    /* عرض تصنيف */
+
     function food($id)
     {
         $this->load->model("food_stuffs_model");
         $data["food_stuff"] = $this->food_stuffs_model->get_food_stuff($id);
         if (!$data["food_stuff"]) {
-            $this->error("لايوجد مادة غذائية بالرابط المطلوب");
+            $this->alert("لايوجد مادة غذائية بالرابط المطلوب");
             return;
         }
         $data["id"] = $id;
@@ -133,9 +142,9 @@ class Welcome extends CI_Controller
         $this->load->view("main/food_stuff/view", $data);
         $this->footer();
     }
-
     // ------------------------------------------
-    /* أقسام الموقع */
+    /* المواد الغذائية */
+
     function parts()
     {
         $data['parts'] = $this->parts_model->get_parts_with_last_post();
@@ -143,9 +152,10 @@ class Welcome extends CI_Controller
         $this->load->view("main/part/view_parts", $data);
         $this->footer();
     }
-    // ------------------------------------------
 
-    /* عند فتح قسم يظهر فيه مقالاته كروابط */
+    // ------------------------------------------
+    /* أقسام الموقع */
+
     function part($id, $offset = 0)
     {
         $this->load->helper("my_helper");
@@ -156,7 +166,7 @@ class Welcome extends CI_Controller
         $config['num_links'] = 6;
         $data['posts']       = $this->parts_model->get_posts_of_part($id, $offset, $limit);
         if (!$data['posts']) {
-            $this->error("رابط قسم خاطئ أو قسم فارغ");
+            $this->alert("رابط قسم خاطئ أو قسم فارغ");
             return;
         }
         $config['total_rows']       = $this->parts_model->count_total_rows_of_part($id);
@@ -182,14 +192,16 @@ class Welcome extends CI_Controller
         $this->footer();
     }
     // ------------------------------------------
-    /* عرض مقال */
+
+    /* عند فتح قسم يظهر فيه مقالاته كروابط */
+
     function post($id)
     {
 
         $this->load->model("posts_model");
         $data["post"] = $this->posts_model->get_post($id);
         if (!$data["post"]) {
-            $this->error("لايوجد مقال بالرابط المطلوب");
+            $this->alert("لايوجد مقال بالرابط المطلوب");
             return;
         }
         $this->header($data['post'][0]->post_title);
@@ -201,7 +213,74 @@ class Welcome extends CI_Controller
         $this->footer();
     }
     // ------------------------------------------
-    /* إضافة تعليق */
+    /* عرض مقال */
+
+    function add_post()
+    {
+        if (!$this->session->logged_in) {
+            $this->alert("هذه الصفحة تحتاج صلاحيات عضو. قم بتسجيل الدخول أو سجل عضوية جديدة إن كنت جديداً");
+            return;
+        }
+        $this->load->model("parts_model");
+        $data['parts'] = $this->parts_model->get_parts();
+
+        $this->header("إضافة مقال جديد");
+        $this->load->view("main/post/add", $data);
+        $this->footer();
+    }
+    // ------------------------------------------
+    /* إضافة مقال جديد */
+
+    function insert_post()
+    {
+        if (!$this->session->logged_in) {
+            $this->alert("هذه الصفحة تحتاج صلاحيات عضو. قم بتسجيل الدخول أو سجل عضوية جديدة إن كنت جديداً");
+            return;
+        }
+        /* تفحص قيم المقال من طرف السيرفر (تم فحصها من طرف العميل أيضاً) */
+        $error = "";
+        if (!$this->input->post('post_title')) $error .= "لم تدخل العنوان ";
+        if (!$this->input->post('post_part')) $error .= "لم تحدد القسم";
+        if (!$this->input->post('post_content')) $error .= "لم تكتب محتوى للمقال";
+        if (!$this->input->post('post_tags')) $error .= "لم تضف الكلمات الدلالية";
+        if ($error != "") {
+            $this->alert("لديك الأخطاء التالية: " . $error);
+            return;
+        }
+
+        $this->load->model("posts_model");
+        $data = [
+            "post_title"     => $this->input->post('post_title'),
+            "post_part_id"   => $this->input->post('post_part'),
+            "post_content"   => $this->input->post('post_content'),
+            "post_tags"      => $this->input->post('post_tags'),
+            "post_author_id" => $this->input->post('author_id'),
+            "post_visits"    => 0,
+            "post_approved"  => 0
+        ];
+        $this->posts_model->add_post($data);
+        $this->alert("تم إضافة المقال " . $data["post_title"] . " سيظهر بعد موافقة الإدارة ");
+    }
+
+    // ------------------------------------------
+    /* إدخال المقال إلى قاعدة البيانات */
+
+    function user_posts()
+    {
+        if (!$this->session->logged_in) {
+            $this->alert("هذه الصفحة خاصة بالأعضاء. قم بالانضمام إلينا عبر التسجيل أو سجل دخولك إن كنت عضواً في موقعنا");
+            return;
+        }
+        $user_id = $this->session->user_id;
+        $this->load->model("posts_model");
+        $data["posts"] = $this->posts_model->get_user_posts($user_id);
+        $this->header("مقالاتي");
+        $this->load->view("main/post/user_posts", $data);
+        $this->footer();
+    }
+    // ------------------------------------------
+    /* عرض مقالات المستخدم */
+
     function add_comment()
     {
         $this->load->model("posts_model");
@@ -212,8 +291,26 @@ class Welcome extends CI_Controller
         ];
         $this->posts_model->add_comment($comment);
     }
+
     // ------------------------------------------
-    /* البحث  */
+    /* إضافة تعليق */
+
+    function user_comments()
+    {
+        if (!$this->session->logged_in) {
+            $this->alert("هذه الصفحة خاصة بالأعضاء. قم بالانضمام إلينا عبر التسجيل أو سجل دخولك إن كنت عضواً في موقعنا");
+            return;
+        }
+        $user_id = $this->session->user_id;
+        $this->load->model("posts_model");
+        $data["comments"] = $this->posts_model->get_user_comments($user_id);
+        $this->header("تعليقاتي");
+        $this->load->view("main/post/user_comments", $data);
+        $this->footer();
+    }
+    // ------------------------------------------
+    /* تعليقات المستخدم */
+
     function search()
     {
         $key     = $this->input->post('key');
@@ -244,9 +341,8 @@ class Welcome extends CI_Controller
         }
     }
     // ------------------------------------------
-    /* المستخدمين */
+    /* البحث  */
 
-    /* تسجيل عضوية جديدة */
     function register()
     {
         $this->load->model("users_model");
@@ -277,7 +373,7 @@ class Welcome extends CI_Controller
                     /* إن تم إدخال بيانات صحيحة يتم تسجيل دخول المستخدم بعد إضافته في قاعدة البيانات */
                     $user_id = $this->users_model->register($data);
                     if (!$user_id) {
-                        $this->error("لم يتم التسجيل");
+                        $this->alert("لم يتم التسجيل");
                         return;
                     }
                     /* إضافة بيانات المستخدم إلى السيشين */
@@ -290,7 +386,7 @@ class Welcome extends CI_Controller
                     $this->index();
                 }
             } else { /* إن قام المستخدم بمحاولة تخطي فحص البيانات من طرف الكلينت */
-                $this->error("لم تدخل كافة البيانات");
+                $this->alert("لم تدخل كافة البيانات");
             }
             return;
         }
@@ -303,7 +399,9 @@ class Welcome extends CI_Controller
         $this->footer();
     }
     // ------------------------------------------
-    /* تسجيل الدخول */
+    /* المستخدمين */
+
+    /* تسجيل عضوية جديدة */
 
     public function index()
     {
@@ -324,7 +422,8 @@ class Welcome extends CI_Controller
         $this->footer();
     }
     // ------------------------------------------
-    /* تسجيل الخروج: تفريغ السيشن وإعادة توجيه */
+
+    /* تسجيل الدخول */
 
     function login()
     {
@@ -339,18 +438,23 @@ class Welcome extends CI_Controller
             echo "<div class='alert alert-danger'>" . $err . "</div>";
             return;
         }
-        $sha1_password = sha1((string)$user_password); 
+        $sha1_password = sha1((string)$user_password);
         //echo '<pre>'; print_r($user_name.','. $sha1_password); echo '</pre>'; die();
         $data['user'] = $this->users_model->check_login_data($user_name, $sha1_password);
         if ($data['user']) {
+            $u          = $data['user'][0];
+            $role_admin = false;
+            if ($u->user_role == "admin")
+                $role_admin = true;
             $user_data = [
                 'logged_in'       => TRUE,
-                "user_id"         => $data['user'][0]->user_id,
-                "user_name"       => $data['user'][0]->user_name,
-                "user_photo"      => $data['user'][0]->user_photo,
-                "user_last_login" => $data['user'][0]->user_last_login,
-                "user_role"       => $data['user'][0]->user_role,
-                "user_active"     => $data['user'][0]->user_active
+                'logged_in_admin' => $role_admin,
+                "user_id"         => $u->user_id,
+                "user_name"       => $u->user_name,
+                "user_photo"      => $u->user_photo,
+                "user_last_login" => $u->user_last_login,
+                "user_role"       => $u->user_role,
+                "user_active"     => $u->user_active
             ];
             $this->session->set_userdata($user_data);
             echo "true";
@@ -358,20 +462,20 @@ class Welcome extends CI_Controller
 
     }
     // ------------------------------------------
-    /* صفحة تفعيل العضوية */
 
+    /* تسجيل الخروج: تفريغ السيشن وإعادة توجيه */
     function logout()
     {
         $this->session->sess_destroy();
         redirect(base_url());
     }
     // ------------------------------------------
-    /* رابط تفعيل العضو الوارد من بريده */
 
+    /* صفحة تفعيل العضوية */
     function active_page()
     {
         if (!$this->session->logged_in) {
-            $this->error("غير مخول بالدخول لهذا الرابط. يجب أن تسجل الدخول أولاً");
+            $this->alert("غير مخول بالدخول لهذا الرابط. يجب أن تسجل الدخول أولاً");
             return;
         }
         $this->load->model("users_model");
@@ -382,7 +486,7 @@ class Welcome extends CI_Controller
     }
 
     // ------------------------------------------
-
+    /* رابط تفعيل العضو الوارد من بريده */
     function active($code)
     {
         $this->load->model('users_model');
@@ -391,14 +495,18 @@ class Welcome extends CI_Controller
         if ($data['user']) {
             // login ------
             if ($data['user']) {
+                $u = $data['user'][0];
+                if ($u->user_role == "admin") $role_admin = true;
+                else $role_admin = false;
                 $user_data = [
-                    'logged_in'       => TRUE,
-                    "user_id"         => $data['user'][0]->user_id,
-                    "user_name"       => $data['user'][0]->user_name,
-                    "user_photo"      => $data['user'][0]->user_photo,
-                    "user_last_login" => $data['user'][0]->user_last_login,
-                    "user_role"       => $data['user'][0]->user_role,
-                    "user_active"     => $data['user'][0]->user_active
+                    'logged_in'       => true,
+                    'logged_in_admin' => $role_admin,
+                    "user_id"         => $u->user_id,
+                    "user_name"       => $u->user_name,
+                    "user_photo"      => $u->user_photo,
+                    "user_last_login" => $u->user_last_login,
+                    "user_role"       => $u->user_role,
+                    "user_active"     => $u->user_active
                 ];
                 $this->session->set_userdata($user_data);
 
@@ -407,27 +515,21 @@ class Welcome extends CI_Controller
             $this->header("تم تفعيل حسابك");
             $this->load->view('main/user/active_done', $data);
             $this->footer();
-        } else $this->error("لم يتم تفعيل حسابك! إذا كان لديك مشكلة راسل إدارة الموقع");
+        } else $this->alert("لم يتم تفعيل حسابك! إذا كان لديك مشكلة راسل إدارة الموقع");
 
 
     }
     // ------------------------------------------
-    /* التغذية الإخبارية RSS feed */
+    /* لتجريب بعض الأمور */
 
     function test()
     {
-        echo '<meta charset="utf-8" />';
-        echo '<form action="" method="post" accept-charset="UTF-8" >';
-        echo '<input type="text" value="زهير" name="zz" />';
-        echo '<button type="submit">submit</button>';
-        echo '</form>';
-
-        if ($_POST) {
-            echo $this->input->post('zz');
-        }
+        if (mail('info@webcode-sy.com', 'the subject', 'the message'))
+            echo "yes";
+        else echo "no";
     }
 // ------------------------------------------
-    /*  الوضع الصحي */
+    /*  الخلاصة الإخبارية RSS */
 
     function rss()
     {
@@ -439,7 +541,7 @@ class Welcome extends CI_Controller
     }
 
     // ------------------------------------------
-    /* صفحة الخطأ */
+    /* Bbody Mass Index مؤشر كتلة الجسم */
 
     function BMI()
     {
@@ -447,4 +549,6 @@ class Welcome extends CI_Controller
         $this->load->view('main/page/bmi');
         $this->footer();
     }
+    // ------------------------------------------
+
 }

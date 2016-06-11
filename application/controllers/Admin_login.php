@@ -19,7 +19,7 @@ class Admin_login extends CI_Controller
         $admin     = $this->users_model->cheack_admin($user_name, $password);
         if ($admin) {
             $userData = [
-                'logged_in' => TRUE,
+                'logged_in_admin' => TRUE,
                 "user_id"         => $admin[0]->user_id,
                 "user_name"       => $admin[0]->user_name,
                 "user_photo"      => $admin[0]->user_photo,
@@ -50,7 +50,7 @@ class Admin_login extends CI_Controller
             $msg = '<div style="text-align: center;"><img src="http://nitrition-guide.com/assets/img/logo.png" /></div>';
             $msg .= '<p>كلمة المرور الخاصة بك هي </p>';
             $msg .= '<p>' . $new_password . '</p>';
-            $msg.= '<hr /><a href="'.base_url().'">الدليل الغذائي الإلكتروني</a>';
+            $msg .= '<hr /><a href="' . base_url() . '">الدليل الغذائي الإلكتروني</a>';
             $this->email->message($msg);
             $this->email->set_mailtype('html');
             $this->email->send();

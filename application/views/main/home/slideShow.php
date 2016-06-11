@@ -1,9 +1,9 @@
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/demo.css"/>
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/style.css"/>
-<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/custom.css"/>
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/demo.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/style.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/custom.min.css"/>
 <script type="text/javascript" src="<?= base_url() ?>assets/SlitSlider/js/modernizr.custom.79639.js"></script>
 <noscript>
-    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/styleNoJS.css"/>
+    <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/SlitSlider/css/styleNoJS.min.css"/>
 </noscript>
 <div class="row demo-1">
     <!-- Codrops top bar -->
@@ -66,7 +66,7 @@
     </div><!-- /slider-wrapper -->
 </div>
 <script type="text/javascript" src="<?= base_url() ?>assets/SlitSlider/js/jquery.ba-cond.min.js"></script>
-<script type="text/javascript" src="<?= base_url() ?>assets/SlitSlider/js/jquery.slitslider.js"></script>
+<script type="text/javascript" src="<?= base_url() ?>assets/SlitSlider/js/jquery.slitslider.min.js"></script>
 <script type="text/javascript">
     $(function () {
         var Page = (function () {

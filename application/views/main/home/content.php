@@ -1,6 +1,6 @@
 <!-- التصنيفات الغذائية -->
 <!-- صف شريط أفقي متحرك فيه أصناف الأغذية -->
-<div class="row">
+<div style="display: none;" id="categories_row" class="row">
     <div class="col-lg-12">
         <h3 class="cat-title"><i class="fa fa-cutlery"></i> التصنيفات الغذائية </h3>
         <p class="cat-title-after"></p>
@@ -44,7 +44,7 @@
     <!-- أول 3 أقسام على القياس الكبير -->
     <div class="col-lg-12">
         <? for ($i = 0; $i < 4; $i++): ?>
-            <div class="col-lg-3 visible-lg visible-md first3parts">
+            <div class="col-lg-3 visible-lg first3parts">
                 <div class="grid">
                     <figure class="effect-chico f-370">
                         <img class="img-responsive"
@@ -55,18 +55,6 @@
                             <a href="<?= base_url() . "part/" . $parts[$i]->part_id ?>">View more</a>
                         </figcaption>
                     </figure>
-                    <!--
-                <a href="<?= base_url() . "part/" . $parts[$i]->part_id ?>"
-                   class="parts_thumb_home"
-                   style="background:url(<?= base_url() ?>assets/uploads/thumb_<?= $parts[$i]->part_image ?>) center">
-                </a>
-                <h4>
-                    <a href="<?= base_url() . "part/" . $parts[$i]->part_id ?>">
-                        <?= $parts[$i]->part_title ?>
-                    </a>
-                </h4>
-                <p class="two-lines align-justify"><?= $parts[$i]->part_description ?></p>
-                -->
                 </div>
             </div>
         <? endfor; ?>
@@ -75,7 +63,7 @@
 <div class="row">
     <!-- إظهار أول 3 أقسام على شكل ميديا في قياسات الشاشات الصغيرة -->
     <? for ($i = 0; $i < 3; $i++): ?>
-        <div class="col-lg-4 col-sm-6 col-xs-12 visible-sm visible-xs">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 visible-md visible-sm visible-xs">
             <div class="media margin-bottom-1">
                 <div class="media-left">
                     <a href="<?= base_url() . "part/" . $parts[$i]->part_id ?>">
@@ -122,21 +110,23 @@
         <h3 class="cat-title"><i class="ti-apple"></i> اخترنا لكم (مواد غذائية) </h3>
         <p class="cat-title-after"></p>
     </div>
-    <div class="col-lg-6 col-md-12 col-sm-8 visible-lg visible-md visible-sm">
+    <div class="col-lg-6 col-md-7 col-sm-8 visible-lg visible-md visible-sm visible-xs">
+
         <!-- عينية عشوائية في سلايد شو كبير لأربع مواد غذائية -->
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- المصدر: http://www.jqueryscript.net/slideshow/jQuery-Extension-To-Add-Ken-Burns-Effect-To-Bootstrap-Carousel.html -->
+        <div id="kb" class="carousel kb_elastic animate_text kb_wrapper" data-ride="carousel" data-interval="6000"
+             data-pause="hover">
             <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                <? for ($c = 0; $c < 4; $c++): ?>
+                    <li data-target="#kb" data-slide-to="<?= $c ?>" class="<? if ($c == 0) echo 'active'; ?>"></li>
+                <? endfor; ?>
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <? for ($i = 0; $i < 4; $i++): ?>
                     <div class="item <? if ($i == 0) echo 'active'; ?>">
-                        <img style="width:100%;height:400px;"
+                        <img style="width:100%;height:372px;"
                              src="<?= base_url() ?>assets/uploads/thumb_<?= $random_food_stuffs[$i]->f_image ?>"
                              alt="<?= $random_food_stuffs[$i]->f_title ?>">
                         <div class="carousel-caption">
@@ -151,22 +141,29 @@
                 <? endfor; ?>
             </div>
             <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <!-- Navigation Buttons -->
+            <!-- Left Button  -->
+            <a class="left carousel-control kb_control_left" href="#kb" role="button" data-slide="prev">
+                <span class="fa fa-angle-left kb_icons" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <!-- Right Button  -->
+            <a class="right carousel-control kb_control_right" href="#kb" role="button" data-slide="next">
+                <span class="fa fa-angle-right kb_icons" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
         <!-- نهاية عينة عشوائية في سلايد شو كبير لأربع مواد غذائية -->
+
     </div>
-    <div class="col-lg-6 col-md-12 col-sm-4">
+    <div class="col-lg-6 col-md-5 col-sm-4">
         <!-- الأربع صور المتبقية من العينة العشوائية من المواد الغذائية -->
         <? for ($i = 4; $i < 10; $i++): ?>
-            <div class="col-lg-4 col-md-3 visible-lg visible-md">
-                <div class="grid">
+            <div class="col-lg-4 col-md-6 col-sm-12 visible-lg visible-md visible-sm">
+                <div class="grid <?
+                if ($i >= 6 && $i < 8) echo ' visible-lg visible-md visible-xs';
+                if ($i >= 8) echo ' visible-lg visible-xs';
+                ?>">
                     <figure class="effect-ruby">
                         <img src="<?= base_url() ?>assets/uploads/thumb_<?= $random_food_stuffs[$i]->f_image ?>"
                              alt="<?= $random_food_stuffs[$i]->f_title ?>"/>
@@ -178,24 +175,6 @@
                 </div>
             </div>
         <? endfor; ?>
-        <div class="visible-sm visible-xs">
-            <? for ($i = 4; $i < 6; $i++): ?>
-                <div class="thumbnail col-sm-12 col-xs-6">
-                    <a href="<?= base_url() ?>food/<?= $random_food_stuffs[$i]->f_id ?>">
-                        <!-- <img src="<?= base_url() ?>assets/uploads/thumb_<?= $random_food_stuffs[$i]->f_image ?>"
-                             alt="<?= $random_food_stuffs[$i]->f_title ?>"> -->
-                        <div
-                            style="width: 100%;height:140px;
-                                background:url(<?= base_url() ?>assets/uploads/thumb_<?= $random_food_stuffs[$i]->f_image ?>) center">
-                        </div>
-                    </a>
-                    <div class="caption">
-                        <a class="btn btn-default btn-block"
-                           href="<?= base_url() ?>food/<?= $random_food_stuffs[$i]->f_id ?>"><?= $random_food_stuffs[$i]->f_title ?></a>
-                    </div>
-                </div>
-            <? endfor; ?>
-        </div>
     </div>
 </div> <!-- نهاية أول صف سلايدات -->
 <!-- ---------------------------------------------------------------------------------------- -->
@@ -223,7 +202,7 @@
             <? foreach ($last_posts as $last_post): ?>
                 <li>
                     <a href="<?= base_url() ?><?= $last_post->post_id ?>"><?= $last_post->post_title ?></a>
-            <span class="gray_color">, <i class="ti-time"></i>
+            <span class="gray_color">, <i class="ti-alarm-clock"></i>
                 <time class="timeago" datetime="<?= $last_post->post_date ?>"><?= $last_post->post_date ?></time>
             </span>
                 </li>

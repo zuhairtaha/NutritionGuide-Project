@@ -3923,6 +3923,7 @@
                     'formatBlock', 'removeFormat',
                     'backColor', 'foreColor', 'fontName'];
 
+    
     for (var idx = 0, len = commands.length; idx < len; idx ++) {
       this[commands[idx]] = (function (sCmd) {
         return function (value) {

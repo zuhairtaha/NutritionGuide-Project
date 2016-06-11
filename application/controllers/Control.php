@@ -7,38 +7,16 @@ class Control extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $data = array('lang' => 'ar');
-        $this->session->set_userdata($data);
-        $c1 = false;
-        $c2 = false;
-        if (current_url() == base_url("control/up1") || current_url() == base_url("control/up2") || current_url() == base_url("usercp")) $c1 = true;
-        if ($this->session->logged_in && $this->session->user_role == "admin") $c2 = true;
-        if ($c1 == false && $c2 == false) redirect(base_url("admin_login"));
+
+        $this->session->set_userdata(['lang' => 'ar']);
+        if (!$this->session->logged_in_admin)
+            redirect(base_url("admin_login"));
     }
     // -------------------------------------------
 
     /* قالب لوحة التحكم: هيدر وفوتر */
     /* الهيدر */
-    function header($title = "لوحة تحكم موقع الدليل الغذائي")
-    {
-        $this->load->model("posts_model");
-        $data['new_comments'] = $this->posts_model->count_new_comments();
-        $data['title']        = $title;
-        /* جلب رابط الصفحة الحالية وتمريره إلى متغير في جافا سكربت بهدف تلوين خلفية زر الصحفة التي نحن فيها عن طريق جي كويري */
-        $data['segment1'] = $this->uri->segment(2) ? $this->uri->segment(2) : "index";
-        $this->load->view('control/template/header', $data);
-    }
 
-    /* الفوتر */
-    function footer()
-    {
-        $this->load->model('options_model');
-        $this->options_model->add_visit();
-        $this->load->view('control/template/footer');
-    }
-
-    // =============================================================================
-    // الصفحة الرئيسة للوحة التحكم وفيها بعض الإحصائيات عن الموقع
     public function index()
     {
         $this->load->model('options_model');
@@ -53,9 +31,33 @@ class Control extends CI_Controller
         $this->load->view('control/statistics', $data);
         $this->footer();
     }
+
+    /* الفوتر */
+
+    function header($title = "لوحة تحكم موقع الدليل الغذائي")
+    {
+        $this->load->model("posts_model");
+        $data['new_comments'] = $this->posts_model->count_new_comments();
+        $data['new_posts']    = $this->posts_model->count_new_posts();
+        $data['title']        = $title;
+        /* جلب رابط الصفحة الحالية وتمريره إلى متغير في جافا سكربت بهدف تلوين خلفية زر الصحفة التي نحن فيها عن طريق جي كويري */
+        $data['segment1'] = $this->uri->segment(2) ? $this->uri->segment(2) : "index";
+        $this->load->view('control/template/header', $data);
+    }
+
+    // =============================================================================
+    // الصفحة الرئيسة للوحة التحكم وفيها بعض الإحصائيات عن الموقع
+
+    function footer()
+    {
+        $this->load->model('options_model');
+        $this->options_model->add_visit();
+        $this->load->view('control/template/footer');
+    }
     // =============================================================================
 
     // صفحة الإعدادات : اسم الموقع وروابط الصحفات الاجتماعية
+
     function options()
     {
         $this->header("إعدادات");
@@ -426,18 +428,22 @@ class Control extends CI_Controller
     function update_post($id)
     {
         $data = [
-            "post_title"     => $this->input->post('post_title_edit'),
-            "post_part_id"   => $this->input->post('post_part_edi'),
-            "post_content"   => $this->input->post('post_content_edit'),
-            "post_tags"      => $this->input->post('post_tags_edit'),
-            "post_author_id" => $this->input->post('author_id'),
-            "post_visits"    => 0
+            "post_title"   => $this->input->post('post_title'),
+            "post_part_id" => $this->input->post('post_part'),
+            "post_content" => $this->input->post('post_content'),
+            "post_tags"    => $this->input->post('post_tags')
         ];
         $this->load->model("posts_model");
         $this->posts_model->update_post($data, $id);
         redirect($this->input->server('HTTP_REFERER'));
     }
-
+    // ------------------------------------------
+    /* تبديل حالة مقال: موافق أو غير موافق */
+    function approve_post($post_id)
+    {
+        $this->load->model("posts_model");
+        $this->posts_model->approve_post($post_id);
+    }
     // =============================================================================
     /* التعليقات */
     function comments($offset = 0)

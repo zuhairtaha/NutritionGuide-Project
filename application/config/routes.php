@@ -71,6 +71,9 @@ $route['rss']                  = "welcome/rss";
 $route['BMI']                  = "welcome/BMI";
 $route['active_page']          = "welcome/active_page";
 $route['active/(:any)']        = "welcome/active/$1";
+$route['add_post']             = "welcome/add_post";
+$route['user_posts']           = "welcome/user_posts";
+$route['user_comments']        = "welcome/user_comments";
 /*
 $route['search/(:any)']        = "welcome/search/$1";
 $route['search/(:any)/(:any)'] = "welcome/search/$1/$2";

@@ -15,6 +15,7 @@ class Posts_model extends CI_Model
         , posts.post_date
         , posts.post_visits
         , posts.post_tags
+        , posts.post_approved
         , users.user_name
     FROM
         posts
@@ -28,6 +29,29 @@ class Posts_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    /* جلب مقالات عضو معين حسب رقم التعريف */
+    function get_user_posts($user_id)
+    {
+        $sql = "SELECT
+                    `p`.`post_part_id`
+                    , `p`.`post_title`
+                    , `p`.`post_date`
+                    , `p`.`post_visits`
+                    , `p`.`post_approved`
+                    , `r`.`part_title`
+                    , `p`.`post_author_id`
+                    , `p`.`post_id`
+                FROM
+                    `posts` AS `p`
+                    INNER JOIN `parts` AS `r` 
+                        ON (`p`.`post_part_id` = `r`.`part_id`)
+                WHERE (`p`.`post_author_id` <=>$user_id)
+                ORDER BY `p`.`post_id` DESC";
+        $q   = $this->db->query($sql);
+        if ($q->num_rows() > 0)
+            return $q->result();
+        else return false;
+    }
 
     /* عدد كل المقالات */
     function count_total_posts()
@@ -72,6 +96,17 @@ class Posts_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    /* تبديل حالة مقال: موافق أو غير موافق */
+    function approve_post($id)
+    {
+        $current_statue = $this->db->where("post_id", $id)
+            ->get("posts")->row()->post_approved;
+        if ($current_statue)
+            $this->db->where("post_id", $id)->update('posts', ['post_approved' => false]);
+        else
+            $this->db->where("post_id", $id)->update('posts', ['post_approved' => true]);
+    }
+
     /* جلب آخر التعليقات */
     function get_last_comments($limit, $offset = 0)
     {
@@ -107,6 +142,7 @@ class Posts_model extends CI_Model
                 INNER JOIN users
                 ON (posts.post_author_id = users.user_id)
                 WHERE (posts.post_id <=>$id)
+                AND posts.post_approved<=>1
             ";
         $q   = $this->db->query($sql);
         if ($q->num_rows() > 0) {
@@ -174,6 +210,23 @@ class Posts_model extends CI_Model
         return $this->db->query($sql)->result();
     }
 
+    /* جلب تعليقات مستخدم */
+    function get_user_comments($user_id)
+    {
+        $sql = "
+                SELECT `comments`.* , `posts`.`post_title`
+            FROM `comments`
+                INNER JOIN `posts` 
+                    ON (`comments`.`comment_post_id` = `posts`.`post_id`)
+            WHERE (`comments`.`comment_user_id` <=>$user_id)
+            ORDER BY `comments`.`comment_id` DESC
+          ";
+        $q   = $this->db->query($sql);
+        if ($q->num_rows() > 0)
+            return $q->result();
+        else return false;
+    }
+
     /* إحصاء عدد التعليقات */
     function comments_count()
     {
@@ -203,5 +256,21 @@ class Posts_model extends CI_Model
     {
         $this->db->where("comment_approved", false);
         return $this->db->count_all_results('comments');
+    }
+
+    /* جلب عدد المقالات */
+    function count_new_posts()
+    {
+        $this->db->where("post_approved", false);
+        return $this->db->count_all_results('posts');
+    }
+
+    /* جلب عدد المقالات وعدد التعليقات لعضو */
+    function user_count_posts_comments($user_id)
+    {
+        $sql = "SELECT 
+              (SELECT COUNT(*) FROM comments WHERE comment_user_id <=> 1) AS comments_count,
+              (SELECT COUNT(*) FROM posts WHERE post_author_id <=> 1) AS posts_count";
+        return $this->db->query($sql)->result();
     }
 }
