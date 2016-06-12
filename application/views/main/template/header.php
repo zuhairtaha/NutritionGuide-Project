@@ -157,7 +157,7 @@
 
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="<?= base_url() ?>BMI">
+                            <a href="<?= base_url() ?>mbi">
                                 <i class="ti-heart"></i> مؤشر كتلة الجسم</a>
                         </li>
                     </ul>

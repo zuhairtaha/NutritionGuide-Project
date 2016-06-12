@@ -7,7 +7,7 @@ $subject = "تفعيل عضويتك في موقع دليل التغذية الإ
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= 'From: <info@nitrition-guide.com>' . "\r\n";
-mail($to, $subject, $msg, $headers);
+mail($to, $subject, $msg, $headers,'-f info@nitrition-guide.com');
 ?>
 <p>تم إرسال رابط التفعيل إلى بريدك الالكتروني</p>
 <p><?= $to ?></p>

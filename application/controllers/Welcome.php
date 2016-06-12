@@ -524,9 +524,7 @@ class Welcome extends CI_Controller
 
     function test()
     {
-        if (mail('info@webcode-sy.com', 'the subject', 'the message'))
-            echo "yes";
-        else echo "no";
+        mail('zuhair_53957@svuonline.org', 'zzzzzzzzzz', 'the message','From: info@nitrition-guide.com','-f info@nitrition-guide.com');
     }
 // ------------------------------------------
     /*  الخلاصة الإخبارية RSS */
@@ -543,10 +541,16 @@ class Welcome extends CI_Controller
     // ------------------------------------------
     /* Bbody Mass Index مؤشر كتلة الجسم */
 
-    function BMI()
+    function mbi2()
     {
         $this->header("الوضع الصحي");
         $this->load->view('main/page/bmi');
+        $this->footer();
+    }
+    function mbi()
+    {
+        $this->header("مؤشر كتلة الجسم");
+        $this->load->view('main/page/mbi');
         $this->footer();
     }
     // ------------------------------------------
